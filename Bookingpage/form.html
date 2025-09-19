@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShiftXpress - Confirm Booking</title>
+  <link href="form.css" rel="stylesheet">
+</head>
+<body>
+     <div class="navbar">
+      <h1>ShiftXpress</h1>
+    <ul>
+      <li><a href="D:\ShiftXpress\Home\home.html">Home</a></li>
+      <li><a href="D:\ShiftXpress\Aboutus\aboutus.html">About Us</a></li>
+      <li><a href="D:\ShiftXpress\service\servicepage.html">Services</a></li>
+      <li><a href="D:\ShiftXpress\Bookingpage\form.html" id="pickup">Book Now</a></li>
+      <li><a href="D:\ShiftXpress\Contact\contactus.html">Contact Us</a></li>
+    </ul>
+  </div>
+  <div class="container">
+    <!-- Left Panel with Video -->
+    <div class="left">
+      <video autoplay muted loop>
+        <source src="D:\ShiftXpress\Bookingpage\v1.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="left-content">
+        <h1>ShiftXpress</h1>
+        <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+      </div>
+    </div>
+
+    <!-- Right Panel with Form -->
+    <div class="right">
+      <form id="confirmForm">
+        <h2>Confirm Your Booking</h2>
+
+        <!-- Summary -->
+        <div class="summary-box" id="summaryBox">
+          <strong>Pickup City:</strong><br>
+          <strong>Pickup ZIP:</strong><br>
+          <strong>Pickup Address:</strong><br>
+          <strong>Drop City:</strong><br>
+          <strong>Drop ZIP:</strong><br>
+          <strong>Drop Address:</strong><br>
+        </div>
+
+        <!-- Date -->
+        <div class="form-group">
+          <label for="date">Select Date</label>
+          <input type="date" id="date" required>
+        </div>
+
+      <!-- Shift -->
+<div class="form-group">
+  <label for="shift">Select Shift</label>
+  <select id="shift" required>
+    <option value="">-- Select Shift --</option>
+    <option value="Morning">Morning</option>
+    <option value="Noon">Noon</option>
+    <option value="Evening">Evening</option>
+  </select>
+</div>
+
+
+        <!-- Vehicle Dropdown -->
+        <div class="form-group">
+          <label for="vehicle">Select Vehicle</label>
+          <select id="vehicle" required>
+            <option value="">-- Select Vehicle --</option>
+            <option value="Mini Truck">Mini Truck</option>
+            <option value="Tempo">Tempo</option>
+            <option value="Pickup Van">Pickup Van</option>
+            <option value="Container Truck">Container Truck</option>
+          </select>
+        </div>
+
+        <!-- Purpose -->
+        <div class="form-group">
+          <label for="purpose">Purpose of Shifting</label>
+          <textarea id="purpose" rows="3" placeholder="Enter your purpose"></textarea>
+        </div>
+
+        <!-- Estimate -->
+        <div class="estimate-box" id="estimateBox">
+          Estimated Distance: <span id="distance">--</span> km <br>
+          Estimated Price: ₹<span id="price">--</span>
+        </div>
+        <a href="D:\ShiftXpress\userdashboard\userdash.html"><button type="button" id="confirmBtn">✅ Confirm Booking</button></a>
+        
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Example data (replace with actual from previous page)
+    let pickupZip = 380050;
+    let dropZip = 380070;
+
+    let distance = Math.abs(pickupZip - dropZip) / 2;
+    let baseCharge = 500;
+    let perKmCharge = 15;
+    let price = baseCharge + distance * perKmCharge;
+
+    document.getElementById("distance").innerText = distance.toFixed(1);
+    document.getElementById("price").innerText = price.toFixed(0);
+  </script>
+  <footer>
+  <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,101 @@
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  filter: blur(6px);
+}
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f1e9, #d6cbb9); /* Beige gradient background */
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .login-container h2 {
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .login-container p {
+      color: gray;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      text-align: left;
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .btn {
+      width: 100%;
+      background-color: #a38d72; /* Beige-toned button */
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background-color: #8c765d;
+    }
+    .forgot {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #a38d72;
+      text-decoration: none;
+    }
+    .or-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: gray;
+      font-size: 12px;
+      margin: 15px 0;
+    }
+    .or-divider::before,
+    .or-divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #ddd;
+    }
+    .or-divider:not(:empty)::before {
+      margin-right: .75em;
+    }
+    .or-divider:not(:empty)::after {
+      margin-left: .75em;
+    }
+    .signup-link {
+      font-size: 14px;
+    }
+    .signup-link a {
+      color: #a38d72;
+      text-decoration: none;
+    }

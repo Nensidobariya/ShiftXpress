@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShiftXpress - Drop Details</title>
+  <link href="bookdrop.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+  <div class="navbar">
+      <h1>ShiftXpress</h1>
+    <ul>
+      <li><a href="D:\ShiftXpress\Home\home.html">Home</a></li>
+      <li><a href="D:\ShiftXpress\Aboutus\aboutus.html">About Us</a></li>
+      <li><a href="D:\ShiftXpress\service\servicepage.html" >Services</a></li>
+      <li><a href="D:\ShiftXpress\Bookingpage\bookdrop.html" id="pickup">Book Now</a></li>
+      <li><a href="D:\ShiftXpress\Contact\contactus.html">Contact Us</a></li>
+    </ul>
+  </div>
+
+<div class="container">
+  <!-- Left Panel -->
+  <div class="left">
+    <video autoplay muted loop>
+      <source src="D:\ShiftXpress\Bookingpage\v1.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="left-content">
+      <h1>ShiftXpress</h1>
+      <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right">
+    <form id="dropForm">
+      <h2>Drop Details</h2>
+
+      <!-- Drop Details -->
+      <h3 class="section-heading">Drop Info</h3>
+
+      <div class="form-group">
+        <select id="dropCity" required>
+          <option value="" disabled selected hidden></option>
+          <option value="Ahmedabad">Ahmedabad</option>
+        </select>
+        <label>Drop City</label>
+      </div>
+
+      <div class="form-group">
+        <select id="dropZip" required>
+          <option value="" disabled selected hidden></option>
+          <option value="380051">380051</option>
+          <option value="380052">380052</option>
+          <option value="380053">380053</option>
+        </select>
+        <label>Drop ZIP Code</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" placeholder=" " required>
+        <label>Drop Address</label>
+      </div>
+
+      <a href="D:\ShiftXpress\Bookingpage\form.html"><button type="button">Next</button></a>
+
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
+</footer>
+</body>
+</html>

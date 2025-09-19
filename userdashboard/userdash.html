@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Manage Booking</title>
+  <link href="userdash.css" rel="stylesheet">
+</head>
+<body>
+  <div class="navbar">
+      <h1>ShiftXpress</h1>
+    <ul>
+      <li><a href="D:\ShiftXpress\Home\home.html">Home</a></li>
+      <li><a href="D:\ShiftXpress\Aboutus\aboutus.html" id="aboutUs">About Us</a></li>
+      <li><a href="D:\ShiftXpress\Service\servicepage.html">Services</a></li>
+      <li><a href="D:\ShiftXpress\Bookingpage\bookpickup.html">Book Now</a></li>
+      <li><a href="D:\ShiftXpress\Contact\contactus.html">Contact Us</a></li>
+    </ul>
+  </div>
+
+  
+
+  <!-- Admin Box -->
+  <div class="admin-box">
+    <h1>📋 Booking Management</h1>
+    <p>Booking ID: <span class="highlight">#SX4521</span></p>
+    <p>Status: <span class="highlight" id="statusText">Pending</span></p>
+
+    <!-- Customer -->
+    <div class="section">
+      <h3>👤 Customer Details</h3>
+      <p><strong>Name:</strong> Ramesh Patel</p>
+      <p><strong>Contact:</strong> +91 91234 56789</p>
+      <p><strong>Pickup:</strong> 123, SG Highway, Ahmedabad</p>
+      <p><strong>Drop:</strong> 456, Satellite Road, Ahmedabad</p>
+    </div>
+
+    <!-- Driver -->
+    <div class="section">
+      <h3>🚚 Driver Details</h3>
+      <p id="driverName"><strong>Name:</strong> Rajesh Sharma</p>
+      <p id="driverContact"><strong>Contact:</strong> +91 99887 66554</p>
+      <button onclick="openModal('driver')">✏️ Update Driver</button>
+    </div>
+
+    
+
+    <!-- Timeline -->
+    <div class="section">
+      <h3>📦 Booking Timeline</h3>
+      <div class="timeline">
+        <div>
+          <div class="step active" id="step1">1</div>
+          <div class="step-label">Pickup</div>
+        </div>
+        <div>
+          <div class="step" id="step2">2</div>
+          <div class="step-label">Loading</div>
+        </div>
+        <div>
+          <div class="step" id="step3">3</div>
+          <div class="step-label">Shifting</div>
+        </div>
+        <div>
+          <div class="step" id="step4">4</div>
+          <div class="step-label">Delivery</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button onclick="startUpdate()">▶️ Update Details</button>
+        <button style="background:#d9534f;">❌ Cancel Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Popup -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modalTitle">Update Details</h3>
+      <form id="updateForm" onsubmit="saveDetails(event)">
+        <!-- Dynamic fields will be inserted -->
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let interval;
+    let currentEdit = "";
+
+    function startUpdate() {
+      document.getElementById("statusText").innerText = "In Progress...";
+      interval = setInterval(updateStep, 2000);
+    }
+
+    function updateStep() {
+      if (currentStep > 4) {
+        clearInterval(interval);
+        document.getElementById("statusText").innerText = "Completed ✅";
+        return;
+      }
+      document.getElementById("step" + currentStep).classList.add("active");
+      currentStep++;
+    }
+
+    function openModal(type) {
+      currentEdit = type;
+      const form = document.getElementById("updateForm");
+      form.innerHTML = "";
+
+      if (type === "driver") {
+        document.getElementById("modalTitle").innerText = "Update Driver Details";
+        form.innerHTML = `
+          <label>Name</label>
+          <input type="text" id="driverNameInput" placeholder="Enter driver name">
+          <label>Contact</label>
+          <input type="text" id="driverContactInput" placeholder="Enter contact number">
+          <button type="submit">Save</button>
+        `;
+      } else if (type === "workers") {
+        document.getElementById("modalTitle").innerText = "Update Worker Team";
+        form.innerHTML = `
+          <label>Worker 1</label>
+          <input type="text" id="worker1" placeholder="Enter worker 1">
+          <label>Worker 2</label>
+          <input type="text" id="worker2" placeholder="Enter worker 2">
+          <label>Worker 3</label>
+          <input type="text" id="worker3" placeholder="Enter worker 3">
+          <button type="submit">Save</button>
+        `;
+      }
+
+      document.getElementById("modal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    function saveDetails(e) {
+  e.preventDefault();
+
+  if (currentEdit === "driver") {
+    const name = document.getElementById("driverNameInput").value;
+    const contact = document.getElementById("driverContactInput").value;
+    if (name) document.getElementById("driverName").innerHTML = `<strong>Name:</strong> ${name}`;
+    if (contact) document.getElementById("driverContact").innerHTML = `<strong>Contact:</strong> ${contact}`;
+  } else if (currentEdit === "workers") {
+    const w1 = document.getElementById("worker1").value;
+    const w2 = document.getElementById("worker2").value;
+    const w3 = document.getElementById("worker3").value;
+    let html = "";
+    if (w1) html += `<li>${w1}</li>`;
+    if (w2) html += `<li>${w2}</li>`;
+    if (w3) html += `<li>${w3}</li>`;
+    if (html) document.getElementById("workerList").innerHTML = html;
+  }
+
+  closeModal();
+}
+
+  </script>
+
+</body>
+</html>

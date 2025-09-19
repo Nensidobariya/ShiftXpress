@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Manage Booking</title>
+  <link href="profile.css" rel="stylesheet">
+</head>
+<body>
+
+ <div class="navbar">
+      <h1>ShiftXpress</h1>
+    <ul>
+      <li><a href="D:\ShiftXpress\Home\home.html">Home</a></li>
+      <li><a href="D:\ShiftXpress\Aboutus\aboutus.html" >About Us</a></li>
+      <li><a href="D:\ShiftXpress\Service\servicepage.html">Services</a></li>
+      <li><a href="D:\ShiftXpress\Bookingpage\bookpickup.html">Book Now</a></li>
+      <li><a href="D:\ShiftXpress\Contact\contactus.html">Contact Us</a></li>
+      <li> <a href="D:\ShiftXpress\profile\profile.html" class="profile-icon" id="profile">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Black circular background -->
+    <circle cx="12" cy="12" r="12" fill="black" />
+    <!-- White head -->
+    <circle cx="12" cy="8" r="4" fill="white" />
+    <!-- White shoulders -->
+    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="white" />
+  </svg>
+</a></li>
+    </ul>
+  </div>
+
+  <!-- Admin Box -->
+  <div class="admin-box">
+    <h1>📋 Booking Management</h1>
+    <p>Booking ID: <span class="highlight">#SX4521</span></p>
+    <p>Status: <span class="highlight" id="statusText">Pending</span></p>
+
+    <!-- Customer -->
+    <div class="section">
+      <h3>👤 Customer Details</h3>
+      <p><strong>Name:</strong> Ramesh Patel</p>
+      <p><strong>Contact:</strong> +91 91234 56789</p>
+      <p><strong>Pickup:</strong> 123, SG Highway, Ahmedabad</p>
+      <p><strong>Drop:</strong> 456, Satellite Road, Ahmedabad</p>
+    </div>
+
+    <!-- Driver -->
+    <div class="section">
+      <h3>🚚 Driver Details</h3>
+      <p id="driverName"><strong>Name:</strong> Rajesh Sharma</p>
+      <p id="driverContact"><strong>Contact:</strong> +91 99887 66554</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="section">
+      <h3>📦 Booking Timeline</h3>
+      <div class="timeline">
+        <div>
+          <div class="step active" id="step1">1</div>
+          <div class="step-label">Pickup</div>
+        </div>
+        <div>
+          <div class="step" id="step2">2</div>
+          <div class="step-label">Loading</div>
+        </div>
+        <div>
+          <div class="step" id="step3">3</div>
+          <div class="step-label">Shifting</div>
+        </div>
+        <div>
+          <div class="step" id="step4">4</div>
+          <div class="step-label">Delivery</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button onclick="startUpdate()">▶️ Update Details</button>
+        <button style="background:#d9534f;">❌ Cancel Booking</button>
+      </div>
+    </div>
+  </div>
+<script href="profile.js"></script>
+
+</body>
+</html>

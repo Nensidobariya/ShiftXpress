@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShiftXpress - Book Your Move</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f6f1;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: #fff;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar h1 {
+      color: #a38d72;
+      font-size: 22px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #444;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #a38d72;
+    }
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body, html {font-family:'Roboto', sans-serif; height:100%; width:100%; background:#FFF7F0;}
+
+    .container {
+      display: flex;
+      width: 100%;
+      min-height: calc(100vh - 60px);
+      overflow: visible;
+      flex-wrap: wrap;
+    }
+
+    /* Left Panel with Video Background */
+    .left {
+      flex:1;
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:#fff;
+      overflow:hidden;
+    }
+
+    .left video {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:0;
+      filter: brightness(0.6);
+    }
+
+    .left::after {
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: linear-gradient(135deg, rgba(245,241,233,0.6), rgba(214,203,185,0.6));
+      z-index:1;
+    }
+
+    .left-content {
+      position:relative;
+      z-index:2;
+      text-align:center;
+      padding: 20px;
+      animation: fadeInLeft 1s ease forwards;
+    }
+
+    .left-content h1 {font-size:50px; margin-bottom:20px; color:#fff;}
+    .left-content p {font-size:20px; line-height:1.6; max-width:400px; margin:0 auto; color:#fff;}
+
+    /* Right Form Panel */
+    .right {
+      flex:1;
+      background: #f9f6f1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:50px;
+      overflow-y:visible;
+      animation: fadeInRight 1s ease forwards;
+    }
+
+    form {
+      width:100%;
+      max-width:500px;
+      padding:30px;
+      background:#fff;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    form h2 {
+      color:#333;
+      text-align:center;
+      margin-bottom:30px;
+      font-size:32px;
+    }
+
+    h3.section-heading {
+      margin: 20px 0 15px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #a38d72;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    /* Floating Labels Inputs */
+    .form-group {
+      position:relative;
+      margin-bottom:25px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width:100%;
+      padding:16px;
+      font-size:16px;
+      border:none;
+      border-radius:12px;
+      background:#FFF3EB;
+      box-shadow: inset 4px 4px 10px rgba(0,0,0,0.05), inset -4px -4px 10px rgba(255,255,255,0.8);
+      transition: all 0.3s ease;
+      outline:none;
+      resize:none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      box-shadow: inset 4px 4px 10px rgba(0,0,0,0.05), inset -4px -4px 10px rgba(255,255,255,0.8), 0 0 8px rgba(255,102,0,0.5);
+    }
+    .form-group label {
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#333;
+      font-size:16px;
+      pointer-events:none;
+      transition:0.3s ease all;
+      background:#FFF3EB;
+      padding:0 5px;
+    }
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group select:focus + label,
+    .form-group select:not([value=""]) + label,
+    .form-group textarea:focus + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top:-10px;
+      font-size:12px;
+      color:#333;
+    }
+
+    button {
+      width:100%;
+      padding:16px;
+      font-size:18px;
+      font-weight:600;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      color:#333;
+      cursor:pointer;
+      transition:all 0.3s ease;
+    }
+    button:hover {
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px #f9f6f1;
+    }
+
+    footer {
+      position:fixed;
+      bottom:0;
+      left: 0;
+      width:100%;
+      text-align:center;
+      padding:15px 0;
+      font-size:14px;
+      background: rgba(255,102,0,0.05);
+      color:#555;
+    }
+    footer a {color:#333;}
+
+    @keyframes fadeInLeft {0%{opacity:0; transform:translateX(-50px);}100%{opacity:1; transform:translateX(0);}}
+    @keyframes fadeInRight {0%{opacity:0; transform:translateX(50px);}100%{opacity:1; transform:translateX(0);}}
+
+    @media(max-width:900px){
+      .container {flex-direction:column;}
+      .left, .right {flex:unset; width:100%; height:50vh;}
+      .right {padding:30px;}
+      form {padding:20px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+      <h1>ShiftXpress</h1>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Book Now</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </div>
+<div class="container">
+  <!-- Left Panel -->
+  <div class="left">
+    <video autoplay muted loop>
+      <source src="C:\Users\Disha\Downloads\wow video2.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="left-content">
+      <h1>ShiftXpress</h1>
+      <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right">
+    <form id="bookingForm">
+      <h2>Book Your Shift</h2>
+
+      <!-- Pick Up Details -->
+      <h3 class="section-heading">Pick-Up Details</h3>
+
+      <div class="form-group">
+        <select id="pickCity" required>
+          <option value="" disabled selected hidden></option>
+          <option value="Ahmedabad">Ahmedabad</option>
+        </select>
+        <label>Pick-Up City</label>
+      </div>
+
+      <div class="form-group">
+        <select id="Pick-UpZip" required>
+          <option value="" disabled selected hidden></option>
+          <option value="380001">380001</option>
+          <option value="380002">380002</option>
+          <option value="380003">380003</option>
+          <option value="380004">380004</option>
+          <option value="380005">380005</option>
+        </select>
+        <label>Pick-Up ZIP Code</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" placeholder=" " required>
+        <label>Pick-Up Address</label>
+      </div>
+
+      <button type="submit" id="bookBtn">Book Now</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
+</footer>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShiftXpress - Book Your Move</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f6f1;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: #fff;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar h1 {
+      color: #a38d72;
+      font-size: 22px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #444;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #a38d72;
+    }
+
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body, html {font-family:'Roboto', sans-serif; height:100%; width:100%; background:#FFF7F0;}
+
+    .container {
+      display: flex;
+      width: 100%;
+      min-height: calc(100vh - 60px);
+      overflow: visible;
+      flex-wrap: wrap;
+    }
+
+    /* Left Panel with Video Background */
+    .left {
+      flex:1;
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:#fff;
+      overflow:hidden;
+    }
+
+    .left video {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:0;
+      filter: brightness(0.6);
+    }
+
+    .left::after {
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: linear-gradient(135deg, rgba(245,241,233,0.6), rgba(214,203,185,0.6));
+      z-index:1;
+    }
+
+    .left-content {
+      position:relative;
+      z-index:2;
+      text-align:center;
+      padding: 20px;
+      animation: fadeInLeft 1s ease forwards;
+    }
+
+    .left-content h1 {font-size:50px; margin-bottom:20px; color:#fff;}
+    .left-content p {font-size:20px; line-height:1.6; max-width:400px; margin:0 auto; color:#fff;}
+
+    /* Right Form Panel */
+    .right {
+      flex:1;
+      background: #f9f6f1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:50px;
+      overflow-y:visible;
+      animation: fadeInRight 1s ease forwards;
+    }
+
+    form {
+      width:100%;
+      max-width:500px;
+      padding:30px;
+      background:#fff;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    form h2 {
+      color:#333;
+      text-align:center;
+      margin-bottom:30px;
+      font-size:32px;
+    }
+
+    h3.section-heading {
+      margin: 20px 0 15px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #a38d72;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    /* Floating Labels Inputs */
+    .form-group {
+      position:relative;
+      margin-bottom:25px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width:100%;
+      padding:16px;
+      font-size:16px;
+      border:none;
+      border-radius:12px;
+      background:#FFF3EB;
+      box-shadow: inset 4px 4px 10px rgba(0,0,0,0.05), inset -4px -4px 10px rgba(255,255,255,0.8);
+      transition: all 0.3s ease;
+      outline:none;
+      resize:none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      box-shadow: inset 4px 4px 10px rgba(0,0,0,0.05), inset -4px -4px 10px rgba(255,255,255,0.8), 0 0 8px rgba(255,102,0,0.5);
+    }
+    .form-group label {
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#333;
+      font-size:16px;
+      pointer-events:none;
+      transition:0.3s ease all;
+      background:#FFF3EB;
+      padding:0 5px;
+    }
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group select:focus + label,
+    .form-group select:not([value=""]) + label {
+      top:-10px;
+      font-size:12px;
+      color:#333;
+    }
+
+    button {
+      width:100%;
+      padding:16px;
+      font-size:18px;
+      font-weight:600;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      color:#333;
+      cursor:pointer;
+      transition:all 0.3s ease;
+    }
+    button:hover {
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px #f9f6f1;
+    }
+
+    footer {
+      position:fixed;
+      bottom:0;
+      left: 0;
+      width:100%;
+      text-align:center;
+      padding:15px 0;
+      font-size:14px;
+      background: rgba(255,102,0,0.05);
+      color:#555;
+    }
+    footer a {color:#333;}
+
+    @keyframes fadeInLeft {0%{opacity:0; transform:translateX(-50px);}100%{opacity:1; transform:translateX(0);}}
+    @keyframes fadeInRight {0%{opacity:0; transform:translateX(50px);}100%{opacity:1; transform:translateX(0);}}
+
+    @media(max-width:900px){
+      .container {flex-direction:column;}
+      .left, .right {flex:unset; width:100%; height:50vh;}
+      .right {padding:30px;}
+      form {padding:20px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+      <h1>ShiftXpress</h1>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Book Now</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </div>
+<div class="container">
+  <!-- Left Panel -->
+  <div class="left">
+    <video autoplay muted loop>
+      <source src="C:\Users\Disha\Downloads\wow video2.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="left-content">
+      <h1>ShiftXpress</h1>
+      <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right">
+    <form id="bookingForm">
+      <h2>Book Your Shift</h2>
+
+      <!-- Drop Details -->
+      <h3 class="section-heading">Drop Details</h3>
+
+      <!-- Drop City First -->
+      <div class="form-group">
+        <select id="dropCity" required>
+          <option value="" disabled selected hidden></option>
+          <option value="Ahmedabad">Ahmedabad</option>
+        </select>
+        <label>Drop City</label>
+      </div>
+
+      <!-- Drop ZIP Second -->
+      <div class="form-group">
+        <select id="dropZip" required>
+          <option value="" disabled selected hidden></option>
+          <option value="380051">380051</option>
+          <option value="380052">380052</option>
+          <option value="380053">380053</option>
+        </select>
+        <label>Drop ZIP Code</label>
+      </div>
+
+      <!-- Drop Address Third -->
+      <div class="form-group">
+        <input type="text" placeholder=" " required>
+        <label>Drop Address</label>
+      </div>
+
+      <button type="submit" id="bookBtn">Book Now</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
+</footer>
+
+<!-- No alert / no message on submit -->
+<script>
+  const bookingForm = document.getElementById("bookingForm");
+  bookingForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    // yaha sirf backend connect karoge to data jayega
+  });
+</script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShiftXpress - Book Your Move</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body, html {font-family:'Roboto', sans-serif; height:100%; width:100%; background:#FFF7F0;}
+    body {color:#333;}
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: #fff;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .navbar h1 {color:#a38d72; font-size:22px;}
+    .navbar ul {list-style:none; display:flex; gap:20px; margin:0; padding:0; align-items:center;}
+    .navbar ul li a {text-decoration:none; color:#444; font-size:15px; transition:0.3s;}
+    .navbar ul li a:hover {color:#a38d72;}
+
+    .container {display:flex; width:100%; min-height:calc(100vh - 60px); flex-wrap:wrap;}
+    
+    /* Left Panel */
+    .left {flex:1; position:relative; display:flex; justify-content:center; align-items:center; color:#fff; overflow:hidden;}
+    .left video {position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; filter: brightness(0.6);}
+    .left::after {content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(135deg, rgba(245,241,233,0.6), rgba(214,203,185,0.6)); z-index:1;}
+    .left-content {position:relative; z-index:2; text-align:center; padding:20px; animation: fadeInLeft 1s ease forwards;}
+    .left-content h1 {font-size:50px; margin-bottom:20px; color:#fff;}
+    .left-content p {font-size:20px; line-height:1.6; max-width:400px; margin:0 auto; color:#fff;}
+
+    /* Right Panel */
+    .right {flex:1; background:#f9f6f1; display:flex; justify-content:center; align-items:center; padding:50px; overflow-y:visible; animation: fadeInRight 1s ease forwards;}
+    form {width:100%; max-width:500px; padding:30px; background:#fff; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+    form h2 {color:#333; text-align:center; margin-bottom:30px; font-size:32px;}
+    h3.section-heading {margin:20px 0 15px; font-size:20px; font-weight:600; color:#a38d72; border-bottom:2px solid #eee; padding-bottom:5px;}
+
+    .form-group {position:relative; margin-bottom:25px;}
+    .form-group input, .form-group select, .form-group textarea {width:100%; padding:16px; font-size:16px; border:none; border-radius:12px; background:#FFF3EB; box-shadow: inset 4px 4px 10px rgba(0,0,0,0.05), inset -4px -4px 10px rgba(255,255,255,0.8); transition: all 0.3s ease; outline:none; resize:none;}
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {box-shadow: inset 4px 4px 10px rgba(0,0,0,0.05), inset -4px -4px 10px rgba(255,255,255,0.8), 0 0 8px rgba(255,102,0,0.5);}
+    .form-group label {position:absolute; left:16px; top:50%; transform:translateY(-50%); color:#333; font-size:16px; pointer-events:none; transition:0.3s ease all; background:#FFF3EB; padding:0 5px;}
+    .form-group input:focus + label, .form-group input:not(:placeholder-shown) + label, .form-group select:focus + label, .form-group select:not([value=""]) + label, .form-group textarea:focus + label, .form-group textarea:not(:placeholder-shown) + label {top:-10px; font-size:12px; color:#333;}
+
+    button {width:100%; padding:16px; font-size:18px; font-weight:600; border:none; border-radius:12px; background:linear-gradient(135deg, #f5f1e9, #d6cbb9); color:#333; cursor:pointer; transition:all 0.3s ease;}
+    button:hover {transform:translateY(-3px); box-shadow:0 8px 20px #f9f6f1;}
+
+    footer {position:fixed; bottom:0; left:0; width:100%; text-align:center; padding:15px 0; font-size:14px; background: rgba(255,102,0,0.05); color:#555;}
+    footer a {color:#333;}
+
+    @keyframes fadeInLeft {0%{opacity:0; transform:translateX(-50px);}100%{opacity:1; transform:translateX(0);}}
+    @keyframes fadeInRight {0%{opacity:0; transform:translateX(50px);}100%{opacity:1; transform:translateX(0);}}
+
+    @media(max-width:900px){.container{flex-direction:column;} .left, .right{flex:unset; width:100%; height:50vh;} .right{padding:30px;} form{padding:20px;}}
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <h1>ShiftXpress</h1>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</div>
+
+<div class="container">
+  <!-- Left Panel -->
+  <div class="left">
+    <video autoplay muted loop>
+      <source src="C:\Users\Disha\Downloads\wow video2.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="left-content">
+      <h1>ShiftXpress</h1>
+      <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right">
+    <!-- Pick-Up Form -->
+    <form id="pickForm">
+      <h2>Book Your Shift</h2>
+      <h3 class="section-heading">Pick-Up Details</h3>
+
+      <div class="form-group">
+        <select id="pickCity" required>
+          <option value="" disabled selected hidden></option>
+          <option value="Ahmedabad">Ahmedabad</option>
+        </select>
+        <label>Pick-Up City</label>
+      </div>
+
+      <div class="form-group">
+        <select id="Pick-UpZip" required>
+          <option value="" disabled selected hidden></option>
+          <option value="380001">380001</option>
+          <option value="380002">380002</option>
+          <option value="380003">380003</option>
+        </select>
+        <label>Pick-Up ZIP Code</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" placeholder=" " required>
+        <label>Pick-Up Address</label>
+      </div>
+
+      <button type="button" id="nextBtn">Next</button>
+    </form>
+
+    <!-- Drop Form (hidden initially) -->
+    <form id="dropForm" style="display:none;">
+      <h2>Drop Details</h2>
+      <h3 class="section-heading">Drop Details</h3>
+
+      <div class="form-group">
+        <select id="dropCity" required>
+          <option value="" disabled selected hidden></option>
+          <option value="Ahmedabad">Ahmedabad</option>
+        </select>
+        <label>Drop City</label>
+      </div>
+
+      <div class="form-group">
+        <select id="dropZip" required>
+          <option value="" disabled selected hidden></option>
+          <option value="380051">380051</option>
+          <option value="380052">380052</option>
+        </select>
+        <label>Drop ZIP Code</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" placeholder=" " required>
+        <label>Drop Address</label>
+      </div>
+
+      <button type="submit" id="bookBtn">Book Now</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
+</footer>
+
+<script>
+  const nextBtn = document.getElementById("nextBtn");
+  const pickForm = document.getElementById("pickForm");
+  const dropForm = document.getElementById("dropForm");
+
+  nextBtn.addEventListener("click", function() {
+    if(pickForm.checkValidity()) {
+      pickForm.style.display = "none";
+      dropForm.style.display = "block";
+    } else {
+      pickForm.reportValidity();
+    }
+  });
+
+  dropForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("Booking submitted! Backend connect karna hai.");
+  });
+</script>
+
+</body>
+</html>
+
+
