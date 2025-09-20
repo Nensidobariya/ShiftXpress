@@ -13,5 +13,5 @@ document.getElementById("resetForm").addEventListener("submit", function(event) 
   }
 
   alert("Password reset successfully!");
-  window.location.href = "loginpage.html"; 
+  window.location.href = "/home.html"; // Redirect to home page
 });
