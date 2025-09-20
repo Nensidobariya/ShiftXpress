@@ -3,539 +3,894 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking Details - ShiftXpress</title>
+  <title>ShiftXpress - Hassle Free Shifting</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5f1e9 0%, #d6cbb9 100%);
+      background: #f9f6f1;
       color: #333;
       display: flex;
-      flex-direction: column;
       min-height: 100vh;
+      overflow-x: hidden;
     }
-
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 50px;
-      background: #fff;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-      position: sticky;
+    
+    /* Enhanced Sidebar */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(to bottom, #8c755d, #a38d72);
+      color: white;
+      height: 100vh;
+      position: fixed;
       top: 0;
-      z-index: 100;
-    }
-
-    .navbar h1 {
-      color: #a38d72;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-      margin: 0;
-      padding: 0;
-      align-items: center;
-    }
-
-    .navbar ul li a {
-      text-decoration: none;
-      color: #444;
-      font-size: 16px;
-      transition: 0.3s;
-      font-weight: 500;
-    }
-
-    .navbar ul li a:hover {
-      color: #a38d72;
-    }
-
-    /* Main Content */
-    .main-container {
-      display: flex;
-      flex: 1;
-      padding: 30px;
-      gap: 30px;
-      overflow-y: auto;
-    }
-    
-    /* Left Panel */
-    .details-panel {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-    
-    /* Right Panel */
-    .timeline-panel {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-
-    /* Admin Box */
-    .admin-box {
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
-    }
-
-    .admin-box h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #4b3b2b;
-      font-size: 28px;
-    }
-
-    .highlight {
-      font-weight: bold;
-      color: #a38d72;
-    }
-
-    .section {
-      margin: 20px 0;
-      padding: 20px;
-      border-radius: 10px;
-      background: #f5f1e9;
-    }
-
-    .section h3 {
-      margin-bottom: 15px;
-      color: #4b3b2b;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section p {
-      margin: 10px 0;
-      line-height: 1.6;
-    }
-
-    /* Timeline */
-    .timeline {
-      margin: 25px 0;
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 20px;
       left: 0;
-      right: 0;
-      height: 4px;
-      background: #ddd;
-      z-index: 1;
+      padding: 0;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      overflow-y: auto;
+      transition: all 0.3s ease;
     }
-
-    .step {
-      position: relative;
-      z-index: 2;
-      background: #fff;
-      border: 3px solid #a38d72;
-      color: #a38d72;
+    
+    .sidebar-header {
+      padding: 25px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-header h1 {
+      color: white;
+      font-size: 24px;
+      margin: 10px 0 5px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    .sidebar-header p {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+    
+    .logo-container {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      background: white;
       border-radius: 50%;
-      width: 45px;
-      height: 45px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-    }
-
-    .step.active {
-      background: #333;
-      color: #fff;
-      border-color: #333;
-    }
-
-    .step-label {
-      font-size: 13px;
-      margin-top: 6px;
-      text-align: center;
-      color: #4b3b2b;
-      font-weight: 500;
-    }
-
-    /* Payment Section */
-    .payment-section {
-      background: #f0f8f0;
-      border-left: 4px solid #4caf50;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
     
-    .payment-notice {
-      color: #4caf50;
-      font-weight: bold;
-      margin-top: 15px;
-      padding: 10px;
-      background: #e8f5e9;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    /* Items List */
-    .items-list {
-      margin-top: 15px;
+    .logo-container svg {
+      width: 50px;
+      height: 50px;
     }
     
-    .items-list div {
+    .sidebar-nav {
+      padding: 20px 0;
+    }
+    
+    .nav-item {
       display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px dashed #ccc;
+      align-items: center;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+      border-left: 4px solid transparent;
     }
     
-    .items-list div:last-child {
-      border-bottom: none;
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid #ffd700;
     }
-
-    /* Buttons */
-    .actions {
+    
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-left: 4px solid #ffd700;
+    }
+    
+    .nav-item i {
+      margin-right: 15px;
+      font-size: 18px;
+      width: 24px;
       text-align: center;
-      margin-top: 25px;
     }
-
-    button {
-      margin: 5px;
-      background: #a38d72;
-      color: white;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    
+    .nav-label {
       font-size: 16px;
       font-weight: 500;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background: #8f7a62;
     }
     
-    .cancel-btn {
-      background: #d9534f;
-    }
-    
-    .cancel-btn:hover {
-      background: #c9302c;
-    }
-
-    /* Status Badge */
-    .status-badge {
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      margin-left: 10px;
-    }
-    
-    .status-pending {
-      background: #fff3cd;
-      color: #856404;
-    }
-    
-    .status-progress {
-      background: #cce5ff;
-      color: #004085;
-    }
-    
-    .status-completed {
-      background: #d4edda;
-      color: #155724;
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
+    .user-section {
       padding: 20px;
-      background: #fff;
-      border-top: 1px solid #eee;
-      margin-top: auto;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    .footer p {
-      color: #666;
-      font-size: 14px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 1200px) {
-      .main-container {
-        flex-direction: column;
-      }
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
     }
     
-    @media (max-width: 768px) {
-      .navbar {
-        padding: 12px 20px;
-        flex-direction: column;
-        gap: 15px;
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+    
+    .user-details {
+      flex: 1;
+    }
+    
+    .user-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .user-status {
+      font-size: 12px;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+    }
+    
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background: #4caf50;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    
+    .auth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .auth-btn {
+      padding: 12px;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .login-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    
+    .register-btn {
+      background: white;
+      color: #8c755d;
+    }
+    
+    .register-btn:hover {
+      background: #f5f5f5;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar-footer {
+      padding: 15px 20px;
+      font-size: 12px;
+      text-align: center;
+      opacity: 0.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 20px;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 20px 40px;
+      transition: all 0.3s ease;
+    }
+    
+    /* Menu Toggle Button (for mobile) */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #a38d72;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      z-index: 1001;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
       }
       
-      .navbar ul {
-        gap: 15px;
-        flex-wrap: wrap;
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+      }
+      
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        align-items: center;
         justify-content: center;
       }
       
-      .main-container {
-        padding: 15px;
-        gap: 20px;
+      .main-content.shifted {
+        margin-left: 260px;
       }
-      
-      .admin-box {
-        padding: 20px;
-      }
+    }
+    
+    /* Rest of your CSS remains the same with slight adjustments */
+    .hero {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: rgb(11, 10, 10);
+      overflow: hidden;
+      margin-bottom: 40px;
+      border-radius: 12px;
+    }
+
+    .slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      animation: fade 25s infinite;
+    }
+
+    .slides img:nth-child(1) { animation-delay: 0s; }
+    .slides img:nth-child(2) { animation-delay: 5s; }
+    .slides img:nth-child(3) { animation-delay: 10s; }
+    .slides img:nth-child(4) { animation-delay: 15s; }
+    .slides img:nth-child(5) { animation-delay: 20s; }
+
+    @keyframes fade {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      30% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: black;
+      z-index: 2;
+      background: rgba(243, 241, 241, 0.4);
+      padding: 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .book-btn {
+      display: inline-block;
+      background: #a38d72;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .book-btn:hover {
+      background: #8c755d;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Why Choose Us */
+    .why-choose {
+      background: linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin: 40px 0;
+    }
+
+    .why-choose h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #a38d72;
+    }
+
+    .why-list {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .why-item {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 250px;
+      box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .why-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .why-item h3 {
+      margin-bottom: 10px;
+      color: #a38d72;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .testimonials h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #a38d72;
+    }
+
+    .testimonial {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      font-style: italic;
+      color: #555;
+      padding: 20px;
+      background: #f9f6f1;
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    footer p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    /* Counters */
+    .counters {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 60px 20px;
+      background: #fff;
+      border-radius: 12px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .counter {
+      text-align: center;
+    }
+
+    .counter h3 {
+      font-size: 32px;
+      color: #a38d72;
+    }
+
+    .counter p {
+      font-size: 16px;
+      color: #555;
+    }
+    
+    /* Services */
+    .services {
+      padding: 60px 20px;
+      text-align: center;
+      background: #fff;
+      border-radius: 12px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .services h2 {
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #a38d72;
+    }
+
+    .service-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .service {
+      background: #f9f6f1;
+      padding: 25px;
+      width: 250px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .service:hover {
+      transform: translateY(-8px);
+    }
+
+    .service h3 {
+      color: #a38d72;
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      font-size: 14px;
+      color: #555;
+    }
+    
+    /* New Sections */
+    .about, .process, .admin, .gallery, .faq {
+      padding: 60px 20px;
+      text-align: center;
+      background: #fff;
+      margin: 40px 0;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      color: #555;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .process .steps {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+
+    .process .step {
+      background: #f9f6f1;
+      padding: 20px;
+      width: 200px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .process .step:hover {
+      transform: translateY(-5px);
+    }
+
+    .admin ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .admin ul li {
+      background: #f9f6f1;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .gallery-box {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .gallery-box img {
+      width: 220px;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .gallery-box img:hover {
+      transform: scale(1.05);
+    }
+
+    .faq .faq-item {
+      background: #f9f6f1;
+      margin: 10px auto;
+      max-width: 700px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+      box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
+    }
+
+    .faq h3 {
+      margin-bottom: 8px;
+      color: #a38d72;
+    }
+    
+    /* Content Section Styling */
+    .content-section {
+      margin: 40px 0;
+    }
+    
+    h2 {
+      font-size: 32px;
+      color: #8c755d;
+      margin-bottom: 20px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
+  <!-- Menu Toggle Button (for mobile) -->
+  <button class="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  
+  <!-- Enhanced Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#8c755d" />
+          <circle cx="12" cy="8" r="4" fill="white" />
+          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="white" />
+        </svg>
+      </div>
       <h1>ShiftXpress</h1>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Book Now</a></li>
-      <li><a href="#">Contact Us</a></li>
-    </ul>
-  </div>
-
-  <!-- Main content with horizontal layout -->
-  <div class="main-container">
-    <!-- Left panel -->
-    <div class="details-panel">
-      <!-- Admin Box -->
-      <div class="admin-box">
-        <h1>📋 Booking Details</h1>
-        <p>Booking ID: <span class="highlight">#SX4521</span></p>
-        <p>Status: <span class="highlight" id="statusText">Pending</span> <span class="status-badge status-pending" id="statusBadge">Pending</span></p>
-
-        <!-- Customer -->
-        <div class="section">
-          <h3>👤 Customer Details</h3>
-          <p><strong>Name:</strong> Ramesh Patel</p>
-          <p><strong>Contact:</strong> +91 91234 56789</p>
-          <p><strong>Email:</strong> ramesh.patel@example.com</p>
-          <p><strong>Pickup Address:</strong> 123, SG Highway, Ahmedabad, Gujarat - 380054</p>
-          <p><strong>Delivery Address:</strong> 456, Satellite Road, Ahmedabad, Gujarat - 380058</p>
+      <p>Hassle Free Shifting</p>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="/HTML/home.html" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span class="nav-label">Home</span>
+      </a>
+      <a href="/HTML/aboutus.html" class="nav-item">
+        <i class="fas fa-info-circle"></i>
+        <span class="nav-label">About Us</span>
+      </a>
+      <a href="/HTML/servicepage.html" class="nav-item">
+        <i class="fas fa-truck-moving"></i>
+        <span class="nav-label">Services</span>
+      </a>
+      <a href="/HTML/bookpickup.html" class="nav-item">
+        <i class="fas fa-calendar-check"></i>
+        <span class="nav-label">Book Now</span>
+      </a>
+      <a href="/HTML/contactus.html" class="nav-item">
+        <i class="fas fa-phone-alt"></i>
+        <span class="nav-label">Contact Us</span>
+      </a>
+    </nav>
+    
+    <div class="user-section">
+      <div class="user-info">
+        <div class="user-avatar">
+          <svg viewBox="0 0 24 24" width="30" height="30">
+            <circle cx="12" cy="8" r="4" fill="#8c755d" />
+            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#8c755d" />
+          </svg>
         </div>
-
-        <!-- Driver -->
-        <div class="section">
-          <h3>🚚 Driver & Vehicle Details</h3>
-          <p><strong>Driver Name:</strong> Rajesh Sharma</p>
-          <p><strong>Contact:</strong> +91 99887 66554</p>
-          <p><strong>Vehicle Type:</strong> Tata Ace (Mini Truck)</p>
-          <p><strong>Vehicle Number:</strong> GJ-01-AB-1234</p>
-          <p><strong>Estimated Arrival:</strong> 15-20 minutes</p>
-        </div>
-        
-        <!-- Items -->
-        <div class="section">
-          <h3>📦 Items to be Shipped</h3>
-          <div class="items-list">
-            <div>
-              <span>Furniture (Sofa, Chairs)</span>
-              <span>4 pieces</span>
-            </div>
-            <div>
-              <span>Electronic Items</span>
-              <span>2 boxes</span>
-            </div>
-            <div>
-              <span>Kitchenware</span>
-              <span>3 boxes</span>
-            </div>
-            <div>
-              <span>Personal Belongings</span>
-              <span>5 boxes</span>
-            </div>
-            <div>
-              <span>Books</span>
-              <span>2 boxes</span>
-            </div>
-            <div>
-              <span>Clothing</span>
-              <span>3 bags</span>
-            </div>
+        <div class="user-details">
+          <div class="user-name">Guest User</div>
+          <div class="user-status">
+            <span class="status-indicator"></span>
+            <span>Not logged in</span>
           </div>
         </div>
-        
-        <!-- Additional Information -->
-        <div class="section">
-          <h3>ℹ️ Additional Information</h3>
-          <p><strong>Booking Date:</strong> October 15, 2023</p>
-          <p><strong>Preferred Time:</strong> 2:00 PM - 4:00 PM</p>
-          <p><strong>Special Instructions:</strong> Fragile items marked with red stickers. Please handle with care.</p>
-          <p><strong>Helper Required:</strong> Yes (2 helpers requested)</p>
-        </div>
+      </div>
+      
+      <div class="auth-buttons">
+        <a href="/HTML/loginpage.html" class="auth-btn login-btn">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <a href="/HTML/signup.html" class="auth-btn register-btn">
+          <i class="fas fa-user-plus"></i> Register
+        </a>
       </div>
     </div>
     
-    <!-- Right panel -->
-    <div class="timeline-panel">
-      <!-- Payment Section -->
-      <div class="admin-box">
-        <div class="section payment-section">
-          <h3>💳 Payment Details</h3>
-          <div class="items-list">
-            <div>
-              <span>Base Fare</span>
-              <span>₹1,500</span>
-            </div>
-            <div>
-              <span>Distance Charge (12 km)</span>
-              <span>₹600</span>
-            </div>
-            <div>
-              <span>Loading Charges</span>
-              <span>₹400</span>
-            </div>
-            <div>
-              <span>Helper Charges (2 helpers)</span>
-              <span>₹300</span>
-            </div>
-            <div>
-              <span>Taxes</span>
-              <span>₹100</span>
-            </div>
-            <div style="border-top: 2px solid #aaa; margin-top: 5px; padding-top: 10px; font-weight: bold;">
-              <span>Total Amount</span>
-              <span>₹2,900</span>
-            </div>
-          </div>
-          <p class="payment-notice">Please make payment directly to the driver upon delivery</p>
-          <p style="text-align: center; margin-top: 10px;">Cash and UPI payments accepted</p>
-        </div>
-      </div>
-      
-      <!-- Timeline Section -->
-      <div class="admin-box">
-        <!-- Timeline -->
-        <div class="section">
-          <h3>📦 Booking Timeline</h3>
-          <div class="timeline">
-            <div>
-              <div class="step active" id="step1">1</div>
-              <div class="step-label">Pickup</div>
-            </div>
-            <div>
-              <div class="step" id="step2">2</div>
-              <div class="step-label">Loading</div>
-            </div>
-            <div>
-              <div class="step" id="step3">3</div>
-              <div class="step-label">In Transit</div>
-            </div>
-            <div>
-              <div class="step" id="step4">4</div>
-              <div class="step-label">Delivery</div>
-            </div>
-          </div>
-          <div class="actions">
-            <button onclick="startUpdate()">▶️ Start Tracking</button>
-            <button class="cancel-btn">❌ Cancel Booking</button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Support Section -->
-      <div class="admin-box">
-        <div class="section">
-          <h3>📞 Support</h3>
-          <p><strong>Need help with your booking?</strong></p>
-          <p>Our customer support team is available 24/7</p>
-          <p><strong>Phone:</strong> +91 80000 12345</p>
-          <p><strong>Email:</strong> support@shiftxpress.com</p>
-          <p><strong>Office Hours:</strong> Monday-Saturday: 8:00 AM - 8:00 PM</p>
-          <div class="actions">
-            <button>📞 Call Support</button>
-            <button>✉️ Email Support</button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Reviews Section -->
-      <div class="admin-box">
-        <div class="section">
-          <h3>⭐ Rate Your Experience</h3>
-          <p>We would love to hear your feedback about our service</p>
-          <div style="display: flex; justify-content: center; margin: 20px 0; font-size: 24px;">
-            <span style="cursor: pointer;">☆</span>
-            <span style="cursor: pointer;">☆</span>
-            <span style="cursor: pointer;">☆</span>
-            <span style="cursor: pointer;">☆</span>
-            <span style="cursor: pointer;">☆</span>
-          </div>
-          <div class="actions">
-            <button>Submit Review</button>
-          </div>
-        </div>
-      </div>
+    <div class="sidebar-footer">
+      <p>© 2025 ShiftXpress</p>
+      <p>All rights reserved</p>
     </div>
-  </div>
+  </aside>
 
-  <!-- Footer -->
-  <div class="footer">
-    <p>© 2023 ShiftXpress. All rights reserved. | <a href="#" style="color: #a38d72; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #a38d72; text-decoration: none;">Terms of Service</a></p>
-  </div>
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="slides">
+        <img src="/Photos/p1.jpg" class="active">
+        <img src="/Photos/p2.jpg">
+        <img src="/Photos/p3.jpg">
+        <img src="/Photos/p4.jpg">
+        <img src="/Photos/p5.jpg">
+      </div>
+      <div class="hero-content">
+        <h2>Smart Relocation Solutions, Delivered</h2>
+        <p>ShiftXpress combines precision, speed, and care to make your move seamless—whether it's across city.</p>
+        <a href="/HTML/bookpickup.html" class="book-btn">Book Now</a>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services">
+      <h2>Our Services</h2>
+      <div class="service-boxes">
+        <div class="service">
+          <h3>🏠 Household Shifting</h3>
+          <p>Safe and secure home relocation with packing & transport services.</p>
+        </div>
+        <div class="service">
+          <h3>🏢 Office Shifting</h3>
+          <p>Quick and hassle-free office relocation with professional care.</p>
+        </div>
+        <div class="service">
+          <h3>🚗 Car/Bike Transport</h3>
+          <p>Door-to-door vehicle shifting with maximum safety assurance.</p>
+        </div>
+        <div class="service">
+          <h3>🌍 National & Local</h3>
+          <p>We provide shifting services across India – local & long distance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Counters -->
+    <section class="counters">
+      <div class="counter">
+        <h3 id="count1">123</h3>
+        <p>Happy Customers</p>
+      </div>
+      <div class="counter">
+        <h3 id="count2">200</h3>
+        <p>Successful Shifts</p>
+      </div>
+      <div class="counter">
+        <h3 id="count3">500</h3>
+        <p>Trained Drivers</p>
+      </div>
+      <div class="counter">
+        <h3 id="count4">700</h3>
+        <p>Cities Covered</p>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose">
+      <h2>Why Choose ShiftXpress?</h2>
+      <div class="why-list">
+        <div class="why-item">
+          <h3>✔ Easy Booking</h3>
+          <p>Book your porter service instantly with our simple and fast online process.</p>
+        </div>
+        <div class="why-item">
+          <h3>✔ Citywide Service</h3>
+          <p>Available across the city with zip code–based service selection.</p>
+        </div>
+        <div class="why-item">
+          <h3>✔ Trained Driver</h3>
+          <p>Our professional drivers ensure smooth and safe transportation.</p>
+        </div>
+        <div class="why-item">
+          <h3>✔ Zipcode-Based Service</h3>
+          <p>Service tailored to your exact location—just choose your area and book instantly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <h2>What Our Customers Say</h2>
+      <p class="testimonial">"ShiftXpress made my house shifting so easy! Their team was professional and polite." – Priya Sharma</p>
+      <p class="testimonial">"Affordable rates and on-time service. Highly recommend them!" – Ramesh Patel</p>
+    </section>
+    
+    <!-- About Us -->
+    <section class="about">
+      <h2 class="fade-in">About ShiftXpress</h2>
+      <div class="about-container">
+        <div class="about-text slide-in-left">
+          <p>
+            📈 10,000+ Bookings Managed Smoothly – Our admin has successfully handled thousands of house & office shifting requests without delays.
+
+            🚛 5000+ Safe Deliveries – Every move is tracked and monitored by admin to ensure on-time & damage-free delivery.
+
+            👥 Support Handling – From queries to complaints, our admin team ensures quick solutions for 100% customer satisfaction.
+
+            🔒 Verified Drivers & Secure Payments – Admin strictly verifies drivers, and builds trust with customers.
+
+            ⚡ 
+
+            🏆 High Success Rate – With admin's smart management, ShiftXpress has achieved a 95%+ successful booking record.
+          </p>
+        </div>
+        <div class="about-image slide-in-right">
+          <img src="C:\Users\Disha\Desktop\HTML img folder\home.jpg" alt="ShiftXpress Team">
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Process -->
+    <section class="process">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">📌 <b>📥 Booking Management</b><br>Admin receives and verifies every customer booking.</div>
+        <div class="step">📦 <b>👨‍✈️ Driver Assignment</b><br>Matches the best available driver/vehicle with the booking.</div>
+        <div class="step">🚛 <b>📞 Customer Support</b><br>Resolves queries and provides regular updates.</div>
+        <div class="step">🚚 <b>Transport</b><br>Fast & safe delivery</div>
+      </div>
+    </section>
+    
+    <!-- Admin Role -->
+    <section class="admin">
+      <h2>Our Success – Powered by Admin</h2>
+      <p>"Our admin is not just managing data – they are powering success stories, ensuring every booking turns into a happy customer journey.":</p>
+      <ul>
+        <li>✔ Connecting customers with trusted drivers</li>
+        <li>✔ Ensuring every packing and moving process meets our high standards.</li>
+        <li>✔ Handling customer queries </li>
+        <li>✔ Reviewing and improving our services</li>
+      </ul>
+    </section>
+    
+    <!-- Gallery -->
+    <section class="gallery">
+      <h2>Our Work in Action</h2>
+      <div class="gallery-box">
+        <img src="C:\Users\Disha\Desktop\HTML img folder\loading (1).jpg" alt="Packing Service">
+        <img src="C:\Users\Disha\Desktop\HTML img folder\happy.jpg" alt="Loading Truck">
+        <img src="C:\Users\Disha\Desktop\HTML img folder\pune.jpg" alt="Our Team">
+        <img src="C:\Users\Disha\Desktop\HTML img folder\bacche.jpg" alt="Happy Customer">
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>❓ How do I book a shift?</h3>
+        <p>Simply click "Book Now", fill your details, and confirm your date.</p>
+      </div>
+      <div class="faq-item">
+        <h3>❓ Are my goods safe?</h3>
+        <p>Yes! We use premium packing materials and trusted vehicles.</p>
+      </div>
+      <div class="faq-item">
+        <h3>❓ Do you provide insurance?</h3>
+        <p>Yes, optional transit insurance is available for full protection.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>📞 +91 9376699995 | ✉️ support@shiftxpress.com</p>
+      <p>© 2025 ShiftXpress | Designed with ❤️</p>
+    </footer>
+  </main>
 
   <script>
-    let currentStep = 1;
-    let interval;
-
-    function startUpdate() {
-      document.getElementById("statusText").innerText = "In Progress";
-      document.getElementById("statusBadge").className = "status-badge status-progress";
-      document.getElementById("statusBadge").textContent = "In Progress";
-      
-      interval = setInterval(updateStep, 2000);
-    }
-
-    function updateStep() {
-      if (currentStep > 4) {
-        clearInterval(interval);
-        document.getElementById("statusText").innerText = "Completed";
-        document.getElementById("statusBadge").className = "status-badge status-completed";
-        document.getElementById("statusBadge").textContent = "Completed";
-        
-        // Show completion message
-        alert("Your shipment has been successfully delivered! Thank you for using ShiftXpress.");
-        return;
-      }
-      document.getElementById("step" + currentStep).classList.add("active");
-      currentStep++;
-    }
+    // Toggle sidebar on mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
     
-    // Add interactivity to stars in the review section
-    const stars = document.querySelectorAll('.section div span');
-    stars.forEach((star, index) => {
-      star.addEventListener('click', () => {
-        // Reset all stars
-        stars.forEach(s => s.textContent = '☆');
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      sidebar.classList.toggle('open');
+      mainContent.classList.toggle('shifted');
+    });
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      if (window.innerWidth <= 992 && 
+          !sidebar.contains(event.target) && 
+          !menuToggle.contains(event.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        mainContent.classList.remove('shifted');
+      }
+    });
+    
+    // Prevent closing when clicking inside sidebar
+    sidebar.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+    
+    // Add active class to nav items on click
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        navItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
         
-        // Fill stars up to the clicked one
-        for (let i = 0; i <= index; i++) {
-          stars[i].textContent = '★';
+        // Close sidebar on mobile after selection
+        if (window.innerWidth <= 992) {
+          sidebar.classList.remove('open');
+          mainContent.classList.remove('shifted');
         }
       });
     });
