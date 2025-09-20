@@ -4,19 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShiftXpress - Confirm Booking</title>
-  <link href="form.css" rel="stylesheet">
+  <link href="/CSS/form.css" rel="stylesheet">
 </head>
 <body>
-     <div class="navbar">
-      <h1>ShiftXpress</h1>
+  <div class="navbar">
+    <h1>ShiftXpress</h1>
     <ul>
-      <li><a href="D:\ShiftXpress\Home\home.html">Home</a></li>
-      <li><a href="D:\ShiftXpress\Aboutus\aboutus.html">About Us</a></li>
+      <li><a href="/HTML/home.html">Home</a></li>
+      <li><a href="/HTML/aboutus.html">About Us</a></li>
       <li><a href="D:\ShiftXpress\service\servicepage.html">Services</a></li>
       <li><a href="D:\ShiftXpress\Bookingpage\form.html" id="pickup">Book Now</a></li>
       <li><a href="D:\ShiftXpress\Contact\contactus.html">Contact Us</a></li>
     </ul>
   </div>
+
   <div class="container">
     <!-- Left Panel with Video -->
     <div class="left">
@@ -51,17 +52,16 @@
           <input type="date" id="date" required>
         </div>
 
-      <!-- Shift -->
-<div class="form-group">
-  <label for="shift">Select Shift</label>
-  <select id="shift" required>
-    <option value="">-- Select Shift --</option>
-    <option value="Morning">Morning</option>
-    <option value="Noon">Noon</option>
-    <option value="Evening">Evening</option>
-  </select>
-</div>
-
+        <!-- Shift -->
+        <div class="form-group">
+          <label for="shift">Select Shift</label>
+          <select id="shift" required>
+            <option value="">-- Select Shift --</option>
+            <option value="Morning">Morning</option>
+            <option value="Noon">Noon</option>
+            <option value="Evening">Evening</option>
+          </select>
+        </div>
 
         <!-- Vehicle Dropdown -->
         <div class="form-group">
@@ -75,6 +75,9 @@
           </select>
         </div>
 
+        <!-- Message Box for Vehicle Availability -->
+        <div id="vehicleMessage" style="color: red; margin-top: 10px;"></div>
+
         <!-- Purpose -->
         <div class="form-group">
           <label for="purpose">Purpose of Shifting</label>
@@ -86,8 +89,10 @@
           Estimated Distance: <span id="distance">--</span> km <br>
           Estimated Price: ₹<span id="price">--</span>
         </div>
-        <a href="D:\ShiftXpress\userdashboard\userdash.html"><button type="button" id="confirmBtn">✅ Confirm Booking</button></a>
-        
+
+        <a href="D:\ShiftXpress\userdashboard\userdash.html">
+          <button type="button" id="confirmBtn">Confirm Booking</button>
+        </a>
       </form>
     </div>
   </div>
@@ -104,9 +109,42 @@
 
     document.getElementById("distance").innerText = distance.toFixed(1);
     document.getElementById("price").innerText = price.toFixed(0);
+
+    // Vehicle availability logic
+    const unavailableVehicle = "Tempo"; // Set unavailable vehicle
+    const vehicleSelect = document.getElementById("vehicle");
+    const messageBox = document.getElementById("vehicleMessage");
+
+    vehicleSelect.addEventListener("change", function () {
+      const selected = vehicleSelect.value;
+
+      if (selected === unavailableVehicle) {
+        // Remove the unavailable option
+        for (let i = 0; i < vehicleSelect.options.length; i++) {
+          if (vehicleSelect.options[i].value === unavailableVehicle) {
+            vehicleSelect.remove(i);
+            break;
+          }
+        }
+
+        // Reset selection
+        vehicleSelect.value = "";
+
+        // Show message
+        const availableVehicles = Array.from(vehicleSelect.options)
+          .filter(opt => opt.value !== "")
+          .map(opt => opt.value)
+          .join(", ");
+
+        messageBox.innerText = `${unavailableVehicle} is currently unavailable. Please choose from: ${availableVehicles}.`;
+      } else {
+        messageBox.innerText = "";
+      }
+    });
   </script>
+
   <footer>
-  <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
-</footer>
+    <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
+  </footer>
 </body>
 </html>
