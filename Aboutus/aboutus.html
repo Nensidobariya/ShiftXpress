@@ -4,10 +4,152 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us • ShiftXpress</title>
-  <link rel="stylesheet" href="aboutus.css">
+
 </head>
 <body>
+<style>
+     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f6f1;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-y: scroll;   /* scrolling allow */
+    }
+    body::-webkit-scrollbar {
+      display: none;        /* scrollbar hide */
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f6f1;
+      color: #333;
+    }
 
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: #fff;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar h1 {
+      color: #a38d72;
+      font-size: 22px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #444;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #a38d72;
+    }
+    :root{
+      --bg:linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      --text:#111827;
+      --muted:#4b5563;
+      --brand:#333;
+      --brand-600:#6e5847;
+      --card:#f8fafc;
+      --radius:18px;
+      --shadow: 0 10px 25px rgba(0,0,0,.08), 0 4px 10px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; font-family: Inter, sans-serif; color:var(--text); background:var(--bg)}
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1100px, 92%); margin-inline:auto}
+    header{position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid #eef2f7;}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800;}
+    .brand .logomark{width:38px; height:38px; background:var(--brand); border-radius:12px; position:relative; box-shadow: var(--shadow)}
+    .brand span{font-size:1.05rem}
+
+    .cta{padding:10px 14px; background:var(--brand); color:#fff; border-radius:12px; font-weight:600; box-shadow:var(--shadow)}
+    .menu-btn{display:none;}
+    .about{padding:54px 0 24px}
+    .about-grid{display:grid; grid-template-columns: 1.05fr .95fr; gap:40px}
+    .eyebrow{font-weight:800; color:var(--brand); font-size:.9rem}
+    h1{font-size:3rem; line-height:1.1; margin:.15em 0 .4em}
+    .lead{font-size:1.125rem; color:var(--muted); line-height:1.7}
+    .bullets{margin:18px 0 0; display:grid; gap:10px}
+    .bullet{display:flex; gap:10px}
+    .tick{width:22px; height:22px; border-radius:8px; background:var(--brand); display:grid; place-items:center; color:#fff; font-weight:800}
+    .scene{position:relative; border:1px solid #eef2f7; border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; overflow:hidden}
+    .scene-inner{background:#ffedd5; border-radius:14px; height:340px; position:relative; overflow:hidden}
+
+    /* Girl inside orange box */
+    .girl-in-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 440px; /* adjust size as needed */
+    }
+
+    .features{padding:16px 0 72px}
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:22px; margin-top:18px}
+    .card{background:var(--card); border:1px solid #e5e7eb; border-radius:var(--radius); overflow:hidden; box-shadow: var(--shadow)}
+    .card img{width:100%; height:190px; object-fit:cover}
+    .card-body{padding:16px}
+    .card h3{margin:0 0 6px; font-size:1.05rem}
+    .muted{color:var(--muted)}
+    footer{border-top:1px solid #eef2f7; padding:26px 0 40px; color:#6b7280}
+    @media (max-width: 980px){.about-grid{grid-template-columns:1fr}}
+    @media (max-width: 760px){.navlinks{display:none}.menu-btn{display:inline-flex}.cards{grid-template-columns:1fr}}
+    .mobile{display:none;}
+    .mobile.show{display:block}
+
+    /* Truck animation */
+    .truck-road {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: linear-gradient(#cec9c9, #bae6fd);
+      border-radius: 12px;
+      margin-top: 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .truck-move {
+      position: absolute;
+      bottom: 0;
+      left: -450px;
+      height: 180px;
+      animation: moveTruck 8s linear infinite;
+    }
+    @keyframes moveTruck {
+      0% { left: -450px; }
+      100% { left: 100%; }
+    }
+
+    #aboutUs {
+  text-decoration: underline;
+  font-weight: bold;
+  color: #000000; /* or any accent color */
+}
+</style>
   <div class="navbar">
       <h1>ShiftXpress</h1>
     <ul>
@@ -25,12 +167,15 @@
     <div class="about-grid">
       <div>
         <div class="eyebrow">ABOUT US</div>
-        <h1>We move homes with care, speed & transparency.</h1>
-        <p class="lead">We are a professional house shifting service with years of experience. From careful packing to secure loading, GPS-tracked transport and on-time delivery, our dedicated team ensures a smooth and efficient relocation process.</p>
+        <h1>We connect Customers & Drivers with Transparency</h1>
+        <p class="lead">"At ShiftXpress, admins are the bridge between customers and drivers. We validate every booking, assign the right driver, and optimize routes for efficiency. From resolving disputes to ensuring security checks, our admin team makes the process safe and smooth. With real-time monitoring, transparent updates, and secure payments, we guarantee trust and reliability throughout the shifting journey.”</p>
         <div class="bullets">
-          <div class="bullet"><span class="tick">✓</span> Trained crew with background verification</div>
-          <div class="bullet"><span class="tick">✓</span> High-grade packing materials & damage coverage</div>
-          <div class="bullet"><span class="tick">✓</span> Door-to-door service with live tracking</div>
+          <div class="bullet"><span class="tick">✓</span> We verify every booking request to make sure the right driver is assigned for the right job</div>
+           <div class="bullet"><span class="tick">✓</span> Admins help in planning the most efficient routes, saving both time and fuel costs.</div>
+            <div class="bullet"><span class="tick">✓</span>Manage booking requests.</div>
+          <div class="bullet"><span class="tick">✓</span>Admins ensure drivers are background-verified, vehicles are safe, and customers’ belongings remain protected.</div>
+          <div class="bullet"><span class="tick">✓</span> We track live shipments and provide instant updates, ensuring complete transparency.</div>
+           <div class="bullet"><span class="tick">✓</span>Ensure secure payments directly between customer & driver</div>
         </div>
       </div>
 
@@ -49,22 +194,22 @@
       <article class="card">
         <img src="D:\ShiftXpress\Photos\packing.jpg" alt="Packing">
         <div class="card-body">
-          <h3>Packing & Wrapping</h3>
-          <p class="muted">Multi-layer bubble wrap, corrugated sheets and custom crating for TVs, glassware and artwork.</p>
+          <h3>Driver Verification🚚</h3>
+          <p class="muted">“Our admin team ensures all drivers are background-verified and trained for safe operations.”</p>
         </div>
       </article>
       <article class="card">
         <img src="D:\ShiftXpress\Photos\loading.jpg" alt="Loading">
         <div class="card-body">
-          <h3>Secure Loading</h3>
-          <p class="muted">Labelled cartons, QR inventory and padded trolleys ensure safe handling at every step.</p>
+          <h3>Booking Management 📑</h3>
+          <p class="muted">“Admins assign drivers, optimize routes, and make sure every booking runs smoothly.”</p>
         </div>
       </article>
       <article class="card">
         <img src="D:\ShiftXpress\Photos\delivery.jpg" alt="Delivery">
         <div class="card-body">
-          <h3>Door-to-Door Delivery</h3>
-          <p class="muted">On-time arrival windows and final placement exactly where you want.</p>
+          <h3>Secure Payments 💳</h3>
+          <p class="muted">“Admins monitor transactions to ensure secure and transparent payments directly between customers and drivers.”</p>
         </div>
       </article>
     </div>
@@ -77,5 +222,5 @@
 
 
 </body>
-<script src="aboutus.js"></script>
+
 </html>
