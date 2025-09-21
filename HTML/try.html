@@ -270,9 +270,9 @@
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      gap: 20px; /* Added gap between panels */
-      padding: 20px; /* Added padding to create space around panels */
-      background: transparent; /* Remove white background */
+      gap: 20px;
+      padding: 20px;
+      background: transparent;
     }
 
     /* Left Panel with Video Background */
@@ -287,7 +287,7 @@
       height: auto;
       min-height: 600px;
       border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Added shadow for separation */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
 
     .video-container {
@@ -298,7 +298,7 @@
       height: 100%;
       overflow: hidden;
       z-index: 0;
-      border-radius: 16px; /* Added border radius */
+      border-radius: 16px;
     }
 
     .video-container video {
@@ -308,7 +308,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 16px; /* Added border radius */
+      border-radius: 16px;
     }
 
     .video-overlay {
@@ -319,7 +319,7 @@
       height: 100%;
       background: linear-gradient(135deg, rgba(163, 141, 114, 0.88), rgba(140, 117, 93, 0.92));
       z-index: 1;
-      border-radius: 16px; /* Added border radius */
+      border-radius: 16px;
     }
 
     .booking-left-content {
@@ -361,7 +361,7 @@
       overflow-y: auto;
       animation: fadeInRight 1s ease forwards;
       border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Added shadow for separation */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
 
     .booking-form {
@@ -500,59 +500,6 @@
       border-radius: 4px;
     }
 
-    /* Step navigation */
-    .step-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 25px;
-    }
-    
-    .step {
-      text-align: center;
-      flex: 1;
-      position: relative;
-    }
-    
-    .step:not(:last-child):after {
-      content: '';
-      position: absolute;
-      top: 15px;
-      right: -50%;
-      width: 100%;
-      height: 2px;
-      background: #ddd;
-      z-index: 1;
-    }
-    
-    .step-number {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #ddd;
-      color: #666;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .step.active .step-number {
-      background: #a38d72;
-      color: white;
-    }
-    
-    .step-label {
-      font-size: 12px;
-      color: #666;
-    }
-    
-    .step.active .step-label {
-      color: #a38d72;
-      font-weight: 500;
-    }
-
     /* Form steps */
     .form-step {
       display: none;
@@ -561,6 +508,18 @@
     .form-step.active {
       display: block;
       animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Form navigation buttons */
+    .form-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .form-buttons .form-btn {
+      margin-top: 0;
+      flex: 1;
     }
 
     @keyframes fadeIn {
@@ -644,13 +603,8 @@
         padding: 20px 15px; 
       }
       
-      .step-nav {
+      .form-buttons {
         flex-direction: column;
-        gap: 15px;
-      }
-      
-      .step:not(:last-child):after {
-        display: none;
       }
     }
   </style>
@@ -746,29 +700,12 @@
         <div class="booking-left-content">
           <h1>ShiftXpress</h1>
           <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
-          <!-- Removed the CTA button as requested -->
         </div>
       </div>
 
       <!-- Right Form Panel -->
       <div class="booking-right">
         <form class="booking-form" id="bookingForm">
-          <!-- Step Navigation -->
-          <div class="step-nav">
-            <div class="step active" data-step="1">
-              <div class="step-number">1</div>
-              <div class="step-label">Pickup</div>
-            </div>
-            <div class="step" data-step="2">
-              <div class="step-number">2</div>
-              <div class="step-label">Drop</div>
-            </div>
-            <div class="step" data-step="3">
-              <div class="step-number">3</div>
-              <div class="step-label">Details</div>
-            </div>
-          </div>
-
           <h2>Book Your Shift</h2>
           <p>Enter your details to get started</p>
 
@@ -944,18 +881,16 @@
 
     // Multi-step form functionality
     const steps = document.querySelectorAll('.form-step');
-    const stepNavs = document.querySelectorAll('.step');
     let currentStep = 1;
 
     // Function to show a specific step
     function showStep(stepNumber) {
       steps.forEach(step => step.classList.remove('active'));
-      stepNavs.forEach(nav => nav.classList.remove('active'));
-      
       document.getElementById(`step${stepNumber}`).classList.add('active');
-      document.querySelector(`.step[data-step="${stepNumber}"]`).classList.add('active');
-      
       currentStep = stepNumber;
+      
+      // Scroll to top of form when changing steps
+      document.querySelector('.booking-form').scrollTop = 0;
     }
 
     // Next button functionality
