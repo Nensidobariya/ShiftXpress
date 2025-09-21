@@ -4,74 +4,180 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShiftXpress - Drop Details</title>
-  <link href="/CSS/bookdrop.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/CSS/bookdrop.css">
 </head>
 <body>
-  <div class="navbar">
+  <!-- Menu Toggle Button (for mobile) -->
+  <button class="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  
+  <!-- Enhanced Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#8c755d" />
+          <circle cx="12" cy="8" r="4" fill="white" />
+          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="white" />
+        </svg>
+      </div>
       <h1>ShiftXpress</h1>
-    <ul>
-      <li><a href="/HTML/home.html">Home</a></li>
-      <li><a href="/HTML/home.html">About Us</a></li>
-      <li><a href="/HTML/servicepage.html" >Services</a></li>
-      <li><a href="/HTML/bookpickup.html" id="pickup">Book Now</a></li>
-      <li><a href="/HTML/contactus.html">Contact Us</a></li>
-    </ul>
-  </div>
-
-<div class="container">
-  <!-- Left Panel -->
-  <div class="left">
-    <video autoplay muted loop>
-      <source src="/Photos/v1.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <div class="left-content">
-      <h1>ShiftXpress</h1>
-      <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+      <p>Hassle Free Shifting</p>
     </div>
-  </div>
+    
+    <nav class="sidebar-nav">
+      <a href="/HTML/home.html" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span class="nav-label">Home</span>
+      </a>
+      <a href="/HTML/aboutus.html" class="nav-item">
+        <i class="fas fa-info-circle"></i>
+        <span class="nav-label">About Us</span>
+      </a>
+      <a href="/HTML/servicepage.html" class="nav-item">
+        <i class="fas fa-truck-moving"></i>
+        <span class="nav-label">Services</span>
+      </a>
+      <a href="/HTML/bookpickup.html" class="nav-item">
+        <i class="fas fa-calendar-check"></i>
+        <span class="nav-label">Book Now</span>
+      </a>
+      <a href="/HTML/contactus.html" class="nav-item">
+        <i class="fas fa-phone-alt"></i>
+        <span class="nav-label">Contact Us</span>
+      </a>
+    </nav>
+    
+    <div class="user-section">
+      <div class="user-info">
+        <div class="user-avatar">
+          <svg viewBox="0 0 24 24" width="30" height="30">
+            <circle cx="12" cy="8" r="4" fill="#8c755d" />
+            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#8c755d" />
+          </svg>
+        </div>
+        <div class="user-details">
+          <div class="user-name">Guest User</div>
+          <div class="user-status">
+            <span class="status-indicator"></span>
+            <span>Not logged in</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="auth-buttons">
+        <a href="/HTML/loginpage.html" class="auth-btn login-btn">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <a href="/HTML/signup.html" class="auth-btn register-btn">
+          <i class="fas fa-user-plus"></i> Register
+        </a>
+      </div>
+    </div>
+    
+    <div class="sidebar-footer">
+      <p>© 2025 ShiftXpress</p>
+      <p>All rights reserved</p>
+    </div>
+  </aside>
 
-  <!-- Right Panel -->
-  <div class="right">
-    <form id="dropForm">
-      <h2>Drop Details</h2>
-
-      <!-- Drop Details -->
-      <h3 class="section-heading">Drop Info</h3>
-
-      <div class="form-group">
-        <select id="dropCity" required>
-          <option value="" disabled selected hidden></option>
-          <option value="Ahmedabad">Ahmedabad</option>
-        </select>
-        <label>Drop City</label>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="booking-container">
+      <!-- Left Panel with Video Background -->
+      <div class="booking-left">
+        <video autoplay muted loop>
+          <source src="/Photos/v1.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="booking-left-content">
+          <h1>ShiftXpress</h1>
+          <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+        </div>
       </div>
 
-      <div class="form-group">
-        <select id="dropZip" required>
-          <option value="" disabled selected hidden></option>
-          <option value="380051">380051</option>
-          <option value="380052">380052</option>
-          <option value="380053">380053</option>
-        </select>
-        <label>Drop ZIP Code</label>
+      <!-- Right Form Panel -->
+      <div class="booking-right">
+        <form class="booking-form" id="dropForm">
+          <h2>Drop Details</h2>
+          <p>Enter your delivery details to continue</p>
+
+          <!-- Drop Details - Removed section heading as in the pickup page -->
+          <div class="form-group">
+            <select id="dropCity" required>
+              <option value="" disabled selected hidden></option>
+              <option value="Ahmedabad">Ahmedabad</option>
+            </select>
+            <label>Drop City</label>
+          </div>
+
+          <div class="form-group">
+            <select id="dropZip" required>
+              <option value="" disabled selected hidden></option>
+              <option value="380051">380051</option>
+              <option value="380052">380052</option>
+              <option value="380053">380053</option>
+            </select>
+            <label>Drop ZIP Code</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" placeholder=" " required>
+            <label>Drop Address</label>
+          </div>
+          
+          <a href="/HTML/form.html" class="form-btn" style="text-decoration: none; display: block; text-align: center;">
+            Continue to Item Details
+          </a>
+        </form>
       </div>
+    </div>
+  </main>
 
-      <div class="form-group">
-        <input type="text" placeholder=" " required>
-        <label>Drop Address</label>
-      </div>
-
-      <a href="/HTML/form.html"><button type="button">Next</button></a>
-
-    </form>
-  </div>
-</div>
-
-<footer>
-  <p>© 2025 ShiftXpress | <a href="#">Company Policies</a></p>
-</footer>
+  <script>
+    // Toggle sidebar on mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      sidebar.classList.toggle('open');
+      mainContent.classList.toggle('shifted');
+    });
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      if (window.innerWidth <= 992 && 
+          !sidebar.contains(event.target) && 
+          !menuToggle.contains(event.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        mainContent.classList.remove('shifted');
+      }
+    });
+    
+    // Prevent closing when clicking inside sidebar
+    sidebar.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+    
+    // Add active class to nav items on click
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        navItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Close sidebar on mobile after selection
+        if (window.innerWidth <= 992) {
+          sidebar.classList.remove('open');
+          mainContent.classList.remove('shifted');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

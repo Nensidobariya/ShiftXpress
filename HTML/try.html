@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShiftXpress - Hassle Free Shifting</title>
+  <title>ShiftXpress - Complete Booking</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -24,7 +24,7 @@
     /* Enhanced Sidebar */
     .sidebar {
       width: 280px;
-      background: linear-gradient(to bottom, #8c755d, #a38d72);
+      background: linear-gradient(to bottom, #9f8366, #d7c4ac);
       color: white;
       height: 100vh;
       position: fixed;
@@ -35,6 +35,14 @@
       z-index: 1000;
       overflow-y: auto;
       transition: all 0.3s ease;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .sidebar::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
     }
     
     .sidebar-header {
@@ -204,7 +212,7 @@
     .main-content {
       flex: 1;
       margin-left: 280px;
-      padding: 20px 40px;
+      padding: 30px;
       transition: all 0.3s ease;
     }
     
@@ -253,352 +261,397 @@
       }
     }
     
-    /* Rest of your CSS remains the same with slight adjustments */
-    .hero {
-      position: relative;
-      height: 90vh;
+    /* Booking Container Styles */
+    .booking-container {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: rgb(11, 10, 10);
+      width: 100%;
+      min-height: calc(100vh - 60px);
       overflow: hidden;
-      margin-bottom: 40px;
-      border-radius: 12px;
-    }
-
-    .slides {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .slides img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      animation: fade 25s infinite;
-    }
-
-    .slides img:nth-child(1) { animation-delay: 0s; }
-    .slides img:nth-child(2) { animation-delay: 5s; }
-    .slides img:nth-child(3) { animation-delay: 10s; }
-    .slides img:nth-child(4) { animation-delay: 15s; }
-    .slides img:nth-child(5) { animation-delay: 20s; }
-
-    @keyframes fade {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      20% { opacity: 1; }
-      30% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-
-    .hero-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: black;
-      z-index: 2;
-      background: rgba(243, 241, 241, 0.4);
-      padding: 2rem;
-      border-radius: 12px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      max-width: 600px;
-    }
-
-    .hero h2 {
-      font-size: 42px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 25px;
-    }
-
-    .book-btn {
-      display: inline-block;
-      background: #a38d72;
-      color: white;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .book-btn:hover {
-      background: #8c755d;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    /* Why Choose Us */
-    .why-choose {
-      background: linear-gradient(135deg, #f5f1e9, #d6cbb9);
-      padding: 60px 20px;
-      text-align: center;
-      border-radius: 12px;
-      margin: 40px 0;
-    }
-
-    .why-choose h2 {
-      font-size: 28px;
-      margin-bottom: 30px;
-      color: #a38d72;
-    }
-
-    .why-list {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .why-item {
       background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      width: 250px;
-      box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      gap: 20px; /* Added gap between panels */
+      padding: 20px; /* Added padding to create space around panels */
+      background: transparent; /* Remove white background */
     }
 
-    .why-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .why-item h3 {
-      margin-bottom: 10px;
-      color: #a38d72;
-    }
-
-    /* Testimonials */
-    .testimonials {
-      background: #fff;
-      padding: 60px 20px;
-      text-align: center;
-      border-radius: 12px;
-      margin: 40px 0;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .testimonials h2 {
-      font-size: 28px;
-      margin-bottom: 30px;
-      color: #a38d72;
-    }
-
-    .testimonial {
-      max-width: 600px;
-      margin: 0 auto 20px;
-      font-style: italic;
-      color: #555;
-      padding: 20px;
-      background: #f9f6f1;
-      border-radius: 8px;
-    }
-
-    /* Footer */
-    footer {
-      background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      border-radius: 12px 12px 0 0;
-    }
-
-    footer p {
-      font-size: 14px;
-      margin: 5px 0;
-    }
-
-    /* Counters */
-    .counters {
+    /* Left Panel with Video Background */
+    .booking-left {
+      flex: 1.2;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 40px;
-      padding: 60px 20px;
-      background: #fff;
-      border-radius: 12px;
-      margin: 40px 0;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      color: #fff;
+      overflow: hidden;
+      height: auto;
+      min-height: 600px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Added shadow for separation */
     }
 
-    .counter {
-      text-align: center;
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      border-radius: 16px; /* Added border radius */
     }
 
-    .counter h3 {
-      font-size: 32px;
-      color: #a38d72;
-    }
-
-    .counter p {
-      font-size: 16px;
-      color: #555;
-    }
-    
-    /* Services */
-    .services {
-      padding: 60px 20px;
-      text-align: center;
-      background: #fff;
-      border-radius: 12px;
-      margin: 40px 0;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .services h2 {
-      font-size: 28px;
-      margin-bottom: 40px;
-      color: #a38d72;
-    }
-
-    .service-boxes {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
-    }
-
-    .service {
-      background: #f9f6f1;
-      padding: 25px;
-      width: 250px;
-      border-radius: 12px;
-      box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-
-    .service:hover {
-      transform: translateY(-8px);
-    }
-
-    .service h3 {
-      color: #a38d72;
-      margin-bottom: 10px;
-    }
-
-    .service p {
-      font-size: 14px;
-      color: #555;
-    }
-    
-    /* New Sections */
-    .about, .process, .admin, .gallery, .faq {
-      padding: 60px 20px;
-      text-align: center;
-      background: #fff;
-      margin: 40px 0;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .about p {
-      max-width: 800px;
-      margin: auto;
-      color: #555;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .process .steps {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 25px;
-    }
-
-    .process .step {
-      background: #f9f6f1;
-      padding: 20px;
-      width: 200px;
-      border-radius: 12px;
-      box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    
-    .process .step:hover {
-      transform: translateY(-5px);
-    }
-
-    .admin ul {
-      list-style: none;
-      padding: 0;
-      max-width: 600px;
-      margin: auto;
-      text-align: left;
-    }
-
-    .admin ul li {
-      background: #f9f6f1;
-      margin: 10px 0;
-      padding: 12px;
-      border-radius: 8px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
-    }
-
-    .gallery-box {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .gallery-box img {
-      width: 220px;
-      height: 150px;
-      border-radius: 10px;
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    
-    .gallery-box img:hover {
-      transform: scale(1.05);
+      border-radius: 16px; /* Added border radius */
     }
 
-    .faq .faq-item {
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(163, 141, 114, 0.88), rgba(140, 117, 93, 0.92));
+      z-index: 1;
+      border-radius: 16px; /* Added border radius */
+    }
+
+    .booking-left-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px;
+      max-width: 600px;
+      animation: fadeInLeft 1s ease forwards;
+    }
+
+    .booking-left-content h1 {
+      font-size: 3.2rem;
+      margin-bottom: 25px;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .booking-left-content p {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin: 0 auto 30px;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+      font-weight: 300;
+    }
+
+    /* Right Form Panel */
+    .booking-right {
+      flex: 0.8;
+      background: linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      height: auto;
+      overflow-y: auto;
+      animation: fadeInRight 1s ease forwards;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Added shadow for separation */
+    }
+
+    .booking-form {
+      width: 100%;
+      max-width: 450px;
+      padding: 35px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.09);
+    }
+
+    .booking-form h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .booking-form > p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .form-group label {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      color: #999;
+      font-size: 15px;
+      pointer-events: none;
+      transition: 0.2s ease all;
+      background: #fff;
+      padding: 0 5px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      transition: all 0.3s ease;
+      outline: none;
+      resize: none;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #a38d72;
+      box-shadow: 0 0 0 2px rgba(163, 141, 114, 0.2);
+    }
+    
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group select:focus + label,
+    .form-group select:not([value=""]) + label,
+    .form-group textarea:focus + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #a38d72;
+    }
+
+    .summary-box {
       background: #f9f6f1;
-      margin: 10px auto;
-      max-width: 700px;
       padding: 15px;
       border-radius: 8px;
-      text-align: left;
-      box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
-    }
-
-    .faq h3 {
-      margin-bottom: 8px;
-      color: #a38d72;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+      border: 1px solid #eee;
     }
     
-    /* Content Section Styling */
-    .content-section {
-      margin: 40px 0;
-    }
-    
-    h2 {
-      font-size: 32px;
-      color: #8c755d;
+    .estimate-box {
+      background: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
       margin-bottom: 20px;
       text-align: center;
+      font-size: 16px;
+      color: #333;
+      border: 1px solid #eee;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      background: #a38d72;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+    
+    .form-btn:hover {
+      background: #8c755d;
+      box-shadow: 0 4px 12px rgba(163, 141, 114, 0.3);
+    }
+
+    .form-btn.secondary {
+      background: #e0e0e0;
+      color: #333;
+    }
+    
+    .form-btn.secondary:hover {
+      background: #d0d0d0;
+    }
+
+    #vehicleMessage {
+      color: #d32f2f;
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 8px;
+      background: #ffebee;
+      border-radius: 4px;
+    }
+
+    /* Step navigation */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+    
+    .step {
+      text-align: center;
+      flex: 1;
+      position: relative;
+    }
+    
+    .step:not(:last-child):after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background: #ddd;
+      z-index: 1;
+    }
+    
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #ddd;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .step.active .step-number {
+      background: #a38d72;
+      color: white;
+    }
+    
+    .step-label {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .step.active .step-label {
+      color: #a38d72;
+      font-weight: 500;
+    }
+
+    /* Form steps */
+    .form-step {
+      display: none;
+    }
+    
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity:0; transform:translateY(10px); }
+      100% { opacity:1; transform:translateY(0); }
+    }
+    
+    @keyframes fadeInLeft {
+      0% { opacity:0; transform:translateX(-50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+    
+    @keyframes fadeInRight {
+      0% { opacity:0; transform:translateX(50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1100px) {
+      .booking-left {
+        flex: 1;
+      }
+      
+      .booking-right {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .booking-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      
+      .booking-left, .booking-right {
+        flex: unset; 
+        width: 100%; 
+        min-height: 400px;
+      }
+      
+      .booking-left {
+        border-radius: 16px;
+      }
+      
+      .booking-right {
+        border-radius: 16px;
+      }
+      
+      .booking-left-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .booking-left-content p {
+        font-size: 1.1rem;
+      }
+      
+      .booking-right {
+        padding: 30px 20px;
+      }
+      
+      .booking-form {
+        padding: 25px; 
+      }
+    }
+
+    @media (max-width: 600px) {
+      .booking-container {
+        padding: 10px;
+      }
+      
+      .booking-left-content h1 {
+        font-size: 2rem;
+      }
+      
+      .booking-left-content p {
+        font-size: 1rem;
+      }
+      
+      .booking-form {
+        padding: 20px 15px; 
+      }
+      
+      .step-nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .step:not(:last-child):after {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -623,7 +676,7 @@
     </div>
     
     <nav class="sidebar-nav">
-      <a href="/HTML/home.html" class="nav-item active">
+      <a href="/HTML/home.html" class="nav-item">
         <i class="fas fa-home"></i>
         <span class="nav-label">Home</span>
       </a>
@@ -635,7 +688,7 @@
         <i class="fas fa-truck-moving"></i>
         <span class="nav-label">Services</span>
       </a>
-      <a href="/HTML/bookpickup.html" class="nav-item">
+      <a href="/HTML/bookpickup.html" class="nav-item active">
         <i class="fas fa-calendar-check"></i>
         <span class="nav-label">Book Now</span>
       </a>
@@ -680,176 +733,170 @@
 
   <!-- Main Content -->
   <main class="main-content">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="slides">
-        <img src="/Photos/p1.jpg" class="active">
-        <img src="/Photos/p2.jpg">
-        <img src="/Photos/p3.jpg">
-        <img src="/Photos/p4.jpg">
-        <img src="/Photos/p5.jpg">
-      </div>
-      <div class="hero-content">
-        <h2>Smart Relocation Solutions, Delivered</h2>
-        <p>ShiftXpress combines precision, speed, and care to make your move seamless—whether it's across city.</p>
-        <a href="/HTML/bookpickup.html" class="book-btn">Book Now</a>
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section class="services">
-      <h2>Our Services</h2>
-      <div class="service-boxes">
-        <div class="service">
-          <h3>🏠 Household Shifting</h3>
-          <p>Safe and secure home relocation with packing & transport services.</p>
+    <div class="booking-container">
+      <!-- Left Panel with Video Background -->
+      <div class="booking-left">
+        <div class="video-container">
+          <video autoplay muted loop playsinline>
+            <source src="/Photos/v1.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="video-overlay"></div>
         </div>
-        <div class="service">
-          <h3>🏢 Office Shifting</h3>
-          <p>Quick and hassle-free office relocation with professional care.</p>
-        </div>
-        <div class="service">
-          <h3>🚗 Car/Bike Transport</h3>
-          <p>Door-to-door vehicle shifting with maximum safety assurance.</p>
-        </div>
-        <div class="service">
-          <h3>🌍 National & Local</h3>
-          <p>We provide shifting services across India – local & long distance.</p>
+        <div class="booking-left-content">
+          <h1>ShiftXpress</h1>
+          <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
+          <!-- Removed the CTA button as requested -->
         </div>
       </div>
-    </section>
 
-    <!-- Counters -->
-    <section class="counters">
-      <div class="counter">
-        <h3 id="count1">123</h3>
-        <p>Happy Customers</p>
-      </div>
-      <div class="counter">
-        <h3 id="count2">200</h3>
-        <p>Successful Shifts</p>
-      </div>
-      <div class="counter">
-        <h3 id="count3">500</h3>
-        <p>Trained Drivers</p>
-      </div>
-      <div class="counter">
-        <h3 id="count4">700</h3>
-        <p>Cities Covered</p>
-      </div>
-    </section>
+      <!-- Right Form Panel -->
+      <div class="booking-right">
+        <form class="booking-form" id="bookingForm">
+          <!-- Step Navigation -->
+          <div class="step-nav">
+            <div class="step active" data-step="1">
+              <div class="step-number">1</div>
+              <div class="step-label">Pickup</div>
+            </div>
+            <div class="step" data-step="2">
+              <div class="step-number">2</div>
+              <div class="step-label">Drop</div>
+            </div>
+            <div class="step" data-step="3">
+              <div class="step-number">3</div>
+              <div class="step-label">Details</div>
+            </div>
+          </div>
 
-    <!-- Why Choose Us -->
-    <section class="why-choose">
-      <h2>Why Choose ShiftXpress?</h2>
-      <div class="why-list">
-        <div class="why-item">
-          <h3>✔ Easy Booking</h3>
-          <p>Book your porter service instantly with our simple and fast online process.</p>
-        </div>
-        <div class="why-item">
-          <h3>✔ Citywide Service</h3>
-          <p>Available across the city with zip code–based service selection.</p>
-        </div>
-        <div class="why-item">
-          <h3>✔ Trained Driver</h3>
-          <p>Our professional drivers ensure smooth and safe transportation.</p>
-        </div>
-        <div class="why-item">
-          <h3>✔ Zipcode-Based Service</h3>
-          <p>Service tailored to your exact location—just choose your area and book instantly.</p>
-        </div>
+          <h2>Book Your Shift</h2>
+          <p>Enter your details to get started</p>
+
+          <!-- Step 1: Pickup Details -->
+          <div class="form-step active" id="step1">
+            <div class="form-group">
+              <select id="pickCity" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Ahmedabad">Ahmedabad</option>
+              </select>
+              <label>Pick-Up City</label>
+            </div>
+
+            <div class="form-group">
+              <select id="pickZip" required>
+                <option value="" disabled selected hidden></option>
+                <option value="380001">380001</option>
+                <option value="380002">380002</option>
+                <option value="380003">380003</option>
+                <option value="380004">380004</option>
+                <option value="380005">380005</option>
+              </select>
+              <label>Pick-Up ZIP Code</label>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="pickAddress" placeholder=" " required>
+              <label>Pick-Up Address</label>
+            </div>
+            
+            <button type="button" class="form-btn next-btn" data-next="2">Continue to Delivery Details</button>
+          </div>
+
+          <!-- Step 2: Drop Details -->
+          <div class="form-step" id="step2">
+            <div class="form-group">
+              <select id="dropCity" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Ahmedabad">Ahmedabad</option>
+              </select>
+              <label>Drop City</label>
+            </div>
+
+            <div class="form-group">
+              <select id="dropZip" required>
+                <option value="" disabled selected hidden></option>
+                <option value="380051">380051</option>
+                <option value="380052">380052</option>
+                <option value="380053">380053</option>
+              </select>
+              <label>Drop ZIP Code</label>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="dropAddress" placeholder=" " required>
+              <label>Drop Address</label>
+            </div>
+            
+            <div class="form-buttons">
+              <button type="button" class="form-btn secondary prev-btn" data-prev="1">Back</button>
+              <button type="button" class="form-btn next-btn" data-next="3">Continue to Item Details</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Additional Details -->
+          <div class="form-step" id="step3">
+            <!-- Summary -->
+            <div class="summary-box" id="summaryBox">
+              <strong>Pickup City:</strong> <span id="summaryPickCity">--</span><br>
+              <strong>Pickup ZIP:</strong> <span id="summaryPickZip">--</span><br>
+              <strong>Pickup Address:</strong> <span id="summaryPickAddress">--</span><br>
+              <strong>Drop City:</strong> <span id="summaryDropCity">--</span><br>
+              <strong>Drop ZIP:</strong> <span id="summaryDropZip">--</span><br>
+              <strong>Drop Address:</strong> <span id="summaryDropAddress">--</span><br>
+            </div>
+
+            <!-- Date -->
+            <div class="form-group">
+              <input type="date" id="date" required>
+              <label>Select Date</label>
+            </div>
+
+            <!-- Shift -->
+            <div class="form-group">
+              <select id="shift" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Morning">Morning</option>
+                <option value="Noon">Noon</option>
+                <option value="Evening">Evening</option>
+              </select>
+              <label>Select Shift</label>
+            </div>
+
+            <!-- Vehicle Dropdown -->
+            <div class="form-group">
+              <select id="vehicle" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Mini Truck">Mini Truck</option>
+                <option value="Tempo">Tempo</option>
+                <option value="Pickup Van">Pickup Van</option>
+                <option value="Container Truck">Container Truck</option>
+              </select>
+              <label>Select Vehicle</label>
+            </div>
+
+            <!-- Message Box for Vehicle Availability -->
+            <div id="vehicleMessage"></div>
+
+            <!-- Purpose -->
+            <div class="form-group">
+              <textarea id="purpose" rows="3" placeholder=" "></textarea>
+              <label>Purpose of Shifting</label>
+            </div>
+
+            <!-- Estimate -->
+            <div class="estimate-box" id="estimateBox">
+              Estimated Distance: <span id="distance">--</span> km <br>
+              Estimated Price: ₹<span id="price">--</span>
+            </div>
+
+            <div class="form-buttons">
+              <button type="button" class="form-btn secondary prev-btn" data-prev="2">Back</button>
+              <button type="button" id="confirmBtn" class="form-btn">Confirm Booking</button>
+            </div>
+          </div>
+        </form>
       </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-      <h2>What Our Customers Say</h2>
-      <p class="testimonial">"ShiftXpress made my house shifting so easy! Their team was professional and polite." – Priya Sharma</p>
-      <p class="testimonial">"Affordable rates and on-time service. Highly recommend them!" – Ramesh Patel</p>
-    </section>
-    
-    <!-- About Us -->
-    <section class="about">
-      <h2 class="fade-in">About ShiftXpress</h2>
-      <div class="about-container">
-        <div class="about-text slide-in-left">
-          <p>
-            📈 10,000+ Bookings Managed Smoothly – Our admin has successfully handled thousands of house & office shifting requests without delays.
-
-            🚛 5000+ Safe Deliveries – Every move is tracked and monitored by admin to ensure on-time & damage-free delivery.
-
-            👥 Support Handling – From queries to complaints, our admin team ensures quick solutions for 100% customer satisfaction.
-
-            🔒 Verified Drivers & Secure Payments – Admin strictly verifies drivers, and builds trust with customers.
-
-            ⚡ 
-
-            🏆 High Success Rate – With admin's smart management, ShiftXpress has achieved a 95%+ successful booking record.
-          </p>
-        </div>
-        <div class="about-image slide-in-right">
-          <img src="C:\Users\Disha\Desktop\HTML img folder\home.jpg" alt="ShiftXpress Team">
-        </div>
-      </div>
-    </section>
-
-    <!-- Our Process -->
-    <section class="process">
-      <h2>How It Works</h2>
-      <div class="steps">
-        <div class="step">📌 <b>📥 Booking Management</b><br>Admin receives and verifies every customer booking.</div>
-        <div class="step">📦 <b>👨‍✈️ Driver Assignment</b><br>Matches the best available driver/vehicle with the booking.</div>
-        <div class="step">🚛 <b>📞 Customer Support</b><br>Resolves queries and provides regular updates.</div>
-        <div class="step">🚚 <b>Transport</b><br>Fast & safe delivery</div>
-      </div>
-    </section>
-    
-    <!-- Admin Role -->
-    <section class="admin">
-      <h2>Our Success – Powered by Admin</h2>
-      <p>"Our admin is not just managing data – they are powering success stories, ensuring every booking turns into a happy customer journey.":</p>
-      <ul>
-        <li>✔ Connecting customers with trusted drivers</li>
-        <li>✔ Ensuring every packing and moving process meets our high standards.</li>
-        <li>✔ Handling customer queries </li>
-        <li>✔ Reviewing and improving our services</li>
-      </ul>
-    </section>
-    
-    <!-- Gallery -->
-    <section class="gallery">
-      <h2>Our Work in Action</h2>
-      <div class="gallery-box">
-        <img src="C:\Users\Disha\Desktop\HTML img folder\loading (1).jpg" alt="Packing Service">
-        <img src="C:\Users\Disha\Desktop\HTML img folder\happy.jpg" alt="Loading Truck">
-        <img src="C:\Users\Disha\Desktop\HTML img folder\pune.jpg" alt="Our Team">
-        <img src="C:\Users\Disha\Desktop\HTML img folder\bacche.jpg" alt="Happy Customer">
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-item">
-        <h3>❓ How do I book a shift?</h3>
-        <p>Simply click "Book Now", fill your details, and confirm your date.</p>
-      </div>
-      <div class="faq-item">
-        <h3>❓ Are my goods safe?</h3>
-        <p>Yes! We use premium packing materials and trusted vehicles.</p>
-      </div>
-      <div class="faq-item">
-        <h3>❓ Do you provide insurance?</h3>
-        <p>Yes, optional transit insurance is available for full protection.</p>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <p>📞 +91 9376699995 | ✉️ support@shiftxpress.com</p>
-      <p>© 2025 ShiftXpress | Designed with ❤️</p>
-    </footer>
+    </div>
   </main>
 
   <script>
@@ -893,6 +940,149 @@
           mainContent.classList.remove('shifted');
         }
       });
+    });
+
+    // Multi-step form functionality
+    const steps = document.querySelectorAll('.form-step');
+    const stepNavs = document.querySelectorAll('.step');
+    let currentStep = 1;
+
+    // Function to show a specific step
+    function showStep(stepNumber) {
+      steps.forEach(step => step.classList.remove('active'));
+      stepNavs.forEach(nav => nav.classList.remove('active'));
+      
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+      document.querySelector(`.step[data-step="${stepNumber}"]`).classList.add('active');
+      
+      currentStep = stepNumber;
+    }
+
+    // Next button functionality
+    document.querySelectorAll('.next-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const nextStep = parseInt(this.getAttribute('data-next'));
+        
+        // Validate current step before proceeding
+        if (validateStep(currentStep)) {
+          // Update summary if moving to step 3
+          if (nextStep === 3) {
+            updateSummary();
+            calculateEstimate();
+          }
+          
+          showStep(nextStep);
+        }
+      });
+    });
+
+    // Previous button functionality
+    document.querySelectorAll('.prev-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const prevStep = parseInt(this.getAttribute('data-prev'));
+        showStep(prevStep);
+      });
+    });
+
+    // Validate step function
+    function validateStep(step) {
+      const inputs = document.querySelectorAll(`#step${step} [required]`);
+      let isValid = true;
+      
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.style.borderColor = 'red';
+          isValid = false;
+        } else {
+          input.style.borderColor = '#ddd';
+        }
+      });
+      
+      return isValid;
+    }
+
+    // Update summary in step 3
+    function updateSummary() {
+      document.getElementById('summaryPickCity').textContent = document.getElementById('pickCity').value;
+      document.getElementById('summaryPickZip').textContent = document.getElementById('pickZip').value;
+      document.getElementById('summaryPickAddress').textContent = document.getElementById('pickAddress').value;
+      document.getElementById('summaryDropCity').textContent = document.getElementById('dropCity').value;
+      document.getElementById('summaryDropZip').textContent = document.getElementById('dropZip').value;
+      document.getElementById('summaryDropAddress').textContent = document.getElementById('dropAddress').value;
+    }
+
+    // Calculate estimate
+    function calculateEstimate() {
+      const pickupZip = parseInt(document.getElementById('pickZip').value);
+      const dropZip = parseInt(document.getElementById('dropZip').value);
+      
+      const distance = Math.abs(pickupZip - dropZip) / 2;
+      const baseCharge = 500;
+      const perKmCharge = 15;
+      const price = baseCharge + distance * perKmCharge;
+
+      document.getElementById("distance").textContent = distance.toFixed(1);
+      document.getElementById("price").textContent = price.toFixed(0);
+    }
+
+    // Vehicle availability logic
+    const unavailableVehicle = "Tempo"; // Set unavailable vehicle
+    const vehicleSelect = document.getElementById("vehicle");
+    const messageBox = document.getElementById("vehicleMessage");
+
+    vehicleSelect.addEventListener("change", function () {
+      const selected = vehicleSelect.value;
+
+      if (selected === unavailableVehicle) {
+        // Remove the unavailable option
+        for (let i = 0; i < vehicleSelect.options.length; i++) {
+          if (vehicleSelect.options[i].value === unavailableVehicle) {
+            vehicleSelect.remove(i);
+            break;
+          }
+        }
+
+        // Reset selection
+        vehicleSelect.value = "";
+
+        // Show message
+        const availableVehicles = Array.from(vehicleSelect.options)
+          .filter(opt => opt.value !== "")
+          .map(opt => opt.value)
+          .join(", ");
+
+        messageBox.innerText = `${unavailableVehicle} is currently unavailable. Please choose from: ${availableVehicles}.`;
+      } else {
+        messageBox.innerText = "";
+      }
+    });
+
+    // Confirm booking button functionality
+    document.getElementById("confirmBtn").addEventListener("click", function() {
+      // Validate form
+      const date = document.getElementById("date").value;
+      const shift = document.getElementById("shift").value;
+      const vehicle = document.getElementById("vehicle").value;
+      
+      if (!date || !shift || !vehicle) {
+        alert("Please fill in all required fields");
+        return;
+      }
+      
+      // If validation passes, redirect to user dashboard
+      window.location.href = "/HTML/userdash.html";
+    });
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("date").setAttribute('min', today);
+
+    // Fallback if video doesn't load
+    const videoElement = document.querySelector('video');
+    videoElement.addEventListener('error', function() {
+      document.querySelector('.video-container').style.backgroundImage = "url('https://placehold.co/600x400/8c755d/white?text=Moving+Services')";
+      document.querySelector('.video-container').style.backgroundSize = "cover";
+      document.querySelector('.video-container').style.backgroundPosition = "center";
     });
   </script>
 </body>
