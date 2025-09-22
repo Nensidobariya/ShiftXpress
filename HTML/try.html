@@ -3,364 +3,357 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - ShiftXpress</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>ShiftExpress Services</title>
   <style>
+    /* Global Styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
+    
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f9f6f1 0%, #e6dfd3 100%);
       color: #333;
-      display: flex;
-      flex-direction: column;
+      line-height: 1.6;
       min-height: 100vh;
-      overflow-y: scroll;   /* scrolling allow */
     }
-    body::-webkit-scrollbar {
-      display: none;        /* scrollbar hide */
-    }
-
-    /* Header */
-    .header {
-      background: linear-gradient(135deg, #a38d72 0%, #8a755c 100%);
-      color: white;
-      padding: 12px 24px;
+    
+    /* Navbar */
+    .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+      padding: 15px 50px;
+      background: #fff;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .icon-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      border: none;
-      color: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s, background 0.2s;
-      font-size: 16px;
-    }
-
-    .icon-btn:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.1);
-    }
-
-    .user-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid white;
-    }
-
-    /* Layout */
-    .main-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 240px;
-      background: #f9f6f1;
-      border-right: 1px solid #e5e7eb;
-      padding: 16px 0;
-      overflow-y: auto;
-      transition: width 0.3s;
-    }
-
-    .sidebar a{
-      text-decoration: none;
-    }
-
-    .sidebar.collapsed {
-      width: 70px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 20px;
-      color: #6b7280;
-      font-size: 15px;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.25s;
-      border-left: 4px solid transparent;
-    }
-
-    .nav-item:hover {
-      background: #e8e2d6;
-      color: #111827;
-      border-left: 4px solid #a38d72;
-    }
-
-    .nav-item.active {
-      background: linear-gradient(to right, #e8e2d6, #d6cbb9);
-      color: #8a755c;
-      font-weight: 600;
-      border-left: 4px solid #8a755c;
-    }
-
-    .content {
-      flex: 1;
-      padding: 28px;
-      overflow-y: auto;
-    }
-
-    /* Contact section */
-    .contact-section {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .contact-section h2 {
-      font-size: 28px;
+    
+    .navbar h1 {
       color: #a38d72;
-      margin-bottom: 10px;
+      font-size: 24px;
+      font-weight: 700;
     }
-
-    .contact-section p {
+    
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    
+    .navbar ul li a {
+      text-decoration: none;
       color: #555;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+    
+    .navbar ul li a:hover {
+      color: #a38d72;
+      background-color: #f5f2ed;
+    }
+    
+    #service {
+      color: #a38d72;
+      font-weight: 600;
+      background-color: #f5f2ed;
+    }
+    
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .page-header {
+      text-align: center;
       margin-bottom: 40px;
     }
-
-    .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
+    
+    .page-header h1 {
+      color: #5a4634;
+      font-size: 36px;
+      margin-bottom: 15px;
     }
-
-    .info-box {
+    
+    .page-header p {
+      color: #7a6a58;
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    .service-card {
       background: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      width: 280px;
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+    }
+    
+    .service-icon {
+      height: 160px;
+      background: linear-gradient(135deg, #a38d72 0%, #8a7862 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 50px;
+    }
+    
+    .service-content {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .service-content h2 {
+      color: #5a4634;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    
+    .service-content p {
+      color: #666;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    
+    .service-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #a38d72;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
       text-align: center;
     }
-
-    .info-box h3 {
-      margin-bottom: 10px;
-      color: #a38d72;
+    
+    .service-link:hover {
+      background-color: #8a7862;
     }
-
-    .info-box p {
-      font-size: 14px;
-      color: #444;
+    
+    /* Service Detail Pages */
+    .detail-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
-
-    /* Footer */
-    footer {
-      background: #111;
-      color: #fff;
-      padding: 40px 20px 20px;
+    
+    .detail-header {
+      text-align: center;
+      margin-bottom: 40px;
     }
-
-    .footer-top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
+    
+    .detail-header h1 {
+      color: #5a4634;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+    
+    .detail-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
       margin-bottom: 30px;
     }
-
-    .footer-column {
-      width: 200px;
-      margin: 10px;
+    
+    .detail-card h2 {
+      color: #7a5a3e;
+      font-size: 24px;
+      margin: 25px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
     }
-
-    .footer-column h4 {
+    
+    .detail-card p {
       margin-bottom: 15px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    
+    .feature-list {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+    
+    .feature-list li {
+      margin-bottom: 10px;
+      position: relative;
+    }
+    
+    .feature-list li:before {
+      content: "•";
       color: #a38d72;
-    }
-
-    .footer-column ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-column ul li {
-      margin: 8px 0;
-    }
-
-    .footer-column ul li a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .footer-column ul li a:hover {
-      color: #fff;
-    }
-
-    .social-icons {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .social-icons a {
-      margin: 0 10px;
-      color: #fff;
-      font-size: 20px;
-      text-decoration: none;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      border-top: 1px solid #333;
-      padding-top: 15px;
-      font-size: 14px;
-      color: #aaa;
-    }
-
-    #contactus {
-      text-decoration: underline;
       font-weight: bold;
-      color: #000000;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
     }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .main-container {
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 15px 20px;
         flex-direction: column;
+        gap: 15px;
       }
       
-      .sidebar {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid #e5e7eb;
+      .navbar ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
       }
       
-      .contact-info {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .navbar ul {
         flex-direction: column;
-        align-items: center;
+        gap: 10px;
+      }
+      
+      .page-header h1 {
+        font-size: 28px;
+      }
+      
+      .detail-header h1 {
+        font-size: 26px;
       }
     }
   </style>
 </head>
-
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">ShiftXpress</div>
-    <div class="header-actions">
-      <button class="icon-btn" title="Apps"><i class="fas fa-th"></i></button>
-      <img src="https://ui-avatars.com/api/?name=Employee+User&background=random" alt="User Avatar" class="user-avatar">
-    </div>
-  </header>
-
-  <!-- Layout -->
-  <div class="main-container">
-    <!-- Sidebar -->  
-    <nav class="sidebar">
-      <button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button>
-      <button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button>
-      <button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button>
-      <button class="nav-item"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button>
-      <button class="nav-item active"><i class="fas fa-headset"></i> <span>Contact Us</span></button>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="content">
-      <!-- Contact Section -->
-      <section class="contact-section">
-        <h2>Contact Us</h2>
-        <p>We're here to help you with your house shifting needs. Reach out to us anytime!</p>
-
-        <div class="contact-info">
-          <div class="info-box">
-            <h3>📞 Call Us</h3>
-            <p>+91 9376699995<br>+91 7041425093<br>+91 9998007899</p>
-          </div>
-          <div class="info-box">
-            <h3>📍 Visit Us</h3>
-            <p>123 ShiftXpress Street,<br> Ahmedabad, Gujarat, India</p>
-          </div>
-          <div class="info-box">
-            <h3>✉️ Email Us</h3>
-            <p>support@shiftxpress.com<br>info@shiftxpress.com</p>
-          </div>
-        </div>
-      </section>
-    </main>
+  <div class="navbar">
+    <h1>ShiftXpress</h1>
+    <ul>
+      <li><a href="/HTML/home.html">Home</a></li>
+      <li><a href="/HTML/aboutus.html">About Us</a></li>
+      <li><a href="/HTML/servicepage.html" id="service">Services</a></li>
+      <li><a href="/HTML/bookpickup.html">Book Now</a></li>
+      <li><a href="/HTML/contactus.html">Contact Us</a></li>
+    </ul>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-top">
-      <div class="footer-column">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Pay Now</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Our Services</h4>
-        <ul>
-          <li><a href="#">Local Shifting</a></li>
-          <li><a href="#">Car & Bike Shifting</a></li>
-          <li><a href="#">Household Shifting</a></li>
-          <li><a href="#">Office Shifting</a></li>
-          <li><a href="#">Warehouse Shifting</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Help</h4>
-        <ul>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Company Policies</a></li>
-        </ul>
-      </div>
+  <div class="container">
+    <div class="page-header">
+      <h1>ShiftExpress – Admin Services</h1>
+      <p>As platform admins, we manage all backend operations to ensure smooth and secure house-shifting services. Below are the core admin service areas:</p>
     </div>
 
-    <div class="social-icons">
-      <a href="#">🌐</a>
-      <a href="#">🐦</a>
-      <a href="#">💼</a>
-    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">👥</div>
+        <div class="service-content">
+          <h2>User Management</h2>
+          <p>Oversee and control customer accounts to ensure a smooth and secure shifting experience. Verify users, maintain trust, and resolve customer-related issues effectively.</p>
+          <a href="/HTML/seruser.html" class="service-link">Explore</a>
+        </div>
+      </div>
 
-    <div class="footer-bottom">
-      <p>Copyright © 2025 ShiftXpress | Designed & Developed by ONGOING</p>
+      <div class="service-card">
+        <div class="service-icon">🚚</div>
+        <div class="service-content">
+          <h2>Driver / Partner Management</h2>
+          <p>Onboard, verify, and manage drivers and transport partners. Ensure only trusted and reliable partners handle shifting services to improve customer experience and safety.</p>
+          <a href="/HTML/serdriver.html" class="service-link">Explore</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📅</div>
+        <div class="service-content">
+          <h2>Booking Management</h2>
+          <p>Track and oversee all customer service requests and bookings. Ensure seamless operations from initial scheduling to successful completion of each shift.</p>
+          <a href="/HTML/serbooking.html" class="service-link">Explore</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📞</div>
+        <div class="service-content">
+          <h2>Communication</h2>
+          <p>Facilitate and monitor all interactions between users, drivers, and support team. Maintain clear communication channels and resolve inquiries efficiently.</p>
+          <a href="/HTML/sercommunication.html" class="service-link">Explore</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-content">
+          <h2>Reports & Analytics</h2>
+          <p>Gain insights into platform performance with data on user activity, booking trends, driver efficiency, and financial metrics for strategic decision-making.</p>
+          <a href="/HTML/serreport.html" class="service-link">Explore</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔒</div>
+        <div class="service-content">
+          <h2>Policy & Safety Management</h2>
+          <p>Enforce platform rules, manage terms of service, and ensure well-being and security of all users and drivers through compliance and dispute resolution.</p>
+          <a href="/HTML/serpolicy.html" class="service-link">Explore</a>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+
+  <script>
+    // Simple JavaScript to enhance user experience
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add animation to service cards when they come into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      // Apply to all service cards
+      const cards = document.querySelectorAll('.service-card');
+      cards.forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
 </body>
 </html>

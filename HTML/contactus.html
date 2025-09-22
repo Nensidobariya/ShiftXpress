@@ -4,83 +4,119 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us - ShiftXpress</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="/CSS/contactus.css" rel="stylesheet">
-</head>
+  </head>
+
 <body>
-  <div class="navbar">
-      <h1>ShiftXpress</h1>
-    <ul>
-      <li><a href="/HTML/home.html">Home</a></li>
-      <li><a href="/HTML/aboutus.html">About Us</a></li>
-      <li><a href="/HTML/servicepage.html">Services</a></li>
-      <li><a href="/HTML/bookpickup.html">Book Now</a></li>
-      <li><a href="/HTML/contactus.html" id="contactus">Contact Us</a></li>
-    </ul>
-  </div>
-
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <h2>Contact Us</h2>
-    <p>We’re here to help you with your house shifting needs. Reach out to us anytime!</p>
-
-    <div class="contact-info">
-      <div class="info-box">
-        <h3>📞 Call Us</h3>
-        <p>+91 9376699995<br>+91 7041425093<br>+91 9998007899</p>
-      </div>
-      <div class="info-box">
-        <h3>📍 Visit Us</h3>
-        <p>123 ShiftXpress Street,<br> Ahmedabad, Gujarat, India</p>
-      </div>
-      <div class="info-box">
-        <h3>✉️ Email Us</h3>
-        <p>support@shiftxpress.com<br>info@shiftxpress.com</p>
-      </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">ShiftXpress</div>
+    <div class="header-actions">
+      <img src="https://ui-avatars.com/api/?name=ShiftXpress+User&background=random" alt="User Avatar" class="user-avatar">
     </div>
-  </section>
+  </header>
+
+  <!-- Layout -->
+  <div class="main-container">
+    <!-- Sidebar -->  
+    <nav class="sidebar">
+      <a href="/HTML/home.html"<button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
+      <button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button>
+      <button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button>
+      <button class="nav-item"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button>
+      <button class="nav-item active"><i class="fas fa-headset"></i> <span>Contact Us</span></button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+      <!-- Contact Section -->
+      <section class="contact-section">
+        <h2>Get In Touch With Us</h2>
+        <p>We're here to help you with your house shifting needs. Reach out to us anytime through any of the following channels.</p>
+
+        <div class="contact-info">
+          <div class="info-box">
+            <h3><i class="fas fa-phone"></i> Call Us</h3>
+            <p>+91 9376699995<br>+91 7041425093<br>+91 9998007899</p>
+          </div>
+          <div class="info-box">
+            <h3><i class="fas fa-map-marker-alt"></i> Visit Us</h3>
+            <p>123 ShiftXpress Street,<br> Ahmedabad, Gujarat, India</p>
+          </div>
+          <div class="info-box">
+            <h3><i class="fas fa-envelope"></i> Email Us</h3>
+            <p>support@shiftxpress.com<br>info@shiftxpress.com</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <!-- Footer -->
   <footer>
-    <div class="footer-top">
-      <div class="footer-column">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="/HTML/home.html">Home</a></li>
-          <li><a href="/HTML/aboutus.html">About Us</a></li>
-         
-          <li><a href="#">Pay Now</a></li>
-        </ul>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-column">
+          <h4>About ShiftXpress</h4>
+          <p>We provide reliable and efficient shifting services across India with a focus on customer satisfaction and care for your belongings.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Services</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Book Now</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Local Shifting</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Car & Bike Shifting</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Household Shifting</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Office Shifting</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Warehouse Shifting</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact Info</h4>
+          <div class="contact-info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>123 ShiftXpress Street, Ahmedabad, India</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fas fa-phone"></i>
+            <span>+91 9376699995</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fas fa-envelope"></i>
+            <span>support@shiftxpress.com</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fas fa-clock"></i>
+            <span>Mon-Sat: 9AM - 6PM</span>
+          </div>
+        </div>
       </div>
-      <div class="footer-column">
-        <h4>Our Services</h4>
-        <ul>
-          <li><a href="#">Local Shifting</a></li>
-          <li><a href="#">Car & Bike Shifting</a></li>
-          <li><a href="#">Household Shifting</a></li>
-          <li><a href="#">Office Shifting</a></li>
-          <li><a href="#">Warehouse Shifting</a></li>
-        </ul>
+      <div class="footer-bottom">
+        <p>Copyright © 2025 ShiftXpress | Designed & Developed by ONGOING</p>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-cc-apple-pay"></i>
+        </div>
       </div>
-      <div class="footer-column">
-        <h4>Help</h4>
-        <ul>
-          <li><a href="D:\ShiftXpress\Contact\contactus.html">Contact Us</a></li>
-          
-          <li><a href="#">Company Policies</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="social-icons">
-      <a href="#">🌐</a>
-      <a href="#">🐦</a>
-      <a href="#">💼</a>
-    </div>
-
-    <div class="footer-bottom">
-      <p>Copyright © 2025 ShiftXpress | Designed & Developed by ONGOING</p>
     </div>
   </footer>
-
 </body>
 </html>

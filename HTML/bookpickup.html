@@ -5,272 +5,175 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShiftXpress - Complete Booking</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="/CSS/bookpickup.css" rel="stylesheet">
+  <link href="/CSS/bookpickup.css" rel="stylesheet">  
 </head>
 <body>
-  <!-- Menu Toggle Button (for mobile) -->
-  <button class="menu-toggle">
-    <i class="fas fa-bars"></i>
-  </button>
-  
-  <!-- Enhanced Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-container">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="12" fill="#8c755d" />
-          <circle cx="12" cy="8" r="4" fill="white" />
-          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="white" />
-        </svg>
-      </div>
-      <h1>ShiftXpress</h1>
-      <p>Hassle Free Shifting</p>
+  <!-- Header - Matching Contact Us Page -->
+  <header class="header">
+    <div class="logo">ShiftXpress</div>
+    <div class="header-actions">
+      <img src="https://ui-avatars.com/api/?name=ShiftXpress+User&background=random" alt="User Avatar" class="user-avatar">
     </div>
-    
-    <nav class="sidebar-nav">
-      <a href="/HTML/home.html" class="nav-item">
-        <i class="fas fa-home"></i>
-        <span class="nav-label">Home</span>
-      </a>
-      <a href="/HTML/aboutus.html" class="nav-item">
-        <i class="fas fa-info-circle"></i>
-        <span class="nav-label">About Us</span>
-      </a>
-      <a href="/HTML/servicepage.html" class="nav-item">
-        <i class="fas fa-truck-moving"></i>
-        <span class="nav-label">Services</span>
-      </a>
-      <a href="/HTML/bookpickup.html" class="nav-item active">
-        <i class="fas fa-calendar-check"></i>
-        <span class="nav-label">Book Now</span>
-      </a>
-      <a href="/HTML/contactus.html" class="nav-item">
-        <i class="fas fa-phone-alt"></i>
-        <span class="nav-label">Contact Us</span>
-      </a>
-    </nav>
-    
-    <div class="user-section">
-      <div class="user-info">
-        <div class="user-avatar">
-          <svg viewBox="0 0 24 24" width="30" height="30">
-            <circle cx="12" cy="8" r="4" fill="#8c755d" />
-            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#8c755d" />
-          </svg>
-        </div>
-        <div class="user-details">
-          <div class="user-name">Guest User</div>
-          <div class="user-status">
-            <span class="status-indicator"></span>
-            <span>Not logged in</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="auth-buttons">
-        <a href="/HTML/loginpage.html" class="auth-btn login-btn">
-          <i class="fas fa-sign-in-alt"></i> Login
-        </a>
-        <a href="/HTML/signup.html" class="auth-btn register-btn">
-          <i class="fas fa-user-plus"></i> Register
-        </a>
-      </div>
-    </div>
-    
-    <div class="sidebar-footer">
-      <p>© 2025 ShiftXpress</p>
-      <p>All rights reserved</p>
-    </div>
-  </aside>
+  </header>
 
-  <!-- Video Background -->
-  <div class="video-background">
-    <video autoplay muted loop playsinline>
-      <source src="/Photos/v1.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <div class="video-overlay"></div>
+  <!-- Layout -->
+  <div class="main-container">
+    <!-- Sidebar - Matching Contact Us Page -->  
+    <nav class="sidebar">
+      <a href="/HTML/home.html"><button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
+      <a href="/HTML/aboutus.html"><button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button></a>
+      <a href="/HTML/servicepage.html"><button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button></a>
+      <a href="/HTML/bookpickup.html"><button class="nav-item active"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
+      <a href="/HTML/contactus.html"><button class="nav-item"><i class="fas fa-headset"></i> <span>Contact Us</span></button></a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+      <!-- Video Background -->
+      <div class="video-background">
+        <video autoplay muted loop playsinline>
+          <source src="/Photos/v1.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="video-overlay"></div>
+      </div>
+
+      <div class="booking-container">
+        <!-- Form Panel -->
+        <div class="booking-right">
+          <form class="booking-form" id="bookingForm">
+            <h2>Book Your Shift</h2>
+            <p>Enter your details to get started</p>
+
+            <!-- Step 1: Pickup Details -->
+            <div class="form-step active" id="step1">
+              <div class="form-group">
+                <select id="pickCity" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+                <label>Pick-Up City</label>
+              </div>
+
+              <div class="form-group">
+                <select id="pickZip" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="380001">380001</option>
+                  <option value="380002">380002</option>
+                  <option value="380003">380003</option>
+                  <option value="380004">380004</option>
+                  <option value="380005">380005</option>
+                </select>
+                <label>Pick-Up ZIP Code</label>
+              </div>
+
+              <div class="form-group">
+                <input type="text" id="pickAddress" placeholder=" " required>
+                <label>Pick-Up Address</label>
+              </div>
+              
+              <button type="button" class="form-btn next-btn" data-next="2">Continue to Delivery Details</button>
+            </div>
+
+            <!-- Step 2: Drop Details -->
+            <div class="form-step" id="step2">
+              <div class="form-group">
+                <select id="dropCity" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+                <label>Drop City</label>
+              </div>
+
+              <div class="form-group">
+                <select id="dropZip" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="380051">380051</option>
+                  <option value="380052">380052</option>
+                  <option value="380053">380053</option>
+                </select>
+                <label>Drop ZIP Code</label>
+              </div>
+
+              <div class="form-group">
+                <input type="text" id="dropAddress" placeholder=" " required>
+                <label>Drop Address</label>
+              </div>
+              
+              <div class="form-buttons">
+                <button type="button" class="form-btn secondary prev-btn" data-prev="1">Back</button>
+                <button type="button" class="form-btn next-btn" data-next="3">Continue to Item Details</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Additional Details -->
+            <div class="form-step" id="step3">
+              <!-- Summary -->
+              <div class="summary-box" id="summaryBox">
+                <strong>Pickup City:</strong> <span id="summaryPickCity">--</span><br>
+                <strong>Pickup ZIP:</strong> <span id="summaryPickZip">--</span><br>
+                <strong>Pickup Address:</strong> <span id="summaryPickAddress">--</span><br>
+                <strong>Drop City:</strong> <span id="summaryDropCity">--</span><br>
+                <strong>Drop ZIP:</strong> <span id="summaryDropZip">--</span><br>
+                <strong>Drop Address:</strong> <span id="summaryDropAddress">--</span><br>
+              </div>
+
+              <!-- Date -->
+              <div class="form-group">
+                <input type="date" id="date" required>
+                <label>Select Date</label>
+              </div>
+
+              <!-- Shift -->
+              <div class="form-group">
+                <select id="shift" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Morning">Morning</option>
+                  <option value="Noon">Noon</option>
+                  <option value="Evening">Evening</option>
+                </select>
+                <label>Select Shift</label>
+              </div>
+
+              <!-- Vehicle Dropdown -->
+              <div class="form-group">
+                <select id="vehicle" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Mini Truck">Mini Truck</option>
+                  <option value="Tempo">Tempo</option>
+                  <option value="Pickup Van">Pickup Van</option>
+                  <option value="Container Truck">Container Truck</option>
+                </select>
+                <label>Select Vehicle</label>
+              </div>
+
+              <!-- Message Box for Vehicle Availability -->
+              <div id="vehicleMessage"></div>
+
+              <!-- Purpose -->
+              <div class="form-group">
+                <textarea id="purpose" rows="3" placeholder=" "></textarea>
+                <label>Purpose of Shifting</label>
+              </div>
+
+              <!-- Estimate -->
+              <div class="estimate-box" id="estimateBox">
+                Estimated Distance: <span id="distance">--</span> km <br>
+                Estimated Price: ₹<span id="price">--</span>
+              </div>
+
+              <div class="form-buttons">
+                <button type="button" class="form-btn secondary prev-btn" data-prev="2">Back</button>
+                <button type="button" id="confirmBtn" class="form-btn">Confirm Booking</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
   </div>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="booking-container">
-      <!-- Form Panel -->
-      <div class="booking-right">
-        <form class="booking-form" id="bookingForm">
-          <h2>Book Your Shift</h2>
-          <p>Enter your details to get started</p>
-
-          <!-- Step 1: Pickup Details -->
-          <div class="form-step active" id="step1">
-            <div class="form-group">
-              <select id="pickCity" required>
-                <option value="" disabled selected hidden></option>
-                <option value="Ahmedabad">Ahmedabad</option>
-              </select>
-              <label>Pick-Up City</label>
-            </div>
-
-            <div class="form-group">
-              <select id="pickZip" required>
-                <option value="" disabled selected hidden></option>
-                <option value="380001">380001</option>
-                <option value="380002">380002</option>
-                <option value="380003">380003</option>
-                <option value="380004">380004</option>
-                <option value="380005">380005</option>
-              </select>
-              <label>Pick-Up ZIP Code</label>
-            </div>
-
-            <div class="form-group">
-              <input type="text" id="pickAddress" placeholder=" " required>
-              <label>Pick-Up Address</label>
-            </div>
-            
-            <button type="button" class="form-btn next-btn" data-next="2">Continue to Delivery Details</button>
-          </div>
-
-          <!-- Step 2: Drop Details -->
-          <div class="form-step" id="step2">
-            <div class="form-group">
-              <select id="dropCity" required>
-                <option value="" disabled selected hidden></option>
-                <option value="Ahmedabad">Ahmedabad</option>
-              </select>
-              <label>Drop City</label>
-            </div>
-
-            <div class="form-group">
-              <select id="dropZip" required>
-                <option value="" disabled selected hidden></option>
-                <option value="380051">380051</option>
-                <option value="380052">380052</option>
-                <option value="380053">380053</option>
-              </select>
-              <label>Drop ZIP Code</label>
-            </div>
-
-            <div class="form-group">
-              <input type="text" id="dropAddress" placeholder=" " required>
-              <label>Drop Address</label>
-            </div>
-            
-            <div class="form-buttons">
-              <button type="button" class="form-btn secondary prev-btn" data-prev="1">Back</button>
-              <button type="button" class="form-btn next-btn" data-next="3">Continue to Item Details</button>
-            </div>
-          </div>
-
-          <!-- Step 3: Additional Details -->
-          <div class="form-step" id="step3">
-            <!-- Summary -->
-            <div class="summary-box" id="summaryBox">
-              <strong>Pickup City:</strong> <span id="summaryPickCity">--</span><br>
-              <strong>Pickup ZIP:</strong> <span id="summaryPickZip">--</span><br>
-              <strong>Pickup Address:</strong> <span id="summaryPickAddress">--</span><br>
-              <strong>Drop City:</strong> <span id="summaryDropCity">--</span><br>
-              <strong>Drop ZIP:</strong> <span id="summaryDropZip">--</span><br>
-              <strong>Drop Address:</strong> <span id="summaryDropAddress">--</span><br>
-            </div>
-
-            <!-- Date -->
-            <div class="form-group">
-              <input type="date" id="date" required>
-              <label>Select Date</label>
-            </div>
-
-            <!-- Shift -->
-            <div class="form-group">
-              <select id="shift" required>
-                <option value="" disabled selected hidden></option>
-                <option value="Morning">Morning</option>
-                <option value="Noon">Noon</option>
-                <option value="Evening">Evening</option>
-              </select>
-              <label>Select Shift</label>
-            </div>
-
-            <!-- Vehicle Dropdown -->
-            <div class="form-group">
-              <select id="vehicle" required>
-                <option value="" disabled selected hidden></option>
-                <option value="Mini Truck">Mini Truck</option>
-                <option value="Tempo">Tempo</option>
-                <option value="Pickup Van">Pickup Van</option>
-                <option value="Container Truck">Container Truck</option>
-              </select>
-              <label>Select Vehicle</label>
-            </div>
-
-            <!-- Message Box for Vehicle Availability -->
-            <div id="vehicleMessage"></div>
-
-            <!-- Purpose -->
-            <div class="form-group">
-              <textarea id="purpose" rows="3" placeholder=" "></textarea>
-              <label>Purpose of Shifting</label>
-            </div>
-
-            <!-- Estimate -->
-            <div class="estimate-box" id="estimateBox">
-              Estimated Distance: <span id="distance">--</span> km <br>
-              Estimated Price: ₹<span id="price">--</span>
-            </div>
-
-            <div class="form-buttons">
-              <button type="button" class="form-btn secondary prev-btn" data-prev="2">Back</button>
-              <button type="button" id="confirmBtn" class="form-btn">Confirm Booking</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </main>
-
   <script>
-    // Toggle sidebar on mobile
-    const menuToggle = document.querySelector('.menu-toggle');
-    const sidebar = document.querySelector('.sidebar');
-    const mainContent = document.querySelector('.main-content');
-    
-    menuToggle.addEventListener('click', function(e) {
-      e.stopPropagation();
-      sidebar.classList.toggle('open');
-      mainContent.classList.toggle('shifted');
-    });
-    
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth <= 992 && 
-          !sidebar.contains(event.target) && 
-          !menuToggle.contains(event.target) &&
-          sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open');
-        mainContent.classList.remove('shifted');
-      }
-    });
-    
-    // Prevent closing when clicking inside sidebar
-    sidebar.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-    
-    // Add active class to nav items on click
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-      item.addEventListener('click', function() {
-        navItems.forEach(i => i.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Close sidebar on mobile after selection
-        if (window.innerWidth <= 992) {
-          sidebar.classList.remove('open');
-          mainContent.classList.remove('shifted');
-        }
-      });
-    });
-
     // Multi-step form functionality
     const steps = document.querySelectorAll('.form-step');
     let currentStep = 1;
@@ -406,11 +309,13 @@
 
     // Fallback if video doesn't load
     const videoElement = document.querySelector('video');
-    videoElement.addEventListener('error', function() {
-      document.querySelector('.video-background').style.backgroundImage = "url('https://placehold.co/600x400/8c755d/white?text=Moving+Services')";
-      document.querySelector('.video-background').style.backgroundSize = "cover";
-      document.querySelector('.video-background').style.backgroundPosition = "center";
-    });
+    if (videoElement) {
+      videoElement.addEventListener('error', function() {
+        document.querySelector('.video-background').style.backgroundImage = "url('https://placehold.co/600x400/8c755d/white?text=Moving+Services')";
+        document.querySelector('.video-background').style.backgroundSize = "cover";
+        document.querySelector('.video-background').style.backgroundPosition = "center";
+      });
+    }
   </script>
 </body>
 </html>

@@ -1,142 +1,287 @@
 
-     body {
+    /* Base Styles */
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9f6f1;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-y: scroll;   /* scrolling allow */
+      padding: 0;
+      box-sizing: border-box;
     }
-    body::-webkit-scrollbar {
-      display: none;        /* scrollbar hide */
-    }
+    
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9f6f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #faf9f7;
       color: #333;
+      line-height: 1.6;
     }
-
-    /* Navbar */
-    .navbar {
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #8a755c 0%, #6d5d4b 100%);
+      color: white;
+      padding: 16px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 50px;
-      background: #fff;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
     }
-
-    .navbar h1 {
-      color: #a38d72;
-      font-size: 22px;
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-
-    .navbar ul {
-      list-style: none;
+    
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Layout */
+    .main-container {
       display: flex;
-      gap: 20px;
-      margin: 0;
-      padding: 0;
+      min-height: calc(100vh - 80px);
+    }
+    
+    .sidebar {
+      width: 240px;
+      background: #f9f6f1;
+      border-right: 1px solid #e5e7eb;
+      padding: 24px 0;
+      overflow-y: auto;
+      transition: width 0.3s;
+    }
+    
+    .sidebar a {
+      text-decoration: none;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      color: #6b7280;
+      font-size: 16px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s;
+      border-left: 4px solid transparent;
+    }
+    
+    .nav-item:hover {
+      background: #e8e2d6;
+      color: #111827;
+      border-left: 4px solid #a38d72;
+    }
+    
+    .nav-item.active {
+      background: linear-gradient(to right, #e8e2d6, #d6cbb9);
+      color: #8a755c;
+      font-weight: 600;
+      border-left: 4px solid #8a755c;
+    }
+    
+    .content {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+    
+    /* About Section */
+    .about {
+      margin-bottom: 60px;
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
       align-items: center;
     }
-
-    .navbar ul li a {
-      text-decoration: none;
-      color: #444;
-      font-size: 15px;
-      transition: 0.3s;
+    
+    .eyebrow {
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #8a755c;
+      margin-bottom: 12px;
     }
-
-    .navbar ul li a:hover {
-      color: #a38d72;
+    
+    h1 {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.3;
     }
-    :root{
-      --bg:linear-gradient(135deg, #f5f1e9, #d6cbb9);
-      --text:#111827;
-      --muted:#4b5563;
-      --brand:#333;
-      --brand-600:#6e5847;
-      --card:#f8fafc;
-      --radius:18px;
-      --shadow: 0 10px 25px rgba(0,0,0,.08), 0 4px 10px rgba(0,0,0,.06);
+    
+    .lead {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 24px;
+      font-style: italic;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0; font-family: Inter, sans-serif; color:var(--text); background:var(--bg)}
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; display:block}
-    .container{width:min(1100px, 92%); margin-inline:auto}
-    header{position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid #eef2f7;}
-    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800;}
-    .brand .logomark{width:38px; height:38px; background:var(--brand); border-radius:12px; position:relative; box-shadow: var(--shadow)}
-    .brand span{font-size:1.05rem}
-
-    .cta{padding:10px 14px; background:var(--brand); color:#fff; border-radius:12px; font-weight:600; box-shadow:var(--shadow)}
-    .menu-btn{display:none;}
-    .about{padding:54px 0 24px}
-    .about-grid{display:grid; grid-template-columns: 1.05fr .95fr; gap:40px}
-    .eyebrow{font-weight:800; color:var(--brand); font-size:.9rem}
-    h1{font-size:3rem; line-height:1.1; margin:.15em 0 .4em}
-    .lead{font-size:1.125rem; color:var(--muted); line-height:1.7}
-    .bullets{margin:18px 0 0; display:grid; gap:10px}
-    .bullet{display:flex; gap:10px}
-    .tick{width:22px; height:22px; border-radius:8px; background:var(--brand); display:grid; place-items:center; color:#fff; font-weight:800}
-    .scene{position:relative; border:1px solid #eef2f7; border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; overflow:hidden}
-    .scene-inner{background:#ffedd5; border-radius:14px; height:340px; position:relative; overflow:hidden}
-
-    /* Girl inside orange box */
-    .girl-in-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 440px; /* adjust size as needed */
+    
+    .bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-
-    .features{padding:16px 0 72px}
-    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:22px; margin-top:18px}
-    .card{background:var(--card); border:1px solid #e5e7eb; border-radius:var(--radius); overflow:hidden; box-shadow: var(--shadow)}
-    .card img{width:100%; height:190px; object-fit:cover}
-    .card-body{padding:16px}
-    .card h3{margin:0 0 6px; font-size:1.05rem}
-    .muted{color:var(--muted)}
-    footer{border-top:1px solid #eef2f7; padding:26px 0 40px; color:#6b7280}
-    @media (max-width: 980px){.about-grid{grid-template-columns:1fr}}
-    @media (max-width: 760px){.navlinks{display:none}.menu-btn{display:inline-flex}.cards{grid-template-columns:1fr}}
-    .mobile{display:none;}
-    .mobile.show{display:block}
-
-    /* Truck animation */
-    .truck-road {
+    
+    .bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .tick {
+      color: #8a755c;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    
+    /* Scene with Image Container */
+    .scene {
       position: relative;
-      width: 100%;
-      height: 220px;
+      border-radius: 16px;
       overflow: hidden;
-      background: linear-gradient(#cec9c9, #bae6fd);
-      border-radius: 12px;
-      margin-top: 40px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .truck-move {
-      position: absolute;
-      bottom: 0;
-      left: -450px;
-      height: 180px;
-      animation: moveTruck 8s linear infinite;
+    
+    .scene:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    @keyframes moveTruck {
-      0% { left: -450px; }
-      100% { left: 100%; }
+    
+    .scene-inner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
     }
-
-    #aboutUs {
-  text-decoration: underline;
-  font-weight: bold;
-  color: #000000; /* or any accent color */
-}
+    
+    .girl-in-box {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .scene:hover .girl-in-box {
+      transform: scale(1.05);
+    }
+    
+    /* Features Section */
+    .features {
+      margin-bottom: 60px;
+    }
+    
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .card-body {
+      padding: 24px;
+    }
+    
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    
+    .muted {
+      color: #666;
+      font-size: 16px;
+    }
+    
+    /* Footer */
+    footer {
+      background: #f9f6f1;
+      padding: 24px;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      margin-top: auto;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 968px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      h1 {
+        font-size: 32px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 16px 0;
+      }
+      
+      .content {
+        padding: 24px;
+      }
+      
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }

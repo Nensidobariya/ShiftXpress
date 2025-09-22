@@ -14,200 +14,106 @@
       overflow-x: hidden;
     }
     
-    /* Enhanced Sidebar */
-    .sidebar {
-      width: 280px;
-      background: linear-gradient(to bottom, #9f8366, #d7c4ac);
+    /* Header - Matching Contact Us Page */
+    .header {
+      background: linear-gradient(135deg, #a38d72 0%, #8a755c 100%);
       color: white;
-      height: 100vh;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
       position: fixed;
       top: 0;
       left: 0;
-      padding: 0;
-      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.15);
+      right: 0;
       z-index: 1000;
-      overflow-y: auto;
-      transition: all 0.3s ease;
-      /* Hide scrollbar for Firefox */
-      scrollbar-width: none;
-      /* Hide scrollbar for IE and Edge */
-      -ms-overflow-style: none;
     }
-    
-    /* Hide scrollbar for WebKit browsers */
-    .sidebar::-webkit-scrollbar {
-      display: none;
-      width: 0;
-      height: 0;
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    
-    .sidebar-header {
-      padding: 25px 20px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.2);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .logo:hover {
+      transform: scale(1.05);
     }
-    
-    .sidebar-header h1 {
-      color: white;
-      font-size: 24px;
-      margin: 10px 0 5px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-    }
-    
-    .sidebar-header p {
-      font-size: 13px;
-      opacity: 0.8;
-    }
-    
-    .logo-container {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 15px;
-      background: white;
-      border-radius: 50%;
+
+    .header-actions {
       display: flex;
+      gap: 16px;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
     }
     
-    .logo-container svg {
-      width: 50px;
-      height: 50px;
+    /* Layout */
+    .main-container {
+      display: flex;
+      margin-top: 60px; /* Account for fixed header */
+      width: 100%;
     }
     
-    .sidebar-nav {
-      padding: 20px 0;
+    /* Sidebar - Matching Contact Us Page */
+    .sidebar {
+      width: 240px;
+      background: #f9f6f1;
+      border-right: 1px solid #e5e7eb;
+      padding: 16px 0;
+      overflow-y: auto;
+      transition: width 0.3s;
+      height: calc(100vh - 60px);
+      position: fixed;
+      top: 60px;
+      left: 0;
     }
-    
+
+    .sidebar a {
+      text-decoration: none;
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
-      padding: 15px 25px;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #6b7280;
+      font-size: 15px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s;
       border-left: 4px solid transparent;
     }
-    
+
     .nav-item:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-left: 4px solid #ffd700;
+      background: #e8e2d6;
+      color: #111827;
+      border-left: 4px solid #a38d72;
     }
-    
+
     .nav-item.active {
-      background: rgba(255, 255, 255, 0.15);
-      border-left: 4px solid #ffd700;
-    }
-    
-    .nav-item i {
-      margin-right: 15px;
-      font-size: 18px;
-      width: 24px;
-      text-align: center;
-    }
-    
-    .nav-label {
-      font-size: 16px;
-      font-weight: 500;
-    }
-    
-    .user-section {
-      padding: 20px;
-      margin-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .user-info {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    
-    .user-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-    }
-    
-    .user-details {
-      flex: 1;
-    }
-    
-    .user-name {
+      background: linear-gradient(to right, #e8e2d6, #d6cbb9);
+      color: #8a755c;
       font-weight: 600;
-      font-size: 16px;
-    }
-    
-    .user-status {
-      font-size: 12px;
-      opacity: 0.8;
-      display: flex;
-      align-items: center;
-    }
-    
-    .status-indicator {
-      width: 8px;
-      height: 8px;
-      background: #4caf50;
-      border-radius: 50%;
-      margin-right: 5px;
-    }
-    
-    .auth-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .auth-btn {
-      padding: 12px;
-      text-align: center;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s;
-    }
-    
-    .login-btn {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .login-btn:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-    
-    .register-btn {
-      background: white;
-      color: #8c755d;
-    }
-    
-    .register-btn:hover {
-      background: #f5f5f5;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    }
-    
-    .sidebar-footer {
-      padding: 15px 20px;
-      font-size: 12px;
-      text-align: center;
-      opacity: 0.7;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 20px;
+      border-left: 4px solid #8a755c;
     }
     
     /* Main Content */
     .main-content {
       flex: 1;
-      margin-left: 280px;
+      margin-left: 240px;
       padding: 20px 40px;
       transition: all 0.3s ease;
     }
@@ -233,7 +139,7 @@
     @media (max-width: 992px) {
       .sidebar {
         transform: translateX(-100%);
-        width: 260px;
+        width: 240px;
       }
       
       .sidebar.open {
@@ -253,7 +159,7 @@
       }
       
       .main-content.shifted {
-        margin-left: 260px;
+        margin-left: 240px;
       }
     }
     
@@ -533,7 +439,7 @@
       background: #f9f6f1;
       padding: 20px;
       width: 200px;
-      border-radius: 12px;
+      border-radius: 12页;
       box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
