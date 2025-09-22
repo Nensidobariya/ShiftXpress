@@ -3,9 +3,536 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShiftXpress - Book Your Move</title>
+  <title>ShiftXpress - Complete Booking</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/CSS/bookpickup.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f6f1;
+      color: #333;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Enhanced Sidebar */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(to bottom, #9f8366, #d7c4ac);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 0;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      overflow-y: auto;
+      transition: all 0.3s ease;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .sidebar::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    
+    .sidebar-header {
+      padding: 25px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-header h1 {
+      color: white;
+      font-size: 24px;
+      margin: 10px 0 5px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    .sidebar-header p {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+    
+    .logo-container {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .logo-container svg {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .sidebar-nav {
+      padding: 20px 0;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+      border-left: 4px solid transparent;
+    }
+    
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid #ffd700;
+    }
+    
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-left: 4px solid #ffd700;
+    }
+    
+    .nav-item i {
+      margin-right: 15px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+    
+    .nav-label {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .user-section {
+      padding: 20px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+    
+    .user-details {
+      flex: 1;
+    }
+    
+    .user-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .user-status {
+      font-size: 12px;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+    }
+    
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background: #4caf50;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    
+    .auth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .auth-btn {
+      padding: 12px;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .login-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    
+    .register-btn {
+      background: white;
+      color: #8c755d;
+    }
+    
+    .register-btn:hover {
+      background: #f5f5f5;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar-footer {
+      padding: 15px 20px;
+      font-size: 12px;
+      text-align: center;
+      opacity: 0.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 20px;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      position: relative;
+      min-height: 100vh;
+    }
+    
+    /* Menu Toggle Button (for mobile) */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #a38d72;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      z-index: 1001;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
+      }
+      
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+      }
+      
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .main-content.shifted {
+        margin-left: 260px;
+      }
+    }
+    
+    /* Full page video background */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .video-background video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translateX(-50%) translateY(-50%);
+      object-fit: cover;
+    }
+    
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(163, 141, 114, 0.88), rgba(140, 117, 93, 0.92));
+      z-index: 1;
+    }
+    
+    /* Booking Container Styles */
+    .booking-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    /* Right Form Panel */
+    .booking-right {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .booking-form {
+      width: 100%;
+      padding: 35px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.09);
+    }
+
+    .booking-form h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .booking-form > p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .form-group label {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      color: #999;
+      font-size: 15px;
+      pointer-events: none;
+      transition: 0.2s ease all;
+      background: #fff;
+      padding: 0 5px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      transition: all 0.3s ease;
+      outline: none;
+      resize: none;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #a38d72;
+      box-shadow: 0 0 0 2px rgba(163, 141, 114, 0.2);
+    }
+    
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group select:focus + label,
+    .form-group select:not([value=""]) + label,
+    .form-group textarea:focus + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #a38d72;
+    }
+
+    .summary-box {
+      background: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+      border: 1px solid #eee;
+    }
+    
+    .estimate-box {
+      background: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 16px;
+      color: #333;
+      border: 1px solid #eee;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      background: #a38d72;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+    
+    .form-btn:hover {
+      background: #8c755d;
+      box-shadow: 0 4px 12px rgba(163, 141, 114, 0.3);
+    }
+
+    .form-btn.secondary {
+      background: #e0e0e0;
+      color: #333;
+    }
+    
+    .form-btn.secondary:hover {
+      background: #d0d0d0;
+    }
+
+    #vehicleMessage {
+      color: #d32f2f;
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 8px;
+      background: #ffebee;
+      border-radius: 4px;
+    }
+
+    /* Form steps */
+    .form-step {
+      display: none;
+    }
+    
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Form navigation buttons */
+    .form-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .form-buttons .form-btn {
+      margin-top: 0;
+      flex: 1;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity:0; transform:translateY(10px); }
+      100% { opacity:1; transform:translateY(0); }
+    }
+    
+    @keyframes fadeInLeft {
+      0% { opacity:0; transform:translateX(-50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+    
+    @keyframes fadeInRight {
+      0% { opacity:0; transform:translateX(50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .booking-right {
+        max-width: 90%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .booking-right {
+        padding: 30px 20px;
+      }
+      
+      .booking-form {
+        padding: 25px; 
+      }
+      
+      .booking-form h2 {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .booking-container {
+        padding: 10px;
+      }
+      
+      .booking-right {
+        padding: 20px 15px;
+        max-width: 95%;
+      }
+      
+      .booking-form {
+        padding: 20px 15px; 
+      }
+      
+      .form-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Menu Toggle Button (for mobile) -->
@@ -83,56 +610,146 @@
     </div>
   </aside>
 
+  <!-- Video Background -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="/Photos/v1.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
   <!-- Main Content -->
   <main class="main-content">
     <div class="booking-container">
-      <!-- Left Panel with Video Background -->
-      <div class="booking-left">
-        <video autoplay muted loop>
-          <source src="/Photos/v1.mp4" type="video/mp4">
-          Your browser does not support HTML5 video.
-        </video>
-        <div class="booking-left-content">
-          <h1>ShiftXpress</h1>
-          <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
-        </div>
-      </div>
-
-      <!-- Right Form Panel -->
+      <!-- Form Panel -->
       <div class="booking-right">
         <form class="booking-form" id="bookingForm">
           <h2>Book Your Shift</h2>
-          <p>Enter your pickup details to get started</p>
+          <p>Enter your details to get started</p>
 
-          <!-- Pick Up Details - Removed section heading as in the image -->
-          <div class="form-group">
-            <select id="pickCity" required>
-              <option value="" disabled selected hidden></option>
-              <option value="Ahmedabad">Ahmedabad</option>
-            </select>
-            <label>Pick-Up City</label>
+          <!-- Step 1: Pickup Details -->
+          <div class="form-step active" id="step1">
+            <div class="form-group">
+              <select id="pickCity" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Ahmedabad">Ahmedabad</option>
+              </select>
+              <label>Pick-Up City</label>
+            </div>
+
+            <div class="form-group">
+              <select id="pickZip" required>
+                <option value="" disabled selected hidden></option>
+                <option value="380001">380001</option>
+                <option value="380002">380002</option>
+                <option value="380003">380003</option>
+                <option value="380004">380004</option>
+                <option value="380005">380005</option>
+              </select>
+              <label>Pick-Up ZIP Code</label>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="pickAddress" placeholder=" " required>
+              <label>Pick-Up Address</label>
+            </div>
+            
+            <button type="button" class="form-btn next-btn" data-next="2">Continue to Delivery Details</button>
           </div>
 
-          <div class="form-group">
-            <select id="Pick-UpZip" required>
-              <option value="" disabled selected hidden></option>
-              <option value="380001">380001</option>
-              <option value="380002">380002</option>
-              <option value="380003">380003</option>
-              <option value="380004">380004</option>
-              <option value="380005">380005</option>
-            </select>
-            <label>Pick-Up ZIP Code</label>
+          <!-- Step 2: Drop Details -->
+          <div class="form-step" id="step2">
+            <div class="form-group">
+              <select id="dropCity" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Ahmedabad">Ahmedabad</option>
+              </select>
+              <label>Drop City</label>
+            </div>
+
+            <div class="form-group">
+              <select id="dropZip" required>
+                <option value="" disabled selected hidden></option>
+                <option value="380051">380051</option>
+                <option value="380052">380052</option>
+                <option value="380053">380053</option>
+              </select>
+              <label>Drop ZIP Code</label>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="dropAddress" placeholder=" " required>
+              <label>Drop Address</label>
+            </div>
+            
+            <div class="form-buttons">
+              <button type="button" class="form-btn secondary prev-btn" data-prev="1">Back</button>
+              <button type="button" class="form-btn next-btn" data-next="3">Continue to Item Details</button>
+            </div>
           </div>
 
-          <div class="form-group">
-            <input type="text" placeholder=" " required>
-            <label>Pick-Up Address</label>
+          <!-- Step 3: Additional Details -->
+          <div class="form-step" id="step3">
+            <!-- Summary -->
+            <div class="summary-box" id="summaryBox">
+              <strong>Pickup City:</strong> <span id="summaryPickCity">--</span><br>
+              <strong>Pickup ZIP:</strong> <span id="summaryPickZip">--</span><br>
+              <strong>Pickup Address:</strong> <span id="summaryPickAddress">--</span><br>
+              <strong>Drop City:</strong> <span id="summaryDropCity">--</span><br>
+              <strong>Drop ZIP:</strong> <span id="summaryDropZip">--</span><br>
+              <strong>Drop Address:</strong> <span id="summaryDropAddress">--</span><br>
+            </div>
+
+            <!-- Date -->
+            <div class="form-group">
+              <input type="date" id="date" required>
+              <label>Select Date</label>
+            </div>
+
+            <!-- Shift -->
+            <div class="form-group">
+              <select id="shift" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Morning">Morning</option>
+                <option value="Noon">Noon</option>
+                <option value="Evening">Evening</option>
+              </select>
+              <label>Select Shift</label>
+            </div>
+
+            <!-- Vehicle Dropdown -->
+            <div class="form-group">
+              <select id="vehicle" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Mini Truck">Mini Truck</option>
+                <option value="Tempo">Tempo</option>
+                <option value="Pickup Van">Pickup Van</option>
+                <option value="Container Truck">Container Truck</option>
+              </select>
+              <label>Select Vehicle</label>
+            </div>
+
+            <!-- Message Box for Vehicle Availability -->
+            <div id="vehicleMessage"></div>
+
+            <!-- Purpose -->
+            <div class="form-group">
+              <textarea id="purpose" rows="3" placeholder=" "></textarea>
+              <label>Purpose of Shifting</label>
+            </div>
+
+            <!-- Estimate -->
+            <div class="estimate-box" id="estimateBox">
+              Estimated Distance: <span id="distance">--</span> km <br>
+              Estimated Price: ₹<span id="price">--</span>
+            </div>
+
+            <div class="form-buttons">
+              <button type="button" class="form-btn secondary prev-btn" data-prev="2">Back</button>
+              <button type="button" id="confirmBtn" class="form-btn">Confirm Booking</button>
+            </div>
           </div>
-          
-          <a href="/HTML/bookdrop.html" class="form-btn" style="text-decoration: none; display: block; text-align: center;">
-            Continue to Delivery Details
-          </a>
         </form>
       </div>
     </div>
@@ -179,6 +796,147 @@
           mainContent.classList.remove('shifted');
         }
       });
+    });
+
+    // Multi-step form functionality
+    const steps = document.querySelectorAll('.form-step');
+    let currentStep = 1;
+
+    // Function to show a specific step
+    function showStep(stepNumber) {
+      steps.forEach(step => step.classList.remove('active'));
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+      currentStep = stepNumber;
+      
+      // Scroll to top of form when changing steps
+      document.querySelector('.booking-form').scrollTop = 0;
+    }
+
+    // Next button functionality
+    document.querySelectorAll('.next-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const nextStep = parseInt(this.getAttribute('data-next'));
+        
+        // Validate current step before proceeding
+        if (validateStep(currentStep)) {
+          // Update summary if moving to step 3
+          if (nextStep === 3) {
+            updateSummary();
+            calculateEstimate();
+          }
+          
+          showStep(nextStep);
+        }
+      });
+    });
+
+    // Previous button functionality
+    document.querySelectorAll('.prev-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const prevStep = parseInt(this.getAttribute('data-prev'));
+        showStep(prevStep);
+      });
+    });
+
+    // Validate step function
+    function validateStep(step) {
+      const inputs = document.querySelectorAll(`#step${step} [required]`);
+      let isValid = true;
+      
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.style.borderColor = 'red';
+          isValid = false;
+        } else {
+          input.style.borderColor = '#ddd';
+        }
+      });
+      
+      return isValid;
+    }
+
+    // Update summary in step 3
+    function updateSummary() {
+      document.getElementById('summaryPickCity').textContent = document.getElementById('pickCity').value;
+      document.getElementById('summaryPickZip').textContent = document.getElementById('pickZip').value;
+      document.getElementById('summaryPickAddress').textContent = document.getElementById('pickAddress').value;
+      document.getElementById('summaryDropCity').textContent = document.getElementById('dropCity').value;
+      document.getElementById('summaryDropZip').textContent = document.getElementById('dropZip').value;
+      document.getElementById('summaryDropAddress').textContent = document.getElementById('dropAddress').value;
+    }
+
+    // Calculate estimate
+    function calculateEstimate() {
+      const pickupZip = parseInt(document.getElementById('pickZip').value);
+      const dropZip = parseInt(document.getElementById('dropZip').value);
+      
+      const distance = Math.abs(pickupZip - dropZip) / 2;
+      const baseCharge = 500;
+      const perKmCharge = 15;
+      const price = baseCharge + distance * perKmCharge;
+
+      document.getElementById("distance").textContent = distance.toFixed(1);
+      document.getElementById("price").textContent = price.toFixed(0);
+    }
+
+    // Vehicle availability logic
+    const unavailableVehicle = "Tempo"; // Set unavailable vehicle
+    const vehicleSelect = document.getElementById("vehicle");
+    const messageBox = document.getElementById("vehicleMessage");
+
+    vehicleSelect.addEventListener("change", function () {
+      const selected = vehicleSelect.value;
+
+      if (selected === unavailableVehicle) {
+        // Remove the unavailable option
+        for (let i = 0; i < vehicleSelect.options.length; i++) {
+          if (vehicleSelect.options[i].value === unavailableVehicle) {
+            vehicleSelect.remove(i);
+            break;
+          }
+        }
+
+        // Reset selection
+        vehicleSelect.value = "";
+
+        // Show message
+        const availableVehicles = Array.from(vehicleSelect.options)
+          .filter(opt => opt.value !== "")
+          .map(opt => opt.value)
+          .join(", ");
+
+        messageBox.innerText = `${unavailableVehicle} is currently unavailable. Please choose from: ${availableVehicles}.`;
+      } else {
+        messageBox.innerText = "";
+      }
+    });
+
+    // Confirm booking button functionality
+    document.getElementById("confirmBtn").addEventListener("click", function() {
+      // Validate form
+      const date = document.getElementById("date").value;
+      const shift = document.getElementById("shift").value;
+      const vehicle = document.getElementById("vehicle").value;
+      
+      if (!date || !shift || !vehicle) {
+        alert("Please fill in all required fields");
+        return;
+      }
+      
+      // If validation passes, redirect to user dashboard
+      window.location.href = "/HTML/userdash.html";
+    });
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("date").setAttribute('min', today);
+
+    // Fallback if video doesn't load
+    const videoElement = document.querySelector('video');
+    videoElement.addEventListener('error', function() {
+      document.querySelector('.video-background').style.backgroundImage = "url('https://placehold.co/600x400/8c755d/white?text=Moving+Services')";
+      document.querySelector('.video-background').style.backgroundSize = "cover";
+      document.querySelector('.video-background').style.backgroundPosition = "center";
     });
   </script>
 </body>

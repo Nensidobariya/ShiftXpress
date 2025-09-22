@@ -16,7 +16,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f9f6f1;
       color: #333;
-      display: flex;
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -214,6 +213,8 @@
       margin-left: 280px;
       padding: 30px;
       transition: all 0.3s ease;
+      position: relative;
+      min-height: 100vh;
     }
     
     /* Menu Toggle Button (for mobile) */
@@ -261,56 +262,29 @@
       }
     }
     
-    /* Booking Container Styles */
-    .booking-container {
-      display: flex;
+    /* Full page video background */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      min-height: calc(100vh - 60px);
+      height: 100%;
       overflow: hidden;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      gap: 20px;
-      padding: 20px;
-      background: transparent;
+      z-index: -1;
     }
-
-    /* Left Panel with Video Background */
-    .booking-left {
-      flex: 1.2;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      overflow: hidden;
+    
+    .video-background video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
       height: auto;
-      min-height: 600px;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    .video-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-      border-radius: 16px;
-    }
-
-    .video-container video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      transform: translateX(-50%) translateY(-50%);
       object-fit: cover;
-      border-radius: 16px;
     }
-
+    
     .video-overlay {
       position: absolute;
       top: 0;
@@ -319,54 +293,36 @@
       height: 100%;
       background: linear-gradient(135deg, rgba(163, 141, 114, 0.88), rgba(140, 117, 93, 0.92));
       z-index: 1;
-      border-radius: 16px;
-    }
-
-    .booking-left-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 40px;
-      max-width: 600px;
-      animation: fadeInLeft 1s ease forwards;
-    }
-
-    .booking-left-content h1 {
-      font-size: 3.2rem;
-      margin-bottom: 25px;
-      color: #fff;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-      font-weight: 700;
-      letter-spacing: 1px;
     }
     
-    .booking-left-content p {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      margin: 0 auto 30px;
-      color: rgba(255, 255, 255, 0.95);
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-      font-weight: 300;
+    /* Booking Container Styles */
+    .booking-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 40px 20px;
     }
 
     /* Right Form Panel */
     .booking-right {
-      flex: 0.8;
-      background: linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 40px 30px;
-      height: auto;
-      overflow-y: auto;
-      animation: fadeInRight 1s ease forwards;
       border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .booking-form {
       width: 100%;
-      max-width: 450px;
       padding: 35px;
       background: #fff;
       border-radius: 12px;
@@ -538,51 +494,23 @@
     }
 
     /* Responsive adjustments */
-    @media (max-width: 1100px) {
-      .booking-left {
-        flex: 1;
-      }
-      
+    @media (max-width: 992px) {
       .booking-right {
-        flex: 1;
+        max-width: 90%;
       }
     }
 
-    @media (max-width: 900px) {
-      .booking-container {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
-      }
-      
-      .booking-left, .booking-right {
-        flex: unset; 
-        width: 100%; 
-        min-height: 400px;
-      }
-      
-      .booking-left {
-        border-radius: 16px;
-      }
-      
-      .booking-right {
-        border-radius: 16px;
-      }
-      
-      .booking-left-content h1 {
-        font-size: 2.5rem;
-      }
-      
-      .booking-left-content p {
-        font-size: 1.1rem;
-      }
-      
+    @media (max-width: 768px) {
       .booking-right {
         padding: 30px 20px;
       }
       
       .booking-form {
         padding: 25px; 
+      }
+      
+      .booking-form h2 {
+        font-size: 22px;
       }
     }
 
@@ -591,12 +519,9 @@
         padding: 10px;
       }
       
-      .booking-left-content h1 {
-        font-size: 2rem;
-      }
-      
-      .booking-left-content p {
-        font-size: 1rem;
+      .booking-right {
+        padding: 20px 15px;
+        max-width: 95%;
       }
       
       .booking-form {
@@ -685,25 +610,19 @@
     </div>
   </aside>
 
+  <!-- Video Background -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="/Photos/v1.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
   <!-- Main Content -->
   <main class="main-content">
     <div class="booking-container">
-      <!-- Left Panel with Video Background -->
-      <div class="booking-left">
-        <div class="video-container">
-          <video autoplay muted loop playsinline>
-            <source src="/Photos/v1.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-          </video>
-          <div class="video-overlay"></div>
-        </div>
-        <div class="booking-left-content">
-          <h1>ShiftXpress</h1>
-          <p>Book your move effortlessly with our professional shifting services. Fast, reliable, and secure. Make your move today!</p>
-        </div>
-      </div>
-
-      <!-- Right Form Panel -->
+      <!-- Form Panel -->
       <div class="booking-right">
         <form class="booking-form" id="bookingForm">
           <h2>Book Your Shift</h2>
@@ -1015,9 +934,9 @@
     // Fallback if video doesn't load
     const videoElement = document.querySelector('video');
     videoElement.addEventListener('error', function() {
-      document.querySelector('.video-container').style.backgroundImage = "url('https://placehold.co/600x400/8c755d/white?text=Moving+Services')";
-      document.querySelector('.video-container').style.backgroundSize = "cover";
-      document.querySelector('.video-container').style.backgroundPosition = "center";
+      document.querySelector('.video-background').style.backgroundImage = "url('https://placehold.co/600x400/8c755d/white?text=Moving+Services')";
+      document.querySelector('.video-background').style.backgroundSize = "cover";
+      document.querySelector('.video-background').style.backgroundPosition = "center";
     });
   </script>
 </body>
