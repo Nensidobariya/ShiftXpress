@@ -3,52 +3,366 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShiftExpress</title>
-  <link href="/CSS/servicepage.css" rel="stylesheet">
+  <title>Services • ShiftXpress</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #faf9f7;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #8a755c 0%, #6d5d4b 100%);
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Layout */
+    .main-container {
+      display: flex;
+      min-height: calc(100vh - 80px);
+    }
+    
+    .sidebar {
+      width: 240px;
+      background: #f9f6f1;
+      border-right: 1px solid #e5e7eb;
+      padding: 24px 0;
+      overflow-y: auto;
+      transition: width 0.3s;
+    }
+    
+    .sidebar a {
+      text-decoration: none;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      color: #6b7280;
+      font-size: 16px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s;
+      border-left: 4px solid transparent;
+    }
+    
+    .nav-item:hover {
+      background: #e8e2d6;
+      color: #111827;
+      border-left: 4px solid #a38d72;
+    }
+    
+    .nav-item.active {
+      background: linear-gradient(to right, #e8e2d6, #d6cbb9);
+      color: #8a755c;
+      font-weight: 600;
+      border-left: 4px solid #8a755c;
+    }
+    
+    .content {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #f9f6f1 0%, #e6dfd3 100%);
+    }
+    
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .page-header h1 {
+      color: #5a4634;
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+    
+    .page-header p {
+      color: #7a6a58;
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    .service-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+    }
+    
+    .service-icon {
+      height: 160px;
+      background: linear-gradient(135deg, #a38d72 0%, #8a7862 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 50px;
+    }
+    
+    .service-content {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .service-content h2 {
+      color: #5a4634;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    
+    .service-content p {
+      color: #666;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    
+    .service-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #a38d72;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+    
+    .service-link:hover {
+      background-color: #8a7862;
+    }
+    
+    /* Footer */
+    footer {
+      background: #f9f6f1;
+      padding: 24px;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      margin-top: auto;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 968px) {
+      .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      
+      .page-header h1 {
+        font-size: 32px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 16px 0;
+      }
+      
+      .content {
+        padding: 24px;
+      }
+      
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-     <div class="navbar">
-      <h1>ShiftXpress</h1>
-    <ul>
-      <li><a href="/HTML/home.html">Home</a></li>
-      <li><a href="/HTML/aboutus.html">About Us</a></li>
-      <li><a href="/HTML/servicepage.html" id="service">Services</a></li>
-      <li><a href="/HTML/bookpickup.html">Book Now</a></li>
-      <li><a href="/HTML/contactus.html">Contact Us</a></li>
-    </ul>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">ShiftXpress</div>
+    <div class="header-actions">
+      <img src="https://ui-avatars.com/api/?name=ShiftXpress+User&background=random" alt="User Avatar" class="user-avatar">
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <a href="/HTML/home.html"><button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
+      <a href="/HTML/aboutus.html"><button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button></a>
+      <button class="nav-item active"><i class="fas fa-concierge-bell"></i> <span>Services</span></button>
+      <a href="/HTML/bookpickup.html"><button class="nav-item"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
+      <a href="/HTML/contactus.html"><button class="nav-item"><i class="fas fa-headset"></i> <span>Contact Us</span></button></a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+      <div class="page-header">
+        <h1>ShiftExpress – Admin Services</h1>
+        <p>As platform admins, we manage all backend operations to ensure smooth and secure house-shifting services. Below are the core admin service areas:</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">👥</div>
+          <div class="service-content">
+            <h2>User Management</h2>
+            <p>Oversee and control customer accounts to ensure a smooth and secure shifting experience. Verify users, maintain trust, and resolve customer-related issues effectively.</p>
+            <a href="/HTML/seruser.html" class="service-link">Explore</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🚚</div>
+          <div class="service-content">
+            <h2>Driver / Partner Management</h2>
+            <p>Onboard, verify, and manage drivers and transport partners. Ensure only trusted and reliable partners handle shifting services to improve customer experience and safety.</p>
+            <a href="/HTML/serdriver.html" class="service-link">Explore</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📅</div>
+          <div class="service-content">
+            <h2>Booking Management</h2>
+            <p>Track and oversee all customer service requests and bookings. Ensure seamless operations from initial scheduling to successful completion of each shift.</p>
+            <a href="/HTML/serbooking.html" class="service-link">Explore</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📞</div>
+          <div class="service-content">
+            <h2>Communication</h2>
+            <p>Facilitate and monitor all interactions between users, drivers, and support team. Maintain clear communication channels and resolve inquiries efficiently.</p>
+            <a href="/HTML/sercommunication.html" class="service-link">Explore</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <div class="service-content">
+            <h2>Reports & Analytics</h2>
+            <p>Gain insights into platform performance with data on user activity, booking trends, driver efficiency, and financial metrics for strategic decision-making.</p>
+            <a href="/HTML/serreport.html" class="service-link">Explore</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🔒</div>
+          <div class="service-content">
+            <h2>Policy & Safety Management</h2>
+            <p>Enforce platform rules, manage terms of service, and ensure well-being and security of all users and drivers through compliance and dispute resolution.</p>
+            <a href="/HTML/serpolicy.html" class="service-link">Explore</a>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
-  </div>
-  <div class="container">
-    <h1>ShiftExpress – Admin Services</h1>
-    <p>As platform admins, we manage all backend operations to ensure smooth and secure house-shifting services. Below are the core admin service areas:</p>
 
-    <div class="service">
-      <h2><a href="/HTML/seruser.html" style="color: black;">1. User Management</a></h2>
-    </div>
+  <!-- Footer -->
+  <footer>
+    <div class="container">© <span id="y"></span> ShiftXpress • All rights reserved</div>
+  </footer>
 
-    <div class="service">
-      <h2><a href="/HTML/serdriver.html" style="color: black;">2. Driver / Partner Management</a></h2>
-     
-    </div>
-
-    <div class="service">
-      <h2><a href="/HTML/serbooking.html" style="color: black;">3. Booking Management</a></h2>
+  <script>
+    // Add current year to footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+    
+    // Simple JavaScript to enhance user experience
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add animation to service cards when they come into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
       
-    </div>
-
-    <div class="service">
-      <h2><a href="/HTML/sercommunication.html" style="color: black;">4. Communication</a></h2>
-      
-    </div>
-
-    <div class="service">
-      <h2><a href="/HTML/serreport.html" style="color: black;">5. Reports & Analytics</a></h2>
-      
-    </div>
-
-    <div class="service">
-      <h2><a href="/HTML/serpolicy.html" style="color: black;">6. Policy & Safety Management</a></h2>
-    </div>
-  </div>
+      // Apply to all service cards
+      const cards = document.querySelectorAll('.service-card');
+      cards.forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
 </body>
 </html>
+      
