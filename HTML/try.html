@@ -3,357 +3,826 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShiftExpress Services</title>
+  <title>ShiftXpress - Complete Booking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Global Styles */
+    :root {
+      --white: #FFFFFF;         /* Primary background */
+      --light-gray: #F8F9FA;    /* Secondary backgrounds */
+      --medium-gray: #E9ECEF;   /* Borders and dividers */
+      --text-dark: #212529;     /* Primary text */
+      --text-medium: #495057;   /* Secondary text */
+      --accent-blue: #0D6EFD;   /* Primary accent */
+      --accent-teal: #20C997;   /* Secondary accent */
+      --accent-purple: #6F42C1; /* Tertiary accent */
+      --shadow: rgba(0, 0, 0, 0.08); /* Light shadows */
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f9f6f1 0%, #e6dfd3 100%);
-      color: #333;
-      line-height: 1.6;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--light-gray);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
       min-height: 100vh;
+      line-height: 1.6;
     }
-    
-    /* Navbar */
-    .navbar {
+
+    /* Header - Matching Contact Us Page */
+    .header {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+      color: var(--white);
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 50px;
-      background: #fff;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
+      box-shadow: 0 2px 15px var(--shadow);
+      position: relative;
       z-index: 100;
     }
-    
-    .navbar h1 {
-      color: #a38d72;
+
+    .logo {
       font-size: 24px;
       font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    
-    .navbar ul {
-      list-style: none;
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .header-actions {
       display: flex;
-      gap: 30px;
-      margin: 0;
-      padding: 0;
+      gap: 16px;
       align-items: center;
     }
-    
-    .navbar ul li a {
-      text-decoration: none;
-      color: #555;
-      font-size: 16px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      padding: 8px 12px;
-      border-radius: 4px;
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--white);
+      transition: transform 0.3s;
     }
-    
-    .navbar ul li a:hover {
-      color: #a38d72;
-      background-color: #f5f2ed;
+
+    .user-avatar:hover {
+      transform: scale(1.1);
     }
-    
-    #service {
-      color: #a38d72;
-      font-weight: 600;
-      background-color: #f5f2ed;
-    }
-    
-    /* Main Container */
-    .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    
-    .page-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    
-    .page-header h1 {
-      color: #5a4634;
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
-    
-    .page-header p {
-      color: #7a6a58;
-      font-size: 18px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    /* Services Grid */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 25px;
-      margin-top: 30px;
-    }
-    
-    .service-card {
-      background: #fff;
-      border-radius: 12px;
+
+    /* Layout */
+    .main-container {
+      display: flex;
+      flex: 1;
       overflow: hidden;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+      min-height: calc(100vh - 80px);
     }
-    
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+
+    /* Sidebar - Matching Contact Us Page */
+    .sidebar {
+      width: 240px;
+      background: var(--white);
+      border-right: 1px solid var(--medium-gray);
+      padding: 16px 0;
+      overflow-y: auto;
+      transition: width 0.3s;
+      box-shadow: 2px 0 10px var(--shadow);
     }
-    
-    .service-icon {
-      height: 160px;
-      background: linear-gradient(135deg, #a38d72 0%, #8a7862 100%);
+
+    .sidebar a {
+      text-decoration: none;
+      display: block;
+    }
+
+    .nav-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 50px;
+      gap: 12px;
+      padding: 14px 20px;
+      color: var(--text-medium);
+      font-size: 15px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+      border-radius: 0 8px 8px 0;
     }
-    
-    .service-content {
-      padding: 25px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
+
+    .nav-item:hover {
+      background: var(--light-gray);
+      color: var(--accent-blue);
+      border-left: 4px solid var(--accent-blue);
+      transform: translateX(4px);
     }
-    
-    .service-content h2 {
-      color: #5a4634;
-      font-size: 22px;
-      margin-bottom: 15px;
+
+    .nav-item.active {
+      background: linear-gradient(135deg, var(--light-gray), var(--white));
+      color: var(--accent-blue);
+      font-weight: 600;
+      border-left: 4px solid var(--accent-blue);
+      box-shadow: inset 0 0 10px rgba(13, 110, 253, 0.1);
     }
-    
-    .service-content p {
-      color: #666;
-      margin-bottom: 20px;
-      flex-grow: 1;
-    }
-    
-    .service-link {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #a38d72;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: 500;
-      transition: background-color 0.3s ease;
+
+    .nav-item i {
+      width: 20px;
       text-align: center;
-    }
-    
-    .service-link:hover {
-      background-color: #8a7862;
-    }
-    
-    /* Service Detail Pages */
-    .detail-container {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    
-    .detail-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    
-    .detail-header h1 {
-      color: #5a4634;
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-    
-    .detail-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
-      margin-bottom: 30px;
-    }
-    
-    .detail-card h2 {
-      color: #7a5a3e;
-      font-size: 24px;
-      margin: 25px 0 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .detail-card p {
-      margin-bottom: 15px;
       font-size: 16px;
-      line-height: 1.7;
     }
-    
-    .feature-list {
-      margin: 20px 0;
-      padding-left: 20px;
-    }
-    
-    .feature-list li {
-      margin-bottom: 10px;
+
+    .content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      background: var(--light-gray);
       position: relative;
     }
-    
-    .feature-list li:before {
-      content: "•";
-      color: #a38d72;
-      font-weight: bold;
-      display: inline-block;
-      width: 1em;
-      margin-left: -1em;
+
+    /* Booking Container Styles */
+    .booking-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: calc(100vh - 60px);
+      padding: 40px 20px;
+      position: relative;
+      z-index: 2;
+      border-radius: 16px;
+      overflow: hidden;
     }
-    
-    /* Responsive Design */
-    @media (max-width: 900px) {
-      .navbar {
-        padding: 15px 20px;
+
+    /* Video background inside booking container only */
+    .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      border-radius: 16px;
+    }
+
+    .video-background video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translateX(-50%) translateY(-50%);
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.7), rgba(111, 66, 193, 0.7));
+      z-index: 1;
+    }
+
+    /* Right Form Panel */
+    .booking-right {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--medium-gray);
+    }
+
+    .booking-form {
+      width: 100%;
+      padding: 35px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 8px 25px var(--shadow);
+    }
+
+    .booking-form h2 {
+      color: var(--accent-blue);
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .booking-form > p {
+      text-align: center;
+      color: var(--text-medium);
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      color: var(--text-medium);
+      font-size: 15px;
+      pointer-events: none;
+      transition: 0.2s ease all;
+      background: var(--white);
+      padding: 0 5px;
+      z-index: 1;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border: 2px solid var(--medium-gray);
+      border-radius: 8px;
+      background: var(--white);
+      transition: all 0.3s ease;
+      outline: none;
+      resize: none;
+      color: var(--text-dark);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group select:focus + label,
+    .form-group select:not([value=""]) + label,
+    .form-group textarea:focus + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    .summary-box {
+      background: var(--light-gray);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 14px;
+      color: var(--text-dark);
+      line-height: 1.6;
+      border: 1px solid var(--medium-gray);
+      border-left: 4px solid var(--accent-teal);
+    }
+
+    .estimate-box {
+      background: linear-gradient(135deg, var(--light-gray), var(--white));
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 18px;
+      color: var(--text-dark);
+      border: 1px solid var(--medium-gray);
+      border-left: 4px solid var(--accent-blue);
+      font-weight: 600;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .form-btn:hover::before {
+      left: 100%;
+    }
+
+    .form-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+    }
+
+    .form-btn.secondary {
+      background: var(--medium-gray);
+      color: var(--text-dark);
+    }
+
+    .form-btn.secondary:hover {
+      background: #d0d0d0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    #vehicleMessage {
+      color: #d32f2f;
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 12px;
+      background: #ffebee;
+      border-radius: 6px;
+      border-left: 4px solid #d32f2f;
+    }
+
+    /* Form steps */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Form navigation buttons */
+    .form-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .form-buttons .form-btn {
+      margin-top: 0;
+      flex: 1;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity:0; transform:translateY(10px); }
+      100% { opacity:1; transform:translateY(0); }
+    }
+
+    @keyframes fadeInLeft {
+      0% { opacity:0; transform:translateX(-50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+
+    @keyframes fadeInRight {
+      0% { opacity:0; transform:translateX(50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 968px) {
+      .form-buttons {
         flex-direction: column;
-        gap: 15px;
       }
       
-      .navbar ul {
-        gap: 15px;
-        flex-wrap: wrap;
+      .booking-form h2 {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--medium-gray);
+        padding: 10px 0;
+      }
+      
+      .nav-item {
         justify-content: center;
+        padding: 12px 20px;
       }
       
-      .services-grid {
-        grid-template-columns: 1fr;
+      .content {
+        padding: 20px;
+      }
+      
+      .booking-right {
+        max-width: 90%;
+        padding: 30px 20px;
+      }
+      
+      .booking-form {
+        padding: 25px; 
+      }
+      
+      .video-overlay {
+        background: linear-gradient(135deg, rgba(13, 110, 253, 0.7), rgba(111, 66, 193, 0.7));
       }
     }
-    
+
     @media (max-width: 600px) {
-      .navbar ul {
+      .booking-container {
+        padding: 10px;
+      }
+      
+      .booking-right {
+        padding: 20px 15px;
+        max-width: 95%;
+      }
+      
+      .booking-form {
+        padding: 20px 15px; 
+      }
+      
+      .form-buttons {
         flex-direction: column;
-        gap: 10px;
       }
       
-      .page-header h1 {
-        font-size: 28px;
+      .summary-box, .estimate-box {
+        padding: 15px;
+        font-size: 13px;
       }
       
-      .detail-header h1 {
-        font-size: 26px;
+      .booking-form h2 {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 10px 15px;
+      }
+      
+      .logo {
+        font-size: 20px;
+      }
+      
+      .user-avatar {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .content {
+        padding: 15px;
+      }
+      
+      .booking-form h2 {
+        font-size: 20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <h1>ShiftXpress</h1>
-    <ul>
-      <li><a href="/HTML/home.html">Home</a></li>
-      <li><a href="/HTML/aboutus.html">About Us</a></li>
-      <li><a href="/HTML/servicepage.html" id="service">Services</a></li>
-      <li><a href="/HTML/bookpickup.html">Book Now</a></li>
-      <li><a href="/HTML/contactus.html">Contact Us</a></li>
-    </ul>
-  </div>
-
-  <div class="container">
-    <div class="page-header">
-      <h1>ShiftExpress – Admin Services</h1>
-      <p>As platform admins, we manage all backend operations to ensure smooth and secure house-shifting services. Below are the core admin service areas:</p>
+  <!-- Header - Matching Contact Us Page -->
+  <header class="header">
+    <div class="logo">ShiftXpress</div>
+    <div class="header-actions">
+      <img src="https://ui-avatars.com/api/?name=ShiftXpress+User&background=random" alt="User Avatar" class="user-avatar">
     </div>
+  </header>
 
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">👥</div>
-        <div class="service-content">
-          <h2>User Management</h2>
-          <p>Oversee and control customer accounts to ensure a smooth and secure shifting experience. Verify users, maintain trust, and resolve customer-related issues effectively.</p>
-          <a href="/HTML/seruser.html" class="service-link">Explore</a>
+  <!-- Layout -->
+  <div class="main-container">
+    <!-- Sidebar - Matching Contact Us Page -->  
+    <nav class="sidebar">
+      <a href="/HTML/home.html"><button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
+      <a href="/HTML/aboutus.html"><button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button></a>
+      <a href="/HTML/servicepage.html"><button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button></a>
+      <a href="/HTML/bookpickup.html"><button class="nav-item active"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
+      <a href="/HTML/contactus.html"><button class="nav-item"><i class="fas fa-headset"></i> <span>Contact Us</span></button></a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+      <div class="booking-container">
+        <!-- Video Background (now inside booking container) -->
+        <div class="video-background">
+          <video autoplay muted loop playsinline>
+            <source src="/Photos/v1.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="video-overlay"></div>
+        </div>
+
+        <!-- Form Panel -->
+        <div class="booking-right">
+          <form class="booking-form" id="bookingForm">
+            <h2>Book Your Shift</h2>
+            <p>Enter your details to get started</p>
+
+            <!-- Step 1: Pickup Details -->
+            <div class="form-step active" id="step1">
+              <div class="form-group">
+                <select id="pickCity" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+                <label>Pick-Up City</label>
+              </div>
+
+              <div class="form-group">
+                <select id="pickZip" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="380001">380001</option>
+                  <option value="380002">380002</option>
+                  <option value="380003">380003</option>
+                  <option value="380004">380004</option>
+                  <option value="380005">380005</option>
+                </select>
+                <label>Pick-Up ZIP Code</label>
+              </div>
+
+              <div class="form-group">
+                <input type="text" id="pickAddress" placeholder=" " required>
+                <label>Pick-Up Address</label>
+              </div>
+              
+              <button type="button" class="form-btn next-btn" data-next="2">Continue to Delivery Details</button>
+            </div>
+
+            <!-- Step 2: Drop Details -->
+            <div class="form-step" id="step2">
+              <div class="form-group">
+                <select id="dropCity" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+                <label>Drop City</label>
+              </div>
+
+              <div class="form-group">
+                <select id="dropZip" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="380051">380051</option>
+                  <option value="380052">380052</option>
+                  <option value="380053">380053</option>
+                </select>
+                <label>Drop ZIP Code</label>
+              </div>
+
+              <div class="form-group">
+                <input type="text" id="dropAddress" placeholder=" " required>
+                <label>Drop Address</label>
+              </div>
+              
+              <div class="form-buttons">
+                <button type="button" class="form-btn secondary prev-btn" data-prev="1">Back</button>
+                <button type="button" class="form-btn next-btn" data-next="3">Continue to Item Details</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Additional Details -->
+            <div class="form-step" id="step3">
+              <!-- Summary -->
+              <div class="summary-box" id="summaryBox">
+                <strong>Pickup City:</strong> <span id="summaryPickCity">--</span><br>
+                <strong>Pickup ZIP:</strong> <span id="summaryPickZip">--</span><br>
+                <strong>Pickup Address:</strong> <span id="summaryPickAddress">--</span><br>
+                <strong>Drop City:</strong> <span id="summaryDropCity">--</span><br>
+                <strong>Drop ZIP:</strong> <span id="summaryDropZip">--</span><br>
+                <strong>Drop Address:</strong> <span id="summaryDropAddress">--</span><br>
+              </div>
+
+              <!-- Date -->
+              <div class="form-group">
+                <input type="date" id="date" required>
+                <label>Select Date</label>
+              </div>
+
+              <!-- Shift -->
+              <div class="form-group">
+                <select id="shift" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Morning">Morning</option>
+                  <option value="Noon">Noon</option>
+                  <option value="Evening">Evening</option>
+                </select>
+                <label>Select Shift</label>
+              </div>
+
+              <!-- Vehicle Dropdown -->
+              <div class="form-group">
+                <select id="vehicle" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Mini Truck">Mini Truck</option>
+                  <option value="Tempo">Tempo</option>
+                  <option value="Pickup Van">Pickup Van</option>
+                  <option value="Container Truck">Container Truck</option>
+                </select>
+                <label>Select Vehicle</label>
+              </div>
+
+              <!-- Message Box for Vehicle Availability -->
+              <div id="vehicleMessage"></div>
+
+              <!-- Purpose -->
+              <div class="form-group">
+                <textarea id="purpose" rows="3" placeholder=" "></textarea>
+                <label>Purpose of Shifting</label>
+              </div>
+
+              <!-- Estimate -->
+              <div class="estimate-box" id="estimateBox">
+                Estimated Distance: <span id="distance">--</span> km <br>
+                Estimated Price: ₹<span id="price">--</span>
+              </div>
+
+              <div class="form-buttons">
+                <button type="button" class="form-btn secondary prev-btn" data-prev="2">Back</button>
+                <button type="button" id="confirmBtn" class="form-btn">Confirm Booking</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-
-      <div class="service-card">
-        <div class="service-icon">🚚</div>
-        <div class="service-content">
-          <h2>Driver / Partner Management</h2>
-          <p>Onboard, verify, and manage drivers and transport partners. Ensure only trusted and reliable partners handle shifting services to improve customer experience and safety.</p>
-          <a href="/HTML/serdriver.html" class="service-link">Explore</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">📅</div>
-        <div class="service-content">
-          <h2>Booking Management</h2>
-          <p>Track and oversee all customer service requests and bookings. Ensure seamless operations from initial scheduling to successful completion of each shift.</p>
-          <a href="/HTML/serbooking.html" class="service-link">Explore</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">📞</div>
-        <div class="service-content">
-          <h2>Communication</h2>
-          <p>Facilitate and monitor all interactions between users, drivers, and support team. Maintain clear communication channels and resolve inquiries efficiently.</p>
-          <a href="/HTML/sercommunication.html" class="service-link">Explore</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">📊</div>
-        <div class="service-content">
-          <h2>Reports & Analytics</h2>
-          <p>Gain insights into platform performance with data on user activity, booking trends, driver efficiency, and financial metrics for strategic decision-making.</p>
-          <a href="/HTML/serreport.html" class="service-link">Explore</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">🔒</div>
-        <div class="service-content">
-          <h2>Policy & Safety Management</h2>
-          <p>Enforce platform rules, manage terms of service, and ensure well-being and security of all users and drivers through compliance and dispute resolution.</p>
-          <a href="/HTML/serpolicy.html" class="service-link">Explore</a>
-        </div>
-      </div>
-    </div>
+    </main>
   </div>
 
   <script>
-    // Simple JavaScript to enhance user experience
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add animation to service cards when they come into view
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, { threshold: 0.1 });
+    // Multi-step form functionality
+    const steps = document.querySelectorAll('.form-step');
+    let currentStep = 1;
+
+    // Function to show a specific step
+    function showStep(stepNumber) {
+      steps.forEach(step => step.classList.remove('active'));
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+      currentStep = stepNumber;
       
-      // Apply to all service cards
-      const cards = document.querySelectorAll('.service-card');
-      cards.forEach(card => {
-        card.style.opacity = 0;
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(card);
+      // Scroll to top of form when changing steps
+      document.querySelector('.booking-form').scrollTop = 0;
+    }
+
+    // Next button functionality
+    document.querySelectorAll('.next-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const nextStep = parseInt(this.getAttribute('data-next'));
+        
+        // Validate current step before proceeding
+        if (validateStep(currentStep)) {
+          // Update summary if moving to step 3
+          if (nextStep === 3) {
+            updateSummary();
+            calculateEstimate();
+          }
+          
+          showStep(nextStep);
+        }
       });
     });
+
+    // Previous button functionality
+    document.querySelectorAll('.prev-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const prevStep = parseInt(this.getAttribute('data-prev'));
+        showStep(prevStep);
+      });
+    });
+
+    // Validate step function
+    function validateStep(step) {
+      const inputs = document.querySelectorAll(`#step${step} [required]`);
+      let isValid = true;
+      
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.style.borderColor = 'red';
+          isValid = false;
+        } else {
+          input.style.borderColor = '';
+        }
+      });
+      
+      return isValid;
+    }
+
+    // Update summary in step 3
+    function updateSummary() {
+      document.getElementById('summaryPickCity').textContent = document.getElementById('pickCity').value;
+      document.getElementById('summaryPickZip').textContent = document.getElementById('pickZip').value;
+      document.getElementById('summaryPickAddress').textContent = document.getElementById('pickAddress').value;
+      document.getElementById('summaryDropCity').textContent = document.getElementById('dropCity').value;
+      document.getElementById('summaryDropZip').textContent = document.getElementById('dropZip').value;
+      document.getElementById('summaryDropAddress').textContent = document.getElementById('dropAddress').value;
+    }
+
+    // Calculate estimate
+    function calculateEstimate() {
+      const pickupZip = parseInt(document.getElementById('pickZip').value);
+      const dropZip = parseInt(document.getElementById('dropZip').value);
+      
+      const distance = Math.abs(pickupZip - dropZip) / 2;
+      const baseCharge = 500;
+      const perKmCharge = 15;
+      const price = baseCharge + distance * perKmCharge;
+
+      document.getElementById("distance").textContent = distance.toFixed(1);
+      document.getElementById("price").textContent = price.toFixed(0);
+    }
+
+    // Vehicle availability logic
+    const unavailableVehicle = "Tempo"; // Set unavailable vehicle
+    const vehicleSelect = document.getElementById("vehicle");
+    const messageBox = document.getElementById("vehicleMessage");
+
+    vehicleSelect.addEventListener("change", function () {
+      const selected = vehicleSelect.value;
+
+      if (selected === unavailableVehicle) {
+        // Remove the unavailable option
+        for (let i = 0; i < vehicleSelect.options.length; i++) {
+          if (vehicleSelect.options[i].value === unavailableVehicle) {
+            vehicleSelect.remove(i);
+            break;
+          }
+        }
+
+        // Reset selection
+        vehicleSelect.value = "";
+
+        // Show message
+        const availableVehicles = Array.from(vehicleSelect.options)
+          .filter(opt => opt.value !== "")
+          .map(opt => opt.value)
+          .join(", ");
+
+        messageBox.innerText = `${unavailableVehicle} is currently unavailable. Please choose from: ${availableVehicles}.`;
+      } else {
+        messageBox.innerText = "";
+      }
+    });
+
+    // Confirm booking button functionality
+    document.getElementById("confirmBtn").addEventListener("click", function() {
+      // Validate form
+      const date = document.getElementById("date").value;
+      const shift = document.getElementById("shift").value;
+      const vehicle = document.getElementById("vehicle").value;
+      
+      if (!date || !shift || !vehicle) {
+        alert("Please fill in all required fields");
+        return;
+      }
+      
+      // If validation passes, redirect to user dashboard
+      window.location.href = "/HTML/userdash.html";
+    });
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("date").setAttribute('min', today);
+
+    // Fallback if video doesn't load
+    const videoElement = document.querySelector('video');
+    if (videoElement) {
+      videoElement.addEventListener('error', function() {
+        document.querySelector('.video-background').style.backgroundImage = "url('https://placehold.co/600x400/0D6EFD/white?text=Moving+Services')";
+        document.querySelector('.video-background').style.backgroundSize = "cover";
+        document.querySelector('.video-background').style.backgroundPosition = "center";
+      });
+    }
   </script>
 </body>
 </html>
