@@ -5,10 +5,407 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShiftXpress - Complete Booking</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="/CSS/bookpickup.css" rel="stylesheet">  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      color: #112D32;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header - Updated Color Scheme */
+    .header {
+      background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+
+    /* Layout */
+    .main-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar - Updated Color Scheme */
+    .sidebar {
+      width: 240px;
+      background: #f9f6f1;
+      border-right: 1px solid #e5e7eb;
+      padding: 16px 0;
+      overflow-y: auto;
+      transition: width 0.3s;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+    }
+
+    .sidebar.collapsed {
+      width: 70px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #4F4A41;
+      font-size: 15px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s;
+      border-left: 4px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: #e8e2d6;
+      color: #112D32;
+      border-left: 4px solid #254E58;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(to right, #e8e2d6, #d6cbb9);
+      color: #254E58;
+      font-weight: 600;
+      border-left: 4px solid #254E58;
+    }
+
+    .content {
+      flex: 1;
+      padding: 28px;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Full page video background */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .video-background video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translateX(-50%) translateY(-50%);
+      object-fit: cover;
+      opacity: 0.3; /* Reduced video opacity to 30% */
+      filter: blur();
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(68, 118, 125, 0.88), rgba(54, 104, 125, 0.92));
+      z-index: 1;
+    }
+
+    /* Booking Container Styles */
+    .booking-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: calc(100vh - 60px);
+      padding: 40px 20px;
+    }
+
+    /* Right Form Panel */
+    .booking-right {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .booking-form {
+      width: 100%;
+      padding: 35px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.09);
+    }
+
+    .booking-form h2 {
+      color: #112D32;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .booking-form > p {
+      text-align: center;
+      color: #4F4A41;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      color: #6E6658;
+      font-size: 15px;
+      pointer-events: none;
+      transition: 0.2s ease all;
+      background: #fff;
+      padding: 0 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      transition: all 0.3s ease;
+      outline: none;
+      resize: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #254E58;
+      box-shadow: 0 0 0 2px rgba(37, 78, 88, 0.2);
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group select:focus + label,
+    .form-group select:not([value=""]) + label,
+    .form-group textarea:focus + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #254E58;
+    }
+
+    .summary-box {
+      background: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #112D32;
+      line-height: 1.6;
+      border: 1px solid #eee;
+    }
+
+    .estimate-box {
+      background: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 16px;
+      color: #112D32;
+      border: 1px solid #eee;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      background: #254E58;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .form-btn:hover {
+      background: #112D32;
+      box-shadow: 0 4px 12px rgba(37, 78, 88, 0.3);
+    }
+
+    .form-btn.secondary {
+      background: #e0e0e0;
+      color: #112D32;
+    }
+
+    .form-btn.secondary:hover {
+      background: #d0d0d0;
+    }
+
+    #vehicleMessage {
+      color: #d32f2f;
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 8px;
+      background: #ffebee;
+      border-radius: 4px;
+    }
+
+    /* Form steps */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Form navigation buttons */
+    .form-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .form-buttons .form-btn {
+      margin-top: 0;
+      flex: 1;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity:0; transform:translateY(10px); }
+      100% { opacity:1; transform:translateY(0); }
+    }
+
+    @keyframes fadeInLeft {
+      0% { opacity:0; transform:translateX(-50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+
+    @keyframes fadeInRight {
+      0% { opacity:0; transform:translateX(50px); }
+      100% { opacity:1; transform:translateX(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      
+      .booking-right {
+        max-width: 90%;
+        padding: 30px 20px;
+      }
+      
+      .booking-form {
+        padding: 25px; 
+      }
+      
+      .booking-form h2 {
+        font-size: 22px;
+      }
+      
+      .content {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .booking-container {
+        padding: 10px;
+      }
+      
+      .booking-right {
+        padding: 20px 15px;
+        max-width: 95%;
+      }
+      
+      .booking-form {
+        padding: 20px 15px; 
+      }
+      
+      .form-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Header - Matching Contact Us Page -->
+  <!-- Header - Updated Color Scheme -->
   <header class="header">
     <div class="logo">ShiftXpress</div>
     <div class="header-actions">
@@ -18,7 +415,7 @@
 
   <!-- Layout -->
   <div class="main-container">
-    <!-- Sidebar - Matching Contact Us Page -->  
+    <!-- Sidebar - Updated Color Scheme -->  
     <nav class="sidebar">
       <a href="/HTML/home.html"><button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
       <a href="/HTML/aboutus.html"><button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button></a>
@@ -311,7 +708,7 @@
     const videoElement = document.querySelector('video');
     if (videoElement) {
       videoElement.addEventListener('error', function() {
-        document.querySelector('.video-background').style.backgroundImage = "url('https://placehold.co/600x400/8c755d/white?text=Moving+Services')";
+        document.querySelector('.video-background').style.backgroundImage = "url('https://placehold.co/600x400/254E58/white?text=Moving+Services')";
         document.querySelector('.video-background').style.backgroundSize = "cover";
         document.querySelector('.video-background').style.backgroundPosition = "center";
       });

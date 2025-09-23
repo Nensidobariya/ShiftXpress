@@ -3,91 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services • ShiftXpress</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>ShiftXpress - Complete Booking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Global Styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f6f1;
-      color: #4F4A41;
-      line-height: 1.6;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #112D32;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    /* Header */
+
+    /* Header - Updated Color Scheme */
     .header {
       background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
       color: white;
-      padding: 16px 24px;
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 15px rgba(0,0,0,0.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
-    
+
     .logo {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
       letter-spacing: 0.5px;
       cursor: pointer;
       transition: transform 0.2s;
     }
-    
+
     .logo:hover {
       transform: scale(1.05);
     }
-    
+
+    .header-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
     .user-avatar {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    
+
     /* Layout */
     .main-container {
       display: flex;
-      min-height: calc(100vh - 80px);
+      flex: 1;
+      overflow: hidden;
     }
-    
-    /* Sidebar - Matching About Us Page */
+
+    /* Sidebar - Updated Color Scheme */
     .sidebar {
       width: 240px;
       background: #f9f6f1;
       border-right: 1px solid #e5e7eb;
-      padding: 24px 0;
+      padding: 16px 0;
       overflow-y: auto;
       transition: width 0.3s;
     }
-    
+
     .sidebar a {
       text-decoration: none;
     }
-    
+
+    .sidebar.collapsed {
+      width: 70px;
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 24px;
-      color: #6b7280;
-      font-size: 16px;
+      padding: 12px 20px;
+      color: #4F4A41;
+      font-size: 15px;
       border: none;
       background: none;
       width: 100%;
@@ -96,160 +99,298 @@
       transition: all 0.25s;
       border-left: 4px solid transparent;
     }
-    
+
     .nav-item:hover {
       background: #e8e2d6;
-      color: #111827;
-      border-left: 4px solid #a38d72;
+      color: #112D32;
+      border-left: 4px solid #254E58;
     }
-    
+
     .nav-item.active {
       background: linear-gradient(to right, #e8e2d6, #d6cbb9);
-      color: #8a755c;
+      color: #254E58;
       font-weight: 600;
-      border-left: 4px solid #8a755c;
+      border-left: 4px solid #254E58;
     }
-    
+
     .content {
       flex: 1;
-      padding: 32px;
+      padding: 28px;
       overflow-y: auto;
-      background: linear-gradient(135deg, #f9f6f1 0%, #e6dfd3 100%);
+      position: relative;
     }
-    
-    /* Page Header */
-    .page-header {
-      text-align: center;
-      margin-bottom: 40px;
+
+    /* Professional background pattern */
+    .background-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 15% 50%, rgba(37, 78, 88, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 85% 30%, rgba(37, 78, 88, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(37, 78, 88, 0.03) 0%, transparent 20%);
+      z-index: -1;
     }
-    
-    .page-header h1 {
-      color: #254E58;
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
-    
-    .page-header p {
-      color: #4F4A41;
-      font-size: 18px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    /* Service Navigation Tabs */
-    .service-tabs {
+
+    /* Booking Container Styles */
+    .booking-container {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 30px;
+      align-items: center;
+      width: 100%;
+      min-height: calc(100vh - 60px);
+      padding: 40px 20px;
     }
-    
-    .service-tab {
-      padding: 12px 20px;
+
+    /* Right Form Panel */
+    .booking-right {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.98);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .booking-form {
+      width: 100%;
+      padding: 35px;
       background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .booking-form h2 {
+      color: #112D32;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .booking-form > p {
+      text-align: center;
+      color: #4F4A41;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      color: #6E6658;
+      font-size: 15px;
+      pointer-events: none;
+      transition: 0.2s ease all;
+      background: #fff;
+      padding: 0 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      transition: all 0.3s ease;
+      outline: none;
+      resize: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #254E58;
+      box-shadow: 0 0 0 2px rgba(37, 78, 88, 0.2);
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group select:focus + label,
+    .form-group select:not([value=""]) + label,
+    .form-group textarea:focus + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #254E58;
+    }
+
+    .summary-box {
+      background: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #112D32;
+      line-height: 1.6;
+      border: 1px solid #eee;
+    }
+
+    .estimate-box {
+      background: #f9f6f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 16px;
+      color: #112D32;
+      border: 1px solid #eee;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
       border: none;
       border-radius: 8px;
+      background: #254E58;
+      color: white;
       cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #4F4A41;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
     }
-    
-    .service-tab:hover {
-      background: #e8e2d6;
+
+    .form-btn:hover {
+      background: #112D32;
+      box-shadow: 0 4px 12px rgba(37, 78, 88, 0.3);
+    }
+
+    .form-btn.secondary {
+      background: #e0e0e0;
       color: #112D32;
     }
-    
-    .service-tab.active {
+
+    .form-btn.secondary:hover {
+      background: #d0d0d0;
+    }
+
+    #vehicleMessage {
+      color: #d32f2f;
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 8px;
+      background: #ffebee;
+      border-radius: 4px;
+    }
+
+    /* Form steps */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Form navigation buttons */
+    .form-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .form-buttons .form-btn {
+      margin-top: 0;
+      flex: 1;
+    }
+
+    /* Progress indicator */
+    .progress-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .progress-indicator::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+
+    .progress-step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 33.33%;
+    }
+
+    .step-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #888;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .step-label {
+      font-size: 12px;
+      color: #888;
+      transition: all 0.3s ease;
+    }
+
+    .progress-step.active .step-circle {
       background: #254E58;
       color: white;
     }
-    
-    /* Service Content */
-    .service-content {
-      display: none;
-      background: #fff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
-      margin-bottom: 30px;
-      border-top: 4px solid;
+
+    .progress-step.active .step-label {
+      color: #254E58;
+      font-weight: 600;
     }
-    
-    .service-content.active {
-      display: block;
-      animation: fadeIn 0.5s ease;
-    }
-    
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      0% { opacity:0; transform:translateY(10px); }
+      100% { opacity:1; transform:translateY(0); }
     }
-    
-    .service-content h2 {
-      color: #254E58;
-      font-size: 28px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #e8e2d6;
-      padding-bottom: 10px;
+
+    @keyframes fadeInLeft {
+      0% { opacity:0; transform:translateX(-50px); }
+      100% { opacity:1; transform:translateX(0); }
     }
-    
-    .service-content h3 {
-      color: #254E58;
-      margin-top: 25px;
-      font-size: 22px;
+
+    @keyframes fadeInRight {
+      0% { opacity:0; transform:translateX(50px); }
+      100% { opacity:1; transform:translateX(0); }
     }
-    
-    .service-content p {
-      margin-bottom: 15px;
-      font-size: 16px;
-      line-height: 1.7;
-      color: #4F4A41;
-    }
-    
-    .service-content ul {
-      margin: 10px 0 20px 30px;
-    }
-    
-    .service-content li {
-      margin-bottom: 8px;
-      line-height: 1.6;
-      color: #4F4A41;
-    }
-    
-    /* Footer */
-    footer {
-      background: #112D32;
-      color: white;
-      padding: 24px;
-      text-align: center;
-      border-top: 1px solid #e5e7eb;
-      margin-top: auto;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 968px) {
-      .service-tabs {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .service-tab {
-        width: 100%;
-        max-width: 300px;
-        justify-content: center;
-      }
-      
-      .page-header h1 {
-        font-size: 32px;
-      }
-    }
-    
+
+    /* Responsive adjustments */
     @media (max-width: 768px) {
       .main-container {
         flex-direction: column;
@@ -260,21 +401,56 @@
         height: auto;
         border-right: none;
         border-bottom: 1px solid #e5e7eb;
-        padding: 16px 0;
+      }
+      
+      .booking-right {
+        max-width: 90%;
+        padding: 30px 20px;
+      }
+      
+      .booking-form {
+        padding: 25px; 
+      }
+      
+      .booking-form h2 {
+        font-size: 22px;
       }
       
       .content {
-        padding: 24px;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .booking-container {
+        padding: 10px;
       }
       
-      .service-content {
-        padding: 20px;
+      .booking-right {
+        padding: 20px 15px;
+        max-width: 95%;
+      }
+      
+      .booking-form {
+        padding: 20px 15px; 
+      }
+      
+      .form-buttons {
+        flex-direction: column;
+      }
+      
+      .progress-indicator {
+        margin-bottom: 20px;
+      }
+      
+      .step-label {
+        font-size: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header - Updated Color Scheme -->
   <header class="header">
     <div class="logo">ShiftXpress</div>
     <div class="header-actions">
@@ -284,226 +460,309 @@
 
   <!-- Layout -->
   <div class="main-container">
-    <!-- Sidebar - Matching About Us Page -->
+    <!-- Sidebar - Updated Color Scheme -->  
     <nav class="sidebar">
       <a href="/HTML/home.html"><button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
       <a href="/HTML/aboutus.html"><button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button></a>
-      <button class="nav-item active"><i class="fas fa-concierge-bell"></i> <span>Services</span></button>
-      <a href="/HTML/bookpickup.html"><button class="nav-item"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
+      <a href="/HTML/servicepage.html"><button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button></a>
+      <a href="/HTML/bookpickup.html"><button class="nav-item active"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
       <a href="/HTML/contactus.html"><button class="nav-item"><i class="fas fa-headset"></i> <span>Contact Us</span></button></a>
     </nav>
 
     <!-- Main Content -->
     <main class="content">
-      <div class="page-header">
-        <h1>ShiftExpress – Admin Services</h1>
-        <p>As platform admins, we manage all backend operations to ensure smooth and secure house-shifting services. Below are the core admin service areas:</p>
-      </div>
+      <!-- Professional Background Pattern -->
+      <div class="background-pattern"></div>
 
-      <!-- Service Navigation Tabs -->
-      <div class="service-tabs">
-        <button class="service-tab active" data-tab="user-management">
-          <i class="fas fa-users"></i> User Management
-        </button>
-        <button class="service-tab" data-tab="driver-management">
-          <i class="fas fa-truck"></i> Driver Management
-        </button>
-        <button class="service-tab" data-tab="booking-management">
-          <i class="fas fa-calendar-alt"></i> Booking Management
-        </button>
-        <button class="service-tab" data-tab="communication">
-          <i class="fas fa-comments"></i> Communication
-        </button>
-        <button class="service-tab" data-tab="reports-analytics">
-          <i class="fas fa-chart-bar"></i> Reports & Analytics
-        </button>
-        <button class="service-tab" data-tab="policy-safety">
-          <i class="fas fa-shield-alt"></i> Policy & Safety
-        </button>
-      </div>
+      <div class="booking-container">
+        <!-- Form Panel -->
+        <div class="booking-right">
+          <form class="booking-form" id="bookingForm">
+            <h2>Book Your Shift</h2>
+            <p>Enter your details to get started</p>
+            
+            <!-- Progress Indicator -->
+            <div class="progress-indicator">
+              <div class="progress-step active" data-step="1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Pickup Details</div>
+              </div>
+              <div class="progress-step" data-step="2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Delivery Details</div>
+              </div>
+              <div class="progress-step" data-step="3">
+                <div class="step-circle">3</div>
+                <div class="step-label">Booking Summary</div>
+              </div>
+            </div>
 
-      <!-- Service Content Sections -->
-      
-      <!-- User Management -->
-      <div class="service-content active" id="user-management">
-        <h2>User Management – ShiftExpress Admin</h2>
-        <p>
-          The <strong>User Management module</strong> in ShiftExpress allows administrators to oversee and control customer accounts to ensure a smooth and secure shifting experience. This module focuses on verifying users, maintaining trust, and resolving customer-related issues effectively.
-        </p>
+            <!-- Step 1: Pickup Details -->
+            <div class="form-step active" id="step1">
+              <div class="form-group">
+                <select id="pickCity" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+                <label>Pick-Up City</label>
+              </div>
 
-        <h3>Why It Matters</h3>
-        <p>
-          Effective user management ensures that ShiftExpress remains a <strong>safe, reliable, and user-friendly platform</strong>. It helps prevent misuse, improves customer satisfaction, and supports smooth operations across the shifting service ecosystem.
-        </p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>User registration and verification processes</li>
-          <li>Account management and profile updates</li>
-          <li>Customer support and issue resolution</li>
-          <li>User activity monitoring and reporting</li>
-          <li>Privacy and data protection compliance</li>
-        </ul>
-      </div>
+              <div class="form-group">
+                <select id="pickZip" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="380001">380001</option>
+                  <option value="380002">380002</option>
+                  <option value="380003">380003</option>
+                  <option value="380004">380004</option>
+                  <option value="380005">380005</option>
+                </select>
+                <label>Pick-Up ZIP Code</label>
+              </div>
 
-      <!-- Driver Management -->
-      <div class="service-content" id="driver-management">
-        <h2>Driver / Partner Management – ShiftExpress Admin</h2>
-        <p>
-          The <strong>Driver / Partner Management module</strong> enables administrators to onboard, verify, and manage drivers and transport partners. This ensures that only trusted and reliable partners handle shifting services, improving overall customer experience and safety.
-        </p>
+              <div class="form-group">
+                <input type="text" id="pickAddress" placeholder=" " required>
+                <label>Pick-Up Address</label>
+              </div>
+              
+              <button type="button" class="form-btn next-btn" data-next="2">Continue to Delivery Details</button>
+            </div>
 
-        <h3>Why It Matters</h3>
-        <p>
-          Drivers and partners are the backbone of ShiftExpress operations. Proper management guarantees <strong>timely, safe, and professional shifting services</strong>. By monitoring and supporting drivers, ShiftExpress ensures consistent service quality and builds a trustworthy network of partners.
-        </p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>Driver onboarding and background verification</li>
-          <li>Vehicle registration and inspection tracking</li>
-          <li>Performance monitoring and ratings system</li>
-          <li>Training and certification management</li>
-          <li>Payment and commission processing</li>
-        </ul>
-      </div>
+            <!-- Step 2: Drop Details -->
+            <div class="form-step" id="step2">
+              <div class="form-group">
+                <select id="dropCity" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+                <label>Drop City</label>
+              </div>
 
-      <!-- Booking Management -->
-      <div class="service-content" id="booking-management">
-        <h2>Booking Management – ShiftExpress Admin</h2>
-        <p>
-          The <strong>Booking Management module</strong> in ShiftExpress allows administrators to effectively track and oversee all customer service requests and bookings. This module is essential for ensuring a seamless flow of operations, from initial scheduling to the successful completion of each shift.
-        </p>
+              <div class="form-group">
+                <select id="dropZip" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="380051">380051</option>
+                  <option value="380052">380052</option>
+                  <option value="380053">380053</option>
+                </select>
+                <label>Drop ZIP Code</label>
+              </div>
 
-        <h3>Why It Matters</h3>
-        <p>
-          Efficient booking management is key to maintaining high operational standards and customer satisfaction. It helps prevent scheduling conflicts, ensures resources are allocated appropriately, and provides a clear, transparent overview of all service activities.
-        </p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>Real-time booking tracking and status updates</li>
-          <li>Automated scheduling and resource allocation</li>
-          <li>Booking modification and cancellation handling</li>
-          <li>Service history and customer preferences</li>
-          <li>Integration with payment and notification systems</li>
-        </ul>
-      </div>
+              <div class="form-group">
+                <input type="text" id="dropAddress" placeholder=" " required>
+                <label>Drop Address</label>
+              </div>
+              
+              <div class="form-buttons">
+                <button type="button" class="form-btn secondary prev-btn" data-prev="1">Back</button>
+                <button type="button" class="form-btn next-btn" data-next="3">Continue to Item Details</button>
+              </div>
+            </div>
 
-      <!-- Communication -->
-      <div class="service-content" id="communication">
-        <h2>Communication Management – ShiftExpress Admin</h2>
-        <p>
-          The <strong>Communication Management module</strong> in ShiftExpress provides administrators with tools to facilitate and monitor all interactions between users, drivers, and the support team. This module is vital for maintaining clear communication channels and resolving inquiries and disputes efficiently.
-        </p>
+            <!-- Step 3: Additional Details -->
+            <div class="form-step" id="step3">
+              <!-- Summary -->
+              <div class="summary-box" id="summaryBox">
+                <strong>Pickup City:</strong> <span id="summaryPickCity">--</span><br>
+                <strong>Pickup ZIP:</strong> <span id="summaryPickZip">--</span><br>
+                <strong>Pickup Address:</strong> <span id="summaryPickAddress">--</span><br>
+                <strong>Drop City:</strong> <span id="summaryDropCity">--</span><br>
+                <strong>Drop ZIP:</strong> <span id="summaryDropZip">--</span><br>
+                <strong>Drop Address:</strong> <span id="summaryDropAddress">--</span><br>
+              </div>
 
-        <h3>Why It Matters</h3>
-        <p>
-          Effective communication is the cornerstone of a successful platform. This module ensures that all parties can connect seamlessly, reduces misunderstandings, and enables quick resolution of issues, leading to a more reliable and trusted service for everyone.
-        </p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>In-app messaging and notification system</li>
-          <li>Automated status updates and reminders</li>
-          <li>Support ticket management and escalation</li>
-          <li>Feedback collection and response system</li>
-          <li>Multi-language support capabilities</li>
-        </ul>
-      </div>
+              <!-- Date -->
+              <div class="form-group">
+                <input type="date" id="date" required>
+                <label>Select Date</label>
+              </div>
 
-      <!-- Reports & Analytics -->
-      <div class="service-content" id="reports-analytics">
-        <h2>Report & Analysis – ShiftExpress Admin</h2>
-        <p>
-          The <strong>Report and Analysis module</strong> in ShiftExpress provides administrators with in-depth insights into the platform's performance. This module aggregates data on user activity, booking trends, driver efficiency, and financial metrics to help in strategic decision-making and operational improvements.
-        </p>
+              <!-- Shift -->
+              <div class="form-group">
+                <select id="shift" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Morning">Morning</option>
+                  <option value="Noon">Noon</option>
+                  <option value="Evening">Evening</option>
+                </select>
+                <label>Select Shift</label>
+              </div>
 
-        <h3>Why It Matters</h3>
-        <p>
-          Data-driven decisions are crucial for scaling and optimizing the service. This module provides a comprehensive view of platform health, identifying key trends, spotting potential issues, and measuring the success of new initiatives, ultimately leading to continuous growth and enhanced service quality.
-        </p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>Customizable dashboard with key performance indicators</li>
-          <li>Booking and revenue analytics</li>
-          <li>Customer satisfaction and feedback analysis</li>
-          <li>Driver performance and efficiency metrics</li>
-          <li>Exportable reports for strategic planning</li>
-        </ul>
-      </div>
+              <!-- Vehicle Dropdown -->
+              <div class="form-group">
+                <select id="vehicle" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Mini Truck">Mini Truck</option>
+                  <option value="Tempo">Tempo</option>
+                  <option value="Pickup Van">Pickup Van</option>
+                  <option value="Container Truck">Container Truck</option>
+                </select>
+                <label>Select Vehicle</label>
+              </div>
 
-      <!-- Policy & Safety -->
-      <div class="service-content" id="policy-safety">
-        <h2>Policy & Safety – ShiftExpress Admin</h2>
-        <p>
-          The <strong>Policy and Safety module</strong> in ShiftExpress is designed to enforce platform rules, manage terms of service, and ensure the well-being and security of all users and drivers. This module is the central hub for handling compliance, incident reports, and dispute resolution.
-        </p>
+              <!-- Message Box for Vehicle Availability -->
+              <div id="vehicleMessage"></div>
 
-        <h3>Why It Matters</h3>
-        <p>
-          A robust policy and safety framework is essential for building trust and maintaining a secure environment. This module ensures that ShiftExpress operates transparently and fairly, protects its community from misuse, and provides a clear process for resolving conflicts, thereby sustaining the platform's integrity and reputation.
-        </p>
-        
-        <h3>Key Features</h3>
-        <ul>
-          <li>Terms of service and policy management</li>
-          <li>Incident reporting and investigation system</li>
-          <li>Safety compliance monitoring</li>
-          <li>Dispute resolution and mediation tools</li>
-          <li>Insurance and liability management</li>
-        </ul>
+              <!-- Purpose -->
+              <div class="form-group">
+                <textarea id="purpose" rows="3" placeholder=" "></textarea>
+                <label>Purpose of Shifting</label>
+              </div>
+
+              <!-- Estimate -->
+              <div class="estimate-box" id="estimateBox">
+                Estimated Distance: <span id="distance">--</span> km <br>
+                Estimated Price: ₹<span id="price">--</span>
+              </div>
+
+              <div class="form-buttons">
+                <button type="button" class="form-btn secondary prev-btn" data-prev="2">Back</button>
+                <button type="button" id="confirmBtn" class="form-btn">Confirm Booking</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">© <span id="y"></span> ShiftXpress • All rights reserved</div>
-  </footer>
-
   <script>
-    // Add current year to footer
-    document.getElementById('y').textContent = new Date().getFullYear();
-    
-    // Tab functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const tabs = document.querySelectorAll('.service-tab');
-      const contents = document.querySelectorAll('.service-content');
+    // Multi-step form functionality
+    const steps = document.querySelectorAll('.form-step');
+    const progressSteps = document.querySelectorAll('.progress-step');
+    let currentStep = 1;
+
+    // Function to show a specific step
+    function showStep(stepNumber) {
+      steps.forEach(step => step.classList.remove('active'));
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+      currentStep = stepNumber;
       
-      tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-          const tabId = this.getAttribute('data-tab');
-          
-          // Remove active class from all tabs and contents
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-          
-          // Add active class to clicked tab and corresponding content
-          this.classList.add('active');
-          document.getElementById(tabId).classList.add('active');
-        });
-      });
+      // Update progress indicator
+      progressSteps.forEach(step => step.classList.remove('active'));
+      document.querySelector(`.progress-step[data-step="${stepNumber}"]`).classList.add('active');
       
-      // Add animation to service content when they become active
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.target.classList.contains('active')) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
+      // Scroll to top of form when changing steps
+      document.querySelector('.booking-form').scrollTop = 0;
+    }
+
+    // Next button functionality
+    document.querySelectorAll('.next-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const nextStep = parseInt(this.getAttribute('data-next'));
+        
+        // Validate current step before proceeding
+        if (validateStep(currentStep)) {
+          // Update summary if moving to step 3
+          if (nextStep === 3) {
+            updateSummary();
+            calculateEstimate();
           }
-        });
-      }, { threshold: 0.1 });
-      
-      // Apply to all service contents
-      contents.forEach(content => {
-        content.style.opacity = 0;
-        content.style.transform = 'translateY(20px)';
-        content.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(content);
+          
+          showStep(nextStep);
+        }
       });
     });
+
+    // Previous button functionality
+    document.querySelectorAll('.prev-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const prevStep = parseInt(this.getAttribute('data-prev'));
+        showStep(prevStep);
+      });
+    });
+
+    // Validate step function
+    function validateStep(step) {
+      const inputs = document.querySelectorAll(`#step${step} [required]`);
+      let isValid = true;
+      
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.style.borderColor = 'red';
+          isValid = false;
+        } else {
+          input.style.borderColor = '#ddd';
+        }
+      });
+      
+      return isValid;
+    }
+
+    // Update summary in step 3
+    function updateSummary() {
+      document.getElementById('summaryPickCity').textContent = document.getElementById('pickCity').value;
+      document.getElementById('summaryPickZip').textContent = document.getElementById('pickZip').value;
+      document.getElementById('summaryPickAddress').textContent = document.getElementById('pickAddress').value;
+      document.getElementById('summaryDropCity').textContent = document.getElementById('dropCity').value;
+      document.getElementById('summaryDropZip').textContent = document.getElementById('dropZip').value;
+      document.getElementById('summaryDropAddress').textContent = document.getElementById('dropAddress').value;
+    }
+
+    // Calculate estimate
+    function calculateEstimate() {
+      const pickupZip = parseInt(document.getElementById('pickZip').value);
+      const dropZip = parseInt(document.getElementById('dropZip').value);
+      
+      const distance = Math.abs(pickupZip - dropZip) / 2;
+      const baseCharge = 500;
+      const perKmCharge = 15;
+      const price = baseCharge + distance * perKmCharge;
+
+      document.getElementById("distance").textContent = distance.toFixed(1);
+      document.getElementById("price").textContent = price.toFixed(0);
+    }
+
+    // Vehicle availability logic
+    const unavailableVehicle = "Tempo"; // Set unavailable vehicle
+    const vehicleSelect = document.getElementById("vehicle");
+    const messageBox = document.getElementById("vehicleMessage");
+
+    vehicleSelect.addEventListener("change", function () {
+      const selected = vehicleSelect.value;
+
+      if (selected === unavailableVehicle) {
+        // Remove the unavailable option
+        for (let i = 0; i < vehicleSelect.options.length; i++) {
+          if (vehicleSelect.options[i].value === unavailableVehicle) {
+            vehicleSelect.remove(i);
+            break;
+          }
+        }
+
+        // Reset selection
+        vehicleSelect.value = "";
+
+        // Show message
+        const availableVehicles = Array.from(vehicleSelect.options)
+          .filter(opt => opt.value !== "")
+          .map(opt => opt.value)
+          .join(", ");
+
+        messageBox.innerText = `${unavailableVehicle} is currently unavailable. Please choose from: ${availableVehicles}.`;
+      } else {
+        messageBox.innerText = "";
+      }
+    });
+
+    // Confirm booking button functionality
+    document.getElementById("confirmBtn").addEventListener("click", function() {
+      // Validate form
+      const date = document.getElementById("date").value;
+      const shift = document.getElementById("shift").value;
+      const vehicle = document.getElementById("vehicle").value;
+      
+      if (!date || !shift || !vehicle) {
+        alert("Please fill in all required fields");
+        return;
+      }
+      
+      // If validation passes, redirect to user dashboard
+      window.location.href = "/HTML/userdash.html";
+    });
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("date").setAttribute('min', today);
   </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #faf9f7;
-      color: #333;
+      color: #112D32;
       line-height: 1.6;
     }
     
@@ -21,7 +21,7 @@
     
     /* Header */
     .header {
-      background: linear-gradient(135deg, #8a755c 0%, #6d5d4b 100%);
+      background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
       color: white;
       padding: 16px 24px;
       display: flex;
@@ -78,7 +78,7 @@
       align-items: center;
       gap: 12px;
       padding: 14px 24px;
-      color: #6b7280;
+      color: #4F4A41;
       font-size: 16px;
       border: none;
       background: none;
@@ -91,15 +91,15 @@
     
     .nav-item:hover {
       background: #e8e2d6;
-      color: #111827;
-      border-left: 4px solid #a38d72;
+      color: #112D32;
+      border-left: 4px solid #88DBC6;
     }
     
     .nav-item.active {
       background: linear-gradient(to right, #e8e2d6, #d6cbb9);
-      color: #8a755c;
+      color: #254E58;
       font-weight: 600;
-      border-left: 4px solid #8a755c;
+      border-left: 4px solid #254E58;
     }
     
     .content {
@@ -125,20 +125,20 @@
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 1px;
-      color: #8a755c;
+      color: #254E58;
       margin-bottom: 12px;
     }
     
     h1 {
       font-size: 36px;
-      color: #333;
+      color: #112D32;
       margin-bottom: 20px;
       line-height: 1.3;
     }
     
     .lead {
       font-size: 18px;
-      color: #555;
+      color: #4F4A41;
       margin-bottom: 24px;
       font-style: italic;
     }
@@ -156,7 +156,7 @@
     }
     
     .tick {
-      color: #8a755c;
+      color: #88DBC6;
       font-weight: bold;
       font-size: 18px;
     }
@@ -235,11 +235,11 @@
     .card h3 {
       font-size: 20px;
       margin-bottom: 12px;
-      color: #333;
+      color: #112D32;
     }
     
     .muted {
-      color: #666;
+      color: #6E6658;
       font-size: 16px;
     }
     
@@ -250,6 +250,7 @@
       text-align: center;
       border-top: 1px solid #e5e7eb;
       margin-top: auto;
+      color: #4F4A41;
     }
     
     /* Responsive Design */
