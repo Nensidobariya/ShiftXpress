@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShiftXpress - Complete Booking</title>
+  <title>ShiftXpress - Booking Confirmation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -22,7 +22,7 @@
       min-height: 100vh;
     }
 
-    /* Header - Updated Color Scheme */
+    /* Header - Matching Color Scheme */
     .header {
       background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
       color: white;
@@ -66,7 +66,7 @@
       overflow: hidden;
     }
 
-    /* Sidebar - Updated Color Scheme */
+    /* Sidebar - Matching Color Scheme */
     .sidebar {
       width: 240px;
       background: #f9f6f1;
@@ -134,8 +134,8 @@
       z-index: -1;
     }
 
-    /* Booking Container Styles */
-    .booking-container {
+    /* Confirmation Container Styles */
+    .confirmation-container {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -144,250 +144,276 @@
       padding: 40px 20px;
     }
 
-    /* Right Form Panel */
-    .booking-right {
+    /* Confirmation Card */
+    .confirmation-card {
       width: 100%;
-      max-width: 500px;
+      max-width: 700px;
       background: rgba(255, 255, 255, 0.98);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
       animation: fadeIn 1s ease forwards;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.5);
+      overflow: hidden;
     }
 
-    .booking-form {
-      width: 100%;
-      padding: 35px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .booking-form h2 {
-      color: #112D32;
+    /* Confirmation Header */
+    .confirmation-header {
+      background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
+      color: white;
+      padding: 30px;
       text-align: center;
-      margin-bottom: 10px;
-      font-size: 26px;
-      font-weight: 600;
-    }
-
-    .booking-form > p {
-      text-align: center;
-      color: #4F4A41;
-      margin-bottom: 25px;
-      font-size: 15px;
-    }
-
-    /* Form Styles */
-    .form-group {
-      margin-bottom: 20px;
       position: relative;
     }
 
-    .form-group label {
+    .confirmation-header::after {
+      content: '';
       position: absolute;
-      left: 14px;
-      top: 14px;
-      color: #6E6658;
-      font-size: 15px;
-      pointer-events: none;
-      transition: 0.2s ease all;
-      background: #fff;
-      padding: 0 5px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
+      bottom: 0;
+      left: 0;
       width: 100%;
-      padding: 14px;
-      font-size: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #fff;
-      transition: all 0.3s ease;
-      outline: none;
-      resize: none;
+      height: 5px;
+      background: linear-gradient(90deg, #88BDBC, #254E58);
     }
 
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: #254E58;
-      box-shadow: 0 0 0 2px rgba(37, 78, 88, 0.2);
+    .confirmation-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #88BDBC;
     }
 
-    .form-group input:focus + label,
-    .form-group input:not(:placeholder-shown) + label,
-    .form-group select:focus + label,
-    .form-group select:not([value=""]) + label,
-    .form-group textarea:focus + label,
-    .form-group textarea:not(:placeholder-shown) + label {
-      top: -10px;
-      font-size: 12px;
+    .confirmation-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .confirmation-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .booking-id {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Confirmation Content */
+    .confirmation-content {
+      padding: 30px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #254E58;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
       color: #254E58;
     }
 
-    .summary-box {
-      background: #f9f6f1;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .detail-item {
+      margin-bottom: 15px;
+    }
+
+    .detail-label {
       font-size: 14px;
-      color: #112D32;
-      line-height: 1.6;
-      border: 1px solid #eee;
+      color: #6E6658;
+      margin-bottom: 5px;
     }
 
-    .estimate-box {
-      background: #f9f6f1;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      text-align: center;
+    .detail-value {
       font-size: 16px;
-      color: #112D32;
-      border: 1px solid #eee;
+      font-weight: 500;
     }
 
-    .form-btn {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      background: #254E58;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-      text-decoration: none;
-      display: block;
-      text-align: center;
-    }
-
-    .form-btn:hover {
-      background: #112D32;
-      box-shadow: 0 4px 12px rgba(37, 78, 88, 0.3);
-    }
-
-    .form-btn.secondary {
-      background: #e0e0e0;
-      color: #112D32;
-    }
-
-    .form-btn.secondary:hover {
-      background: #d0d0d0;
-    }
-
-    #vehicleMessage {
-      color: #d32f2f;
-      margin-top: 10px;
-      font-size: 14px;
-      padding: 8px;
-      background: #ffebee;
-      border-radius: 4px;
-    }
-
-    /* Form steps */
-    .form-step {
-      display: none;
-    }
-
-    .form-step.active {
-      display: block;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    /* Form navigation buttons */
-    .form-buttons {
+    /* Driver Section */
+    .driver-section {
       display: flex;
-      gap: 15px;
-      margin-top: 25px;
+      align-items: center;
+      background: #f9f6f1;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      border: 1px solid #e8e2d6;
     }
 
-    .form-buttons .form-btn {
-      margin-top: 0;
+    .driver-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+      border: 3px solid #254E58;
+    }
+
+    .driver-info {
       flex: 1;
     }
 
-    /* Progress indicator */
-    .progress-indicator {
+    .driver-name {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #112D32;
+    }
+
+    .driver-rating {
+      color: #FFA500;
+      margin-bottom: 8px;
+    }
+
+    .vehicle-info {
+      font-size: 14px;
+      color: #6E6658;
+    }
+
+    /* Price Section */
+    .price-section {
+      background: #f9f6f1;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      border: 1px solid #e8e2d6;
+    }
+
+    .price-breakdown {
+      margin-bottom: 15px;
+    }
+
+    .price-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 30px;
-      position: relative;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #ddd;
     }
 
-    .progress-indicator::before {
-      content: '';
-      position: absolute;
-      top: 15px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #e0e0e0;
-      z-index: 1;
-    }
-
-    .progress-step {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      width: 33.33%;
-    }
-
-    .step-circle {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #e0e0e0;
-      color: #888;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
+    .price-row.total {
       font-weight: 600;
-      transition: all 0.3s ease;
+      font-size: 18px;
+      color: #254E58;
+      border-bottom: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #ddd;
     }
 
-    .step-label {
-      font-size: 12px;
-      color: #888;
-      transition: all 0.3s ease;
+    /* Actions */
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 15px;
     }
 
-    .progress-step.active .step-circle {
+    .btn {
+      padding: 14px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 16px;
+      text-decoration: none;
+      text-align: center;
+      flex: 1;
+    }
+
+    .btn-primary {
       background: #254E58;
       color: white;
     }
 
-    .progress-step.active .step-label {
-      color: #254E58;
-      font-weight: 600;
+    .btn-secondary {
+      background: #e8e2d6;
+      color: #112D32;
     }
 
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: #112D32;
+    }
+
+    .btn-secondary:hover {
+      background: #d6cbb9;
+    }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    .status-confirmed {
+      background: #e6f7ee;
+      color: #00a859;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #6E6658;
+      font-size: 14px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    /* Map Placeholder */
+    .map-placeholder {
+      height: 150px;
+      background: #e9ecef;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      color: #6E6658;
+      font-weight: 500;
+    }
+
+    /* Animation */
     @keyframes fadeIn {
       0% { opacity:0; transform:translateY(10px); }
       100% { opacity:1; transform:translateY(0); }
-    }
-
-    @keyframes fadeInLeft {
-      0% { opacity:0; transform:translateX(-50px); }
-      100% { opacity:1; transform:translateX(0); }
-    }
-
-    @keyframes fadeInRight {
-      0% { opacity:0; transform:translateX(50px); }
-      100% { opacity:1; transform:translateX(0); }
     }
 
     /* Responsive adjustments */
@@ -403,54 +429,50 @@
         border-bottom: 1px solid #e5e7eb;
       }
       
-      .booking-right {
+      .confirmation-card {
         max-width: 90%;
-        padding: 30px 20px;
       }
       
-      .booking-form {
-        padding: 25px; 
-      }
-      
-      .booking-form h2 {
-        font-size: 22px;
+      .confirmation-content {
+        padding: 20px;
       }
       
       .content {
         padding: 15px;
       }
+      
+      .actions {
+        flex-direction: column;
+      }
     }
 
     @media (max-width: 600px) {
-      .booking-container {
+      .confirmation-container {
         padding: 10px;
       }
       
-      .booking-right {
-        padding: 20px 15px;
+      .confirmation-card {
         max-width: 95%;
       }
       
-      .booking-form {
-        padding: 20px 15px; 
+      .confirmation-content {
+        padding: 15px;
       }
       
-      .form-buttons {
+      .driver-section {
         flex-direction: column;
+        text-align: center;
       }
       
-      .progress-indicator {
-        margin-bottom: 20px;
-      }
-      
-      .step-label {
-        font-size: 10px;
+      .driver-photo {
+        margin-right: 0;
+        margin-bottom: 15px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header - Updated Color Scheme -->
+  <!-- Header - Matching Color Scheme -->
   <header class="header">
     <div class="logo">ShiftXpress</div>
     <div class="header-actions">
@@ -460,12 +482,12 @@
 
   <!-- Layout -->
   <div class="main-container">
-    <!-- Sidebar - Updated Color Scheme -->  
+    <!-- Sidebar - Matching Color Scheme -->  
     <nav class="sidebar">
       <a href="/HTML/home.html"><button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
       <a href="/HTML/aboutus.html"><button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button></a>
       <a href="/HTML/servicepage.html"><button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button></a>
-      <a href="/HTML/bookpickup.html"><button class="nav-item active"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
+      <a href="/HTML/bookpickup.html"><button class="nav-item"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
       <a href="/HTML/contactus.html"><button class="nav-item"><i class="fas fa-headset"></i> <span>Contact Us</span></button></a>
     </nav>
 
@@ -474,295 +496,145 @@
       <!-- Professional Background Pattern -->
       <div class="background-pattern"></div>
 
-      <div class="booking-container">
-        <!-- Form Panel -->
-        <div class="booking-right">
-          <form class="booking-form" id="bookingForm">
-            <h2>Book Your Shift</h2>
-            <p>Enter your details to get started</p>
+      <div class="confirmation-container">
+        <!-- Confirmation Card -->
+        <div class="confirmation-card">
+          <!-- Confirmation Header -->
+          <div class="confirmation-header">
+            <div class="confirmation-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 class="confirmation-title">Booking Confirmed!</h1>
+            <p class="confirmation-subtitle">Your shifting service has been successfully booked</p>
+            <div class="booking-id">Booking ID: SX20230517-001</div>
+          </div>
+          
+          <!-- Confirmation Content -->
+          <div class="confirmation-content">
+            <!-- Trip Details Section -->
+            <div class="section">
+              <h2 class="section-title"><i class="fas fa-route"></i> Trip Details</h2>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <div class="detail-label">Pickup Location</div>
+                  <div class="detail-value">123 Main Street, Downtown, Ahmedabad - 380001</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Destination</div>
+                  <div class="detail-value">456 Central Avenue, Uptown, Ahmedabad - 380051</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Date & Time</div>
+                  <div class="detail-value">May 17, 2023 at 2:30 PM (Morning Shift)</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Distance</div>
+                  <div class="detail-value">8.5 km</div>
+                </div>
+              </div>
+              <div class="map-placeholder">
+                <i class="fas fa-map-marked-alt"></i> Route Map Preview
+              </div>
+            </div>
             
-            <!-- Progress Indicator -->
-            <div class="progress-indicator">
-              <div class="progress-step active" data-step="1">
-                <div class="step-circle">1</div>
-                <div class="step-label">Pickup Details</div>
-              </div>
-              <div class="progress-step" data-step="2">
-                <div class="step-circle">2</div>
-                <div class="step-label">Delivery Details</div>
-              </div>
-              <div class="progress-step" data-step="3">
-                <div class="step-circle">3</div>
-                <div class="step-label">Booking Summary</div>
+            <!-- Driver Details Section -->
+            <div class="section">
+              <h2 class="section-title"><i class="fas fa-user-tie"></i> Driver Details</h2>
+              <div class="driver-section">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Driver Photo" class="driver-photo">
+                <div class="driver-info">
+                  <div class="driver-name">Michael Johnson <span class="status-badge status-confirmed">Confirmed</span></div>
+                  <div class="driver-rating">★ 4.9 (128 ratings)</div>
+                  <div class="vehicle-info">Mini Truck • White • GJ-01-AB-1234</div>
+                  <div class="detail-label" style="margin-top: 10px;">Contact: +1 (555) 987-6543</div>
+                </div>
               </div>
             </div>
-
-            <!-- Step 1: Pickup Details -->
-            <div class="form-step active" id="step1">
-              <div class="form-group">
-                <select id="pickCity" required>
-                  <option value="" disabled selected hidden></option>
-                  <option value="Ahmedabad">Ahmedabad</option>
-                </select>
-                <label>Pick-Up City</label>
-              </div>
-
-              <div class="form-group">
-                <select id="pickZip" required>
-                  <option value="" disabled selected hidden></option>
-                  <option value="380001">380001</option>
-                  <option value="380002">380002</option>
-                  <option value="380003">380003</option>
-                  <option value="380004">380004</option>
-                  <option value="380005">380005</option>
-                </select>
-                <label>Pick-Up ZIP Code</label>
-              </div>
-
-              <div class="form-group">
-                <input type="text" id="pickAddress" placeholder=" " required>
-                <label>Pick-Up Address</label>
-              </div>
-              
-              <button type="button" class="form-btn next-btn" data-next="2">Continue to Delivery Details</button>
-            </div>
-
-            <!-- Step 2: Drop Details -->
-            <div class="form-step" id="step2">
-              <div class="form-group">
-                <select id="dropCity" required>
-                  <option value="" disabled selected hidden></option>
-                  <option value="Ahmedabad">Ahmedabad</option>
-                </select>
-                <label>Drop City</label>
-              </div>
-
-              <div class="form-group">
-                <select id="dropZip" required>
-                  <option value="" disabled selected hidden></option>
-                  <option value="380051">380051</option>
-                  <option value="380052">380052</option>
-                  <option value="380053">380053</option>
-                </select>
-                <label>Drop ZIP Code</label>
-              </div>
-
-              <div class="form-group">
-                <input type="text" id="dropAddress" placeholder=" " required>
-                <label>Drop Address</label>
-              </div>
-              
-              <div class="form-buttons">
-                <button type="button" class="form-btn secondary prev-btn" data-prev="1">Back</button>
-                <button type="button" class="form-btn next-btn" data-next="3">Continue to Item Details</button>
+            
+            <!-- Customer Details Section -->
+            <div class="section">
+              <h2 class="section-title"><i class="fas fa-user"></i> Customer Details</h2>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <div class="detail-label">Name</div>
+                  <div class="detail-value">Sarah Williams</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Phone</div>
+                  <div class="detail-value">+1 (555) 123-4567</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Email</div>
+                  <div class="detail-value">sarah.williams@example.com</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Payment Method</div>
+                  <div class="detail-value">Credit Card (**** 4567)</div>
+                </div>
               </div>
             </div>
-
-            <!-- Step 3: Additional Details -->
-            <div class="form-step" id="step3">
-              <!-- Summary -->
-              <div class="summary-box" id="summaryBox">
-                <strong>Pickup City:</strong> <span id="summaryPickCity">--</span><br>
-                <strong>Pickup ZIP:</strong> <span id="summaryPickZip">--</span><br>
-                <strong>Pickup Address:</strong> <span id="summaryPickAddress">--</span><br>
-                <strong>Drop City:</strong> <span id="summaryDropCity">--</span><br>
-                <strong>Drop ZIP:</strong> <span id="summaryDropZip">--</span><br>
-                <strong>Drop Address:</strong> <span id="summaryDropAddress">--</span><br>
-              </div>
-
-              <!-- Date -->
-              <div class="form-group">
-                <input type="date" id="date" required>
-                <label>Select Date</label>
-              </div>
-
-              <!-- Shift -->
-              <div class="form-group">
-                <select id="shift" required>
-                  <option value="" disabled selected hidden></option>
-                  <option value="Morning">Morning</option>
-                  <option value="Noon">Noon</option>
-                  <option value="Evening">Evening</option>
-                </select>
-                <label>Select Shift</label>
-              </div>
-
-              <!-- Vehicle Dropdown -->
-              <div class="form-group">
-                <select id="vehicle" required>
-                  <option value="" disabled selected hidden></option>
-                  <option value="Mini Truck">Mini Truck</option>
-                  <option value="Tempo">Tempo</option>
-                  <option value="Pickup Van">Pickup Van</option>
-                  <option value="Container Truck">Container Truck</option>
-                </select>
-                <label>Select Vehicle</label>
-              </div>
-
-              <!-- Message Box for Vehicle Availability -->
-              <div id="vehicleMessage"></div>
-
-              <!-- Purpose -->
-              <div class="form-group">
-                <textarea id="purpose" rows="3" placeholder=" "></textarea>
-                <label>Purpose of Shifting</label>
-              </div>
-
-              <!-- Estimate -->
-              <div class="estimate-box" id="estimateBox">
-                Estimated Distance: <span id="distance">--</span> km <br>
-                Estimated Price: ₹<span id="price">--</span>
-              </div>
-
-              <div class="form-buttons">
-                <button type="button" class="form-btn secondary prev-btn" data-prev="2">Back</button>
-                <button type="button" id="confirmBtn" class="form-btn">Confirm Booking</button>
+            
+            <!-- Price Details Section -->
+            <div class="section">
+              <h2 class="section-title"><i class="fas fa-receipt"></i> Price Details</h2>
+              <div class="price-section">
+                <div class="price-breakdown">
+                  <div class="price-row">
+                    <span>Base Fare</span>
+                    <span>₹500.00</span>
+                  </div>
+                  <div class="price-row">
+                    <span>Distance (8.5 km × ₹15/km)</span>
+                    <span>₹127.50</span>
+                  </div>
+                  <div class="price-row">
+                    <span>Service Fee</span>
+                    <span>₹50.00</span>
+                  </div>
+                  <div class="price-row">
+                    <span>GST (18%)</span>
+                    <span>₹121.95</span>
+                  </div>
+                  <div class="price-row total">
+                    <span>Total Amount</span>
+                    <span>₹799.45</span>
+                  </div>
+                </div>
+                <div class="detail-label">* Final price may vary based on actual time and route</div>
               </div>
             </div>
-          </form>
+            
+            <!-- Action Buttons -->
+            <div class="actions">
+              <a href="/HTML/bookpickup.html" class="btn btn-secondary">
+                <i class="fas fa-edit"></i> Modify Booking
+              </a>
+              <a href="#" class="btn btn-primary" id="contactDriverBtn">
+                <i class="fas fa-phone-alt"></i> Contact Driver
+              </a>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+              <p>Need help? Contact our support team at support@shiftxpress.com or call +1 (800) 123-4567</p>
+              <p>© 2023 ShiftXpress. All rights reserved.</p>
+            </div>
+          </div>
         </div>
       </div>
     </main>
   </div>
 
   <script>
-    // Multi-step form functionality
-    const steps = document.querySelectorAll('.form-step');
-    const progressSteps = document.querySelectorAll('.progress-step');
-    let currentStep = 1;
-
-    // Function to show a specific step
-    function showStep(stepNumber) {
-      steps.forEach(step => step.classList.remove('active'));
-      document.getElementById(`step${stepNumber}`).classList.add('active');
-      currentStep = stepNumber;
+    // Simple script to demonstrate interactivity
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactBtn = document.getElementById('contactDriverBtn');
       
-      // Update progress indicator
-      progressSteps.forEach(step => step.classList.remove('active'));
-      document.querySelector(`.progress-step[data-step="${stepNumber}"]`).classList.add('active');
-      
-      // Scroll to top of form when changing steps
-      document.querySelector('.booking-form').scrollTop = 0;
-    }
-
-    // Next button functionality
-    document.querySelectorAll('.next-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const nextStep = parseInt(this.getAttribute('data-next'));
-        
-        // Validate current step before proceeding
-        if (validateStep(currentStep)) {
-          // Update summary if moving to step 3
-          if (nextStep === 3) {
-            updateSummary();
-            calculateEstimate();
-          }
-          
-          showStep(nextStep);
-        }
+      contactBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('Calling driver at +1 (555) 987-6543');
       });
     });
-
-    // Previous button functionality
-    document.querySelectorAll('.prev-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const prevStep = parseInt(this.getAttribute('data-prev'));
-        showStep(prevStep);
-      });
-    });
-
-    // Validate step function
-    function validateStep(step) {
-      const inputs = document.querySelectorAll(`#step${step} [required]`);
-      let isValid = true;
-      
-      inputs.forEach(input => {
-        if (!input.value) {
-          input.style.borderColor = 'red';
-          isValid = false;
-        } else {
-          input.style.borderColor = '#ddd';
-        }
-      });
-      
-      return isValid;
-    }
-
-    // Update summary in step 3
-    function updateSummary() {
-      document.getElementById('summaryPickCity').textContent = document.getElementById('pickCity').value;
-      document.getElementById('summaryPickZip').textContent = document.getElementById('pickZip').value;
-      document.getElementById('summaryPickAddress').textContent = document.getElementById('pickAddress').value;
-      document.getElementById('summaryDropCity').textContent = document.getElementById('dropCity').value;
-      document.getElementById('summaryDropZip').textContent = document.getElementById('dropZip').value;
-      document.getElementById('summaryDropAddress').textContent = document.getElementById('dropAddress').value;
-    }
-
-    // Calculate estimate
-    function calculateEstimate() {
-      const pickupZip = parseInt(document.getElementById('pickZip').value);
-      const dropZip = parseInt(document.getElementById('dropZip').value);
-      
-      const distance = Math.abs(pickupZip - dropZip) / 2;
-      const baseCharge = 500;
-      const perKmCharge = 15;
-      const price = baseCharge + distance * perKmCharge;
-
-      document.getElementById("distance").textContent = distance.toFixed(1);
-      document.getElementById("price").textContent = price.toFixed(0);
-    }
-
-    // Vehicle availability logic
-    const unavailableVehicle = "Tempo"; // Set unavailable vehicle
-    const vehicleSelect = document.getElementById("vehicle");
-    const messageBox = document.getElementById("vehicleMessage");
-
-    vehicleSelect.addEventListener("change", function () {
-      const selected = vehicleSelect.value;
-
-      if (selected === unavailableVehicle) {
-        // Remove the unavailable option
-        for (let i = 0; i < vehicleSelect.options.length; i++) {
-          if (vehicleSelect.options[i].value === unavailableVehicle) {
-            vehicleSelect.remove(i);
-            break;
-          }
-        }
-
-        // Reset selection
-        vehicleSelect.value = "";
-
-        // Show message
-        const availableVehicles = Array.from(vehicleSelect.options)
-          .filter(opt => opt.value !== "")
-          .map(opt => opt.value)
-          .join(", ");
-
-        messageBox.innerText = `${unavailableVehicle} is currently unavailable. Please choose from: ${availableVehicles}.`;
-      } else {
-        messageBox.innerText = "";
-      }
-    });
-
-    // Confirm booking button functionality
-    document.getElementById("confirmBtn").addEventListener("click", function() {
-      // Validate form
-      const date = document.getElementById("date").value;
-      const shift = document.getElementById("shift").value;
-      const vehicle = document.getElementById("vehicle").value;
-      
-      if (!date || !shift || !vehicle) {
-        alert("Please fill in all required fields");
-        return;
-      }
-      
-      // If validation passes, redirect to user dashboard
-      window.location.href = "/HTML/userdash.html";
-    });
-
-    // Set minimum date to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById("date").setAttribute('min', today);
   </script>
 </body>
 </html>
