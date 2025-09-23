@@ -1,4 +1,4 @@
-// /JS/signup.js
+
 function handleSignup(event) {
   event.preventDefault();
   
@@ -21,5 +21,5 @@ function handleSignup(event) {
   localStorage.setItem('customerPassword', password); // Note: In real app, hash this
   
   alert('Signup successful! Redirecting to login...');
-  window.location.href = '/HTML/loginpage.html';
+  window.location.href = '/Loginpage/loginpage.html';
 }

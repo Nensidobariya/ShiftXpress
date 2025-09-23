@@ -129,7 +129,7 @@
       }
       
       // If validation passes, redirect to user dashboard
-      window.location.href = "/HTML/confirmation.html";
+      window.location.href = "/Confirmation/confirmation.html";
     });
 
     // Set minimum date to today
@@ -175,5 +175,5 @@ document.getElementById("confirmBtn").addEventListener("click", function() {
   localStorage.setItem('purpose', document.getElementById('purpose').value);
   
   // If validation passes, redirect to user dashboard
-  window.location.href = "/HTML/confirmation.html";
+  window.location.href = "/Confirmation/confirmation.html";
 });
