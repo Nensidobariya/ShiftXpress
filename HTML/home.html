@@ -5,14 +5,602 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShiftXpress - Hassle Free Shifting</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="/CSS/home.css" rel="stylesheet">  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f6f1;
+      color: #112D32;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Header - Matching Contact Us Page */
+    .header {
+      background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .auth-btn {
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .login-btn {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: white;
+    }
+
+    .register-btn {
+      background: white;
+      color: #112D32;
+    }
+
+    .register-btn:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+     .user-avatar:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    /* Layout */
+    .main-container {
+      display: flex;
+      margin-top: 60px; /* Account for fixed header */
+      width: 100%;
+    }
+    
+    /* Sidebar - Matching Contact Us Page */
+    .sidebar {
+      width: 240px;
+      background: #f9f6f1;
+      border-right: 1px solid #e5e7eb;
+      padding: 16px 0;
+      overflow-y: auto;
+      transition: width 0.3s;
+      height: calc(100vh - 60px);
+      position: fixed;
+      top: 60px;
+      left: 0;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #4F4A41;
+      font-size: 15px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s;
+      border-left: 4px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: #e8e2d6;
+      color: #112D32;
+      border-left: 4px solid #254E58;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(to right, #e8e2d6, #d6cbb9);
+      color: #254E58;
+      font-weight: 600;
+      border-left: 4px solid #254E58;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 240px;
+      padding: 20px 40px;
+      transition: all 0.3s ease;
+    }
+    
+    /* Menu Toggle Button (for mobile) */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #254E58;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      z-index: 1001;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 240px;
+      }
+      
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+      }
+      
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .main-content.shifted {
+        margin-left: 240px;
+      }
+
+      .auth-buttons {
+        display: none; /* Hide auth buttons on mobile - show in sidebar instead */
+      }
+
+      .mobile-auth {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+        padding: 0 20px;
+      }
+
+      .mobile-auth .auth-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Mobile auth buttons */
+    .mobile-auth {
+      display: none;
+    }
+    
+    /* Rest of your CSS remains the same with slight adjustments */
+    .hero {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: rgb(11, 10, 10);
+      overflow: hidden;
+      margin-bottom: 40px;
+      border-radius: 12px;
+    }
+
+    .slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      animation: fade 25s infinite;
+    }
+
+    .slides img:nth-child(1) { animation-delay: 0s; }
+    .slides img:nth-child(2) { animation-delay: 5s; }
+    .slides img:nth-child(3) { animation-delay: 10s; }
+    .slides img:nth-child(4) { animation-delay: 15s; }
+    .slides img:nth-child(5) { animation-delay: 20s; }
+
+    @keyframes fade {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      20% { opacity: 1; }
+      30% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: black;
+      z-index: 2;
+      background: rgba(243, 241, 241, 0.4);
+      padding: 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+      color: #112D32;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+      color: #4F4A41;
+    }
+
+    .book-btn {
+      display: inline-block;
+      background: #254E58;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .book-btn:hover {
+      background: #112D32;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Why Choose Us */
+    .why-choose {
+      background: linear-gradient(135deg, #f5f1e9, #d6cbb9);
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin: 40px 0;
+    }
+
+    .why-choose h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #254E58;
+    }
+
+    .why-list {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .why-item {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 250px;
+      box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      border-top: 4px solid;
+    }
+
+    .why-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .why-item h3 {
+      margin-bottom: 10px;
+      color: #254E58;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .testimonials h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #254E58;
+    }
+
+    .testimonial {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      font-style: italic;
+      color: #4F4A41;
+      padding: 20px;
+      background: #f9f6f1;
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background: #112D32;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    footer p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    /* Counters */
+    .counters {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 60px 20px;
+      background: #fff;
+      border-radius: 12px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .counter {
+      text-align: center;
+    }
+
+    .counter h3 {
+      font-size: 32px;
+      color: #254E58;
+    }
+
+    .counter p {
+      font-size: 16px;
+      color: #4F4A41;
+    }
+    
+    /* Services */
+    .services {
+      padding: 60px 20px;
+      text-align: center;
+      background: #fff;
+      border-radius: 12px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .services h2 {
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #254E58;
+    }
+
+    .service-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .service {
+      background: #f9f6f1;
+      padding: 25px;
+      width: 250px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      border-top: 4px solid;
+    }
+
+    .service:hover {
+      transform: translateY(-8px);
+    }
+
+    .service h3 {
+      color: #254E58;
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      font-size: 14px;
+      color: #4F4A41;
+    }
+    
+    /* New Sections */
+    .about, .process, .admin, .gallery, .faq {
+      padding: 60px 20px;
+      text-align: center;
+      background: #fff;
+      margin: 40px 0;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      color: #4F4A41;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .process .steps {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+
+    .process .step {
+      background: #f9f6f1;
+      padding: 20px;
+      width: 200px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      border-top: 4px solid;
+    }
+    
+    .process .step:hover {
+      transform: translateY(-5px);
+    }
+
+    .admin ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .admin ul li {
+      background: #f9f6f1;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+      border-left: 4px solid;
+    }
+
+    .gallery-box {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .gallery-box img {
+      width: 220px;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .gallery-box img:hover {
+      transform: scale(1.05);
+    }
+
+    .faq .faq-item {
+      background: #f9f6f1;
+      margin: 10px auto;
+      max-width: 700px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+      box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
+      border-left: 4px solid;
+    }
+
+    .faq h3 {
+      margin-bottom: 8px;
+      color: #254E58;
+    }
+    
+    /* Content Section Styling */
+    .content-section {
+      margin: 40px 0;
+    }
+    
+    h2 {
+      font-size: 32px;
+      color: #254E58;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <!-- Header - Matching Contact Us Page -->
   <header class="header">
     <div class="logo">ShiftXpress</div>
     <div class="header-actions">
-      <img src="https://ui-avatars.com/api/?name=ShiftXpress+User&background=random" alt="User Avatar" class="user-avatar">
+      <div class="auth-buttons">
+        <a href="/HTML/loginpage.html" class="auth-btn login-btn">Login</a>
+        <a href="/HTML/signup.html" class="auth-btn register-btn">Register</a>
+      </div>
+      <img src="/Photos/profile.png" alt="User Avatar" class="user-avatar">
     </div>
   </header>
 
@@ -30,6 +618,12 @@
       <a href="/HTML/servicepage.html"><button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button></a>
       <a href="/HTML/bookpickup.html"><button class="nav-item"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
       <a href="/HTML/contactus.html"><button class="nav-item"><i class="fas fa-headset"></i> <span>Contact Us</span></button></a>
+      
+      <!-- Mobile Auth Buttons -->
+      <div class="mobile-auth">
+        <a href="/HTML/loginpage.html" class="auth-btn login-btn">Login</a>
+        <a href="/HTML/signup.html" class="auth-btn register-btn">Register</a>
+      </div>
     </nav>
 
     <!-- Main Content -->
@@ -143,7 +737,7 @@
             </p>
           </div>
           <div class="about-image slide-in-right">
-            <img src="C:\Users\Disha\Desktop\HTML img folder\home.jpg" alt="ShiftXpress Team">
+            <img src="/Photos/home.jpg" alt="ShiftXpress Team">
           </div>
         </div>
       </section>
@@ -175,10 +769,10 @@
       <section class="gallery">
         <h2>Our Work in Action</h2>
         <div class="gallery-box">
-          <img src="C:\Users\Disha\Desktop\HTML img folder\loading (1).jpg" alt="Packing Service">
-          <img src="C:\Users\Disha\Desktop\HTML img folder\happy.jpg" alt="Loading Truck">
-          <img src="C:\Users\Disha\Desktop\HTML img folder\pune.jpg" alt="Our Team">
-          <img src="C:\Users\Disha\Desktop\HTML img folder\bacche.jpg" alt="Happy Customer">
+          <img src="/Photos/loading.jpg" alt="Packing Service">
+          <img src="/Photos/happy.jpg" alt="Loading Truck">
+          <img src="/Photos/pune.jpg" alt="Our Team">
+          <img src="/Photos/bacche.jpg" alt="Happy Customer">
         </div>
       </section>
 
@@ -246,6 +840,19 @@
         if (window.innerWidth <= 992) {
           sidebar.classList.remove('open');
           mainContent.classList.remove('shifted');
+        }
+      });
+    });
+
+    // Update image paths to use relative paths
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fix image paths to use relative paths
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        if (img.src.includes('C:')) {
+          // Replace absolute Windows paths with relative paths
+          const filename = img.src.split('\\').pop();
+          img.src = '/Photos/' + filename;
         }
       });
     });
