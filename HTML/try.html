@@ -194,16 +194,6 @@
       opacity: 0.9;
     }
 
-    .booking-id {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 8px 20px;
-      border-radius: 20px;
-      margin-top: 15px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
     /* Confirmation Content */
     .confirmation-content {
       padding: 30px;
@@ -265,15 +255,6 @@
       border-radius: 8px;
       margin-top: 10px;
       border: 1px solid #e8e2d6;
-    }
-
-    .driver-photo {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 20px;
-      border: 3px solid #254E58;
     }
 
     .driver-info {
@@ -397,17 +378,41 @@
       border-top: 1px solid #eee;
     }
 
-    /* Map Placeholder */
-    .map-placeholder {
-      height: 150px;
-      background: #e9ecef;
-      border-radius: 8px;
+    /* Progress Bar */
+    .progress-container {
+      margin: 20px 0;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e8e2d6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #254E58;
+      width: 50%; /* Default to 50% - booking confirmed */
+      transition: width 0.5s ease;
+    }
+
+    .progress-steps {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 15px;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 12px;
       color: #6E6658;
-      font-weight: 500;
+    }
+
+    .step {
+      text-align: center;
+      flex: 1;
+    }
+
+    .step.active {
+      color: #254E58;
+      font-weight: 600;
     }
 
     /* Animation */
@@ -463,11 +468,6 @@
         flex-direction: column;
         text-align: center;
       }
-      
-      .driver-photo {
-        margin-right: 0;
-        margin-bottom: 15px;
-      }
     }
   </style>
 </head>
@@ -506,34 +506,43 @@
             </div>
             <h1 class="confirmation-title">Booking Confirmed!</h1>
             <p class="confirmation-subtitle">Your shifting service has been successfully booked</p>
-            <div class="booking-id">Booking ID: SX20230517-001</div>
           </div>
           
           <!-- Confirmation Content -->
           <div class="confirmation-content">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <div class="progress-steps">
+                <div class="step active">Booking Confirmed</div>
+                <div class="step">Driver Assigned</div>
+                <div class="step">Pickup Completed</div>
+                <div class="step">Delivery Completed</div>
+              </div>
+            </div>
+            
             <!-- Trip Details Section -->
             <div class="section">
               <h2 class="section-title"><i class="fas fa-route"></i> Trip Details</h2>
               <div class="detail-grid">
                 <div class="detail-item">
                   <div class="detail-label">Pickup Location</div>
-                  <div class="detail-value">123 Main Street, Downtown, Ahmedabad - 380001</div>
+                  <div class="detail-value" id="pickupLocation">Loading...</div>
                 </div>
                 <div class="detail-item">
                   <div class="detail-label">Destination</div>
-                  <div class="detail-value">456 Central Avenue, Uptown, Ahmedabad - 380051</div>
+                  <div class="detail-value" id="destination">Loading...</div>
                 </div>
                 <div class="detail-item">
                   <div class="detail-label">Date & Time</div>
-                  <div class="detail-value">May 17, 2023 at 2:30 PM (Morning Shift)</div>
+                  <div class="detail-value" id="dateTime">Loading...</div>
                 </div>
                 <div class="detail-item">
                   <div class="detail-label">Distance</div>
-                  <div class="detail-value">8.5 km</div>
+                  <div class="detail-value" id="distance">Loading...</div>
                 </div>
-              </div>
-              <div class="map-placeholder">
-                <i class="fas fa-map-marked-alt"></i> Route Map Preview
               </div>
             </div>
             
@@ -541,12 +550,11 @@
             <div class="section">
               <h2 class="section-title"><i class="fas fa-user-tie"></i> Driver Details</h2>
               <div class="driver-section">
-                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Driver Photo" class="driver-photo">
                 <div class="driver-info">
-                  <div class="driver-name">Michael Johnson <span class="status-badge status-confirmed">Confirmed</span></div>
-                  <div class="driver-rating">★ 4.9 (128 ratings)</div>
-                  <div class="vehicle-info">Mini Truck • White • GJ-01-AB-1234</div>
-                  <div class="detail-label" style="margin-top: 10px;">Contact: +1 (555) 987-6543</div>
+                  <div class="driver-name" id="driverName">Driver to be assigned by admin</div>
+                  <div class="driver-rating" id="driverRating"></div>
+                  <div class="vehicle-info" id="vehicleInfo">Vehicle to be assigned by admin</div>
+                  <div class="detail-label" style="margin-top: 10px;">Contact: <span id="driverContact">Will be provided after assignment</span></div>
                 </div>
               </div>
             </div>
@@ -557,19 +565,19 @@
               <div class="detail-grid">
                 <div class="detail-item">
                   <div class="detail-label">Name</div>
-                  <div class="detail-value">Sarah Williams</div>
+                  <div class="detail-value" id="customerName">Loading...</div>
                 </div>
                 <div class="detail-item">
                   <div class="detail-label">Phone</div>
-                  <div class="detail-value">+1 (555) 123-4567</div>
+                  <div class="detail-value" id="customerPhone">Loading...</div>
                 </div>
                 <div class="detail-item">
                   <div class="detail-label">Email</div>
-                  <div class="detail-value">sarah.williams@example.com</div>
+                  <div class="detail-value" id="customerEmail">Loading...</div>
                 </div>
                 <div class="detail-item">
                   <div class="detail-label">Payment Method</div>
-                  <div class="detail-value">Credit Card (**** 4567)</div>
+                  <div class="detail-value">Cash on Delivery (Pay to driver)</div>
                 </div>
               </div>
             </div>
@@ -580,37 +588,29 @@
               <div class="price-section">
                 <div class="price-breakdown">
                   <div class="price-row">
-                    <span>Base Fare</span>
-                    <span>₹500.00</span>
-                  </div>
-                  <div class="price-row">
-                    <span>Distance (8.5 km × ₹15/km)</span>
-                    <span>₹127.50</span>
+                    <span>Distance Charge</span>
+                    <span id="distanceCharge">Loading...</span>
                   </div>
                   <div class="price-row">
                     <span>Service Fee</span>
                     <span>₹50.00</span>
                   </div>
-                  <div class="price-row">
-                    <span>GST (18%)</span>
-                    <span>₹121.95</span>
-                  </div>
                   <div class="price-row total">
                     <span>Total Amount</span>
-                    <span>₹799.45</span>
+                    <span id="totalAmount">Loading...</span>
                   </div>
                 </div>
-                <div class="detail-label">* Final price may vary based on actual time and route</div>
+                <div class="detail-label">* Payment will be collected by the driver upon delivery</div>
               </div>
             </div>
             
             <!-- Action Buttons -->
             <div class="actions">
-              <a href="/HTML/bookpickup.html" class="btn btn-secondary">
-                <i class="fas fa-edit"></i> Modify Booking
+              <a href="/HTML/userdash.html" class="btn btn-secondary">
+                <i class="fas fa-tachometer-alt"></i> Go to Dashboard
               </a>
-              <a href="#" class="btn btn-primary" id="contactDriverBtn">
-                <i class="fas fa-phone-alt"></i> Contact Driver
+              <a href="/HTML/servicepage.html" class="btn btn-primary">
+                <i class="fas fa-concierge-bell"></i> View Services
               </a>
             </div>
             
@@ -626,14 +626,109 @@
   </div>
 
   <script>
-    // Simple script to demonstrate interactivity
-    document.addEventListener('DOMContentLoaded', function() {
-      const contactBtn = document.getElementById('contactDriverBtn');
+    // Function to fetch data from localStorage
+    function getBookingData() {
+      // Get customer data from signup (simulated)
+      const customerData = {
+        name: localStorage.getItem('customerName') || 'John Doe',
+        phone: localStorage.getItem('customerPhone') || '+1 (555) 123-4567',
+        email: localStorage.getItem('customerEmail') || 'john.doe@example.com'
+      };
       
-      contactBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Calling driver at +1 (555) 987-6543');
-      });
+      // Get booking data (simulated)
+      const bookingData = {
+        pickupLocation: localStorage.getItem('pickupLocation') || '123 Main Street, Downtown, Ahmedabad - 380001',
+        destination: localStorage.getItem('destination') || '456 Central Avenue, Uptown, Ahmedabad - 380051',
+        dateTime: localStorage.getItem('bookingDateTime') || 'May 17, 2023 at 2:30 PM (Morning Shift)',
+        distance: localStorage.getItem('bookingDistance') || '8.5 km',
+        distanceCharge: localStorage.getItem('distanceCharge') || '₹127.50',
+        totalAmount: localStorage.getItem('totalAmount') || '₹177.50'
+      };
+      
+      // Get driver data (simulated - would normally come from admin assignment)
+      const driverData = {
+        name: localStorage.getItem('assignedDriver') || 'Driver to be assigned by admin',
+        rating: localStorage.getItem('driverRating') || '',
+        vehicle: localStorage.getItem('assignedVehicle') || 'Vehicle to be assigned by admin',
+        contact: localStorage.getItem('driverContact') || 'Will be provided after assignment'
+      };
+      
+      return { customerData, bookingData, driverData };
+    }
+    
+    // Function to update the page with fetched data
+    function updatePageWithData() {
+      const { customerData, bookingData, driverData } = getBookingData();
+      
+      // Update customer details
+      document.getElementById('customerName').textContent = customerData.name;
+      document.getElementById('customerPhone').textContent = customerData.phone;
+      document.getElementById('customerEmail').textContent = customerData.email;
+      
+      // Update trip details
+      document.getElementById('pickupLocation').textContent = bookingData.pickupLocation;
+      document.getElementById('destination').textContent = bookingData.destination;
+      document.getElementById('dateTime').textContent = bookingData.dateTime;
+      document.getElementById('distance').textContent = bookingData.distance;
+      
+      // Update price details
+      document.getElementById('distanceCharge').textContent = bookingData.distanceCharge;
+      document.getElementById('totalAmount').textContent = bookingData.totalAmount;
+      
+      // Update driver details
+      document.getElementById('driverName').textContent = driverData.name;
+      document.getElementById('driverRating').textContent = driverData.rating;
+      document.getElementById('vehicleInfo').textContent = driverData.vehicle;
+      document.getElementById('driverContact').textContent = driverData.contact;
+      
+      // Update progress bar based on driver assignment
+      const progressFill = document.getElementById('progressFill');
+      if (driverData.name !== 'Driver to be assigned by admin') {
+        progressFill.style.width = '75%';
+        document.querySelectorAll('.step')[1].classList.add('active');
+      }
+    }
+    
+    // Function to simulate admin assigning a driver (for demonstration)
+    function simulateDriverAssignment() {
+      // In a real application, this would be done by the admin
+      const assignedDriver = {
+        name: 'Michael Johnson',
+        rating: '★ 4.9 (128 ratings)',
+        vehicle: 'Mini Truck • White • GJ-01-AB-1234',
+        contact: '+1 (555) 987-6543'
+      };
+      
+      // Save to localStorage (simulating database update)
+      localStorage.setItem('assignedDriver', assignedDriver.name);
+      localStorage.setItem('driverRating', assignedDriver.rating);
+      localStorage.setItem('assignedVehicle', assignedDriver.vehicle);
+      localStorage.setItem('driverContact', assignedDriver.contact);
+      
+      // Update the page
+      updatePageWithData();
+    }
+    
+    // Initialize the page when it loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set up sample data if not already set (for demonstration)
+      if (!localStorage.getItem('customerName')) {
+        localStorage.setItem('customerName', 'Sarah Williams');
+        localStorage.setItem('customerPhone', '+1 (555) 123-4567');
+        localStorage.setItem('customerEmail', 'sarah.williams@example.com');
+        localStorage.setItem('pickupLocation', '123 Main Street, Downtown, Ahmedabad - 380001');
+        localStorage.setItem('destination', '456 Central Avenue, Uptown, Ahmedabad - 380051');
+        localStorage.setItem('bookingDateTime', 'May 17, 2023 at 2:30 PM (Morning Shift)');
+        localStorage.setItem('bookingDistance', '8.5 km');
+        localStorage.setItem('distanceCharge', '₹127.50');
+        localStorage.setItem('totalAmount', '₹177.50');
+      }
+      
+      // Update the page with the data
+      updatePageWithData();
+      
+      // Simulate admin assigning a driver after 3 seconds (for demonstration)
+      setTimeout(simulateDriverAssignment, 3000);
     });
   </script>
 </body>
