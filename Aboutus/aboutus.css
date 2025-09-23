@@ -64,7 +64,7 @@
       width: 240px;
       background: #f9f6f1;
       border-right: 1px solid #e5e7eb;
-      padding: 24px 0;
+      padding: 16px 0;
       overflow-y: auto;
       transition: width 0.3s;
     }
