@@ -95,6 +95,7 @@
     .nav-item:hover {
       background: #e8e2d6;
       color: #112D32;
+      font-weight: bold;
       border-left: 4px solid #254E58;
     }
 

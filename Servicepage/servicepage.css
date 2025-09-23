@@ -92,15 +92,16 @@
     
     .nav-item:hover {
       background: #e8e2d6;
-      color: #111827;
-      border-left: 4px solid #a38d72;
+      color: #112D32;
+      font-weight: bold;
+      border-left: 4px solid #88DBC6;
     }
     
     .nav-item.active {
       background: linear-gradient(to right, #e8e2d6, #d6cbb9);
-      color: #8a755c;
+      color: #254E58;
       font-weight: 600;
-      border-left: 4px solid #8a755c;
+      border-left: 4px solid #254E58;
     }
     
     .content {
