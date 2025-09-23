@@ -61,6 +61,8 @@
       transition: all 0.3s;
       font-size: 14px;
       border: none;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .login-btn {
@@ -92,13 +94,11 @@
       object-fit: cover;
       border: 2px solid white;
     }
-      .user-avatar:hover {
+     .user-avatar:hover {
       background: #f0f0f0;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-
-    
     /* Layout */
     .main-container {
       display: flex;
@@ -582,4 +582,3 @@
       margin-bottom: 20px;
       text-align: center;
     }
-  
