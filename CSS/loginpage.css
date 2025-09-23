@@ -6,96 +6,136 @@
   min-height: 100%;
   z-index: -1;
   object-fit: cover;
-  filter: blur(6px);
+  opacity: 0.2;
 }
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f5f1e9, #d6cbb9); /* Beige gradient background */
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-    }
-    .login-container {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      width: 350px;
-      box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .login-container h2 {
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-    .login-container p {
-      color: gray;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    .form-group {
-      text-align: left;
-      margin-bottom: 15px;
-    }
-    .form-group label {
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 5px;
-      display: block;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    .btn {
-      width: 100%;
-      background-color: #a38d72; /* Beige-toned button */
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .btn:hover {
-      background-color: #8c765d;
-    }
-    .forgot {
-      display: block;
-      margin-top: 10px;
-      font-size: 14px;
-      color: #a38d72;
-      text-decoration: none;
-    }
-    .or-divider {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      color: gray;
-      font-size: 12px;
-      margin: 15px 0;
-    }
-    .or-divider::before,
-    .or-divider::after {
-      content: "";
-      flex: 1;
-      border-bottom: 1px solid #ddd;
-    }
-    .or-divider:not(:empty)::before {
-      margin-right: .75em;
-    }
-    .or-divider:not(:empty)::after {
-      margin-left: .75em;
-    }
-    .signup-link {
-      font-size: 14px;
-    }
-    .signup-link a {
-      color: #a38d72;
-      text-decoration: none;
-    }
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #bec5c7, #91aaae);
+  color: #ffffff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.login-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  color: #4F4A41;
+}
+
+.login-container h2 {
+  margin-bottom: 10px;
+  color: #254E58;
+  font-weight: bold;
+}
+
+.login-container p {
+  color: #4F4A41;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #4F4A41;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(136, 219, 192, 0.3);
+}
+
+.btn {
+  width: 100%;
+  background-color: #254E58;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #112D32;
+}
+
+.forgot {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #254E58;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.forgot:hover {
+  color: #112D32;
+  text-decoration: underline;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #4F4A41;
+  font-size: 12px;
+  margin: 15px 0;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.or-divider:not(:empty)::before {
+  margin-right: .75em;
+}
+
+.or-divider:not(:empty)::after {
+  margin-left: .75em;
+}
+
+.signup-link {
+  font-size: 14px;
+  color: #4F4A41;
+}
+
+.signup-link a {
+  color: #254E58;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  color: #112D32;
+  text-decoration: underline;
+}
