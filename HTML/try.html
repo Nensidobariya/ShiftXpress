@@ -3,354 +3,299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShiftXpress - Booking Confirmation</title>
+  <title>Booking Details - ShiftXpress</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
-
+    
+    :root {
+      --primary: #a38d72;
+      --primary-dark: #8f7a62;
+      --primary-light: #f5f1e9;
+      --secondary: #4b3b2b;
+      --success: #4caf50;
+      --warning: #ff9800;
+      --danger: #d9534f;
+      --light: #f9f9f9;
+      --dark: #333;
+      --gray: #666;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --radius: 12px;
+    }
+    
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      color: #112D32;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f1e9 0%, #d6cbb9 100%);
+      color: var(--dark);
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      line-height: 1.6;
     }
 
-    /* Header - Matching Color Scheme */
-    .header {
-      background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
-      color: white;
-      padding: 12px 24px;
+    /* Navbar */
+    .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .user-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid white;
-    }
-
-    /* Layout */
-    .main-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    /* Sidebar - Matching Color Scheme */
-    .sidebar {
-      width: 240px;
-      background: #f9f6f1;
-      border-right: 1px solid #e5e7eb;
-      padding: 16px 0;
-      overflow-y: auto;
-      transition: width 0.3s;
-    }
-
-    .sidebar a {
-      text-decoration: none;
-    }
-
-    .sidebar.collapsed {
-      width: 70px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 20px;
-      color: #4F4A41;
-      font-size: 15px;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.25s;
-      border-left: 4px solid transparent;
-    }
-
-    .nav-item:hover {
-      background: #e8e2d6;
-      color: #112D32;
-      border-left: 4px solid #254E58;
-    }
-
-    .nav-item.active {
-      background: linear-gradient(to right, #e8e2d6, #d6cbb9);
-      color: #254E58;
-      font-weight: 600;
-      border-left: 4px solid #254E58;
-    }
-
-    .content {
-      flex: 1;
-      padding: 28px;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    /* Professional background pattern */
-    .background-pattern {
-      position: fixed;
+      padding: 15px 50px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 15% 50%, rgba(37, 78, 88, 0.03) 0%, transparent 20%),
-        radial-gradient(circle at 85% 30%, rgba(37, 78, 88, 0.03) 0%, transparent 20%),
-        radial-gradient(circle at 50% 80%, rgba(37, 78, 88, 0.03) 0%, transparent 20%);
-      z-index: -1;
+      z-index: 100;
     }
 
-    /* Confirmation Container Styles */
-    .confirmation-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      min-height: calc(100vh - 60px);
-      padding: 40px 20px;
-    }
-
-    /* Confirmation Card */
-    .confirmation-card {
-      width: 100%;
-      max-width: 700px;
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: 16px;
-      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
-      animation: fadeIn 1s ease forwards;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      overflow: hidden;
-    }
-
-    /* Confirmation Header */
-    .confirmation-header {
-      background: linear-gradient(135deg, #254E58 0%, #112D32 100%);
-      color: white;
-      padding: 30px;
-      text-align: center;
-      position: relative;
-    }
-
-    .confirmation-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, #88BDBC, #254E58);
-    }
-
-    .confirmation-icon {
-      font-size: 48px;
-      margin-bottom: 15px;
-      color: #88BDBC;
-    }
-
-    .confirmation-title {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .confirmation-subtitle {
-      font-size: 16px;
-      opacity: 0.9;
-    }
-
-    /* Confirmation Content */
-    .confirmation-content {
-      padding: 30px;
-    }
-
-    .section {
-      margin-bottom: 30px;
-    }
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #254E58;
-      margin-bottom: 15px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #eee;
+    .navbar h1 {
+      color: var(--primary);
+      font-size: 26px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .section-title i {
-      color: #254E58;
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
     }
 
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .detail-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .detail-item {
-      margin-bottom: 15px;
-    }
-
-    .detail-label {
-      font-size: 14px;
-      color: #6E6658;
-      margin-bottom: 5px;
-    }
-
-    .detail-value {
+    .navbar ul li a {
+      text-decoration: none;
+      color: var(--secondary);
       font-size: 16px;
+      transition: 0.3s;
       font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 6px;
     }
 
-    /* Driver Section */
-    .driver-section {
+    .navbar ul li a:hover {
+      color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    /* Main Content */
+    .main-container {
+      display: flex;
+      flex: 1;
+      padding: 30px;
+      gap: 30px;
+      overflow-y: auto;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    /* Left Panel */
+    .details-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    
+    /* Right Panel */
+    .timeline-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    /* Card Box */
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .card h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--secondary);
+      font-size: 28px;
       display: flex;
       align-items: center;
-      background: #f9f6f1;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .section {
+      margin: 20px 0;
       padding: 20px;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: 1px solid #e8e2d6;
+      border-radius: 10px;
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
     }
 
-    .driver-info {
-      flex: 1;
-    }
-
-    .driver-name {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #112D32;
-    }
-
-    .driver-rating {
-      color: #FFA500;
-      margin-bottom: 8px;
-    }
-
-    .vehicle-info {
-      font-size: 14px;
-      color: #6E6658;
-    }
-
-    /* Price Section */
-    .price-section {
-      background: #f9f6f1;
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: 1px solid #e8e2d6;
-    }
-
-    .price-breakdown {
+    .section h3 {
       margin-bottom: 15px;
-    }
-
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed #ddd;
-    }
-
-    .price-row.total {
-      font-weight: 600;
+      color: var(--secondary);
       font-size: 18px;
-      color: #254E58;
-      border-bottom: none;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px dashed #ddd;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    /* Actions */
-    .actions {
+    .section p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    /* Timeline */
+    .timeline {
+      margin: 25px 0;
       display: flex;
       justify-content: space-between;
-      margin-top: 30px;
-      gap: 15px;
+      position: relative;
     }
 
-    .btn {
-      padding: 14px 25px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
-      font-size: 16px;
-      text-decoration: none;
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #ddd;
+      z-index: 1;
+    }
+
+    .step {
+      position: relative;
+      z-index: 2;
+      background: #fff;
+      border: 3px solid var(--primary);
+      color: var(--primary);
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .step.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .step.completed {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+
+    .step-label {
+      font-size: 13px;
+      margin-top: 6px;
       text-align: center;
-      flex: 1;
+      color: var(--secondary);
+      font-weight: 500;
+      max-width: 80px;
     }
 
-    .btn-primary {
-      background: #254E58;
+    /* Payment Section */
+    .payment-section {
+      background: #f0f8f0;
+      border-left: 4px solid var(--success);
+    }
+    
+    .payment-notice {
+      color: var(--success);
+      font-weight: bold;
+      margin-top: 15px;
+      padding: 10px;
+      background: #e8f5e9;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    /* Items List */
+    .items-list {
+      margin-top: 15px;
+    }
+    
+    .items-list div {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #ccc;
+    }
+    
+    .items-list div:last-child {
+      border-bottom: none;
+    }
+
+    /* Buttons */
+    .actions {
+      text-align: center;
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: var(--primary);
       color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .btn-secondary {
-      background: #e8e2d6;
-      color: #112D32;
-    }
-
-    .btn:hover {
+    button:hover {
+      background: var(--primary-dark);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-
-    .btn-primary:hover {
-      background: #112D32;
+    
+    .cancel-btn {
+      background: var(--danger);
     }
-
-    .btn-secondary:hover {
-      background: #d6cbb9;
+    
+    .cancel-btn:hover {
+      background: #c9302c;
+    }
+    
+    .success-btn {
+      background: var(--success);
+    }
+    
+    .success-btn:hover {
+      background: #3d8b40;
     }
 
     /* Status Badge */
@@ -359,376 +304,490 @@
       padding: 5px 12px;
       border-radius: 20px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
       margin-left: 10px;
     }
-
-    .status-confirmed {
-      background: #e6f7ee;
-      color: #00a859;
+    
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-progress {
+      background: #cce5ff;
+      color: #004085;
+    }
+    
+    .status-completed {
+      background: #d4edda;
+      color: #155724;
     }
 
     /* Footer */
     .footer {
       text-align: center;
-      margin-top: 30px;
-      color: #6E6658;
-      font-size: 14px;
-      padding-top: 20px;
+      padding: 20px;
+      background: #fff;
       border-top: 1px solid #eee;
+      margin-top: auto;
+    }
+    
+    .footer p {
+      color: var(--gray);
+      font-size: 14px;
+    }
+    
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer a:hover {
+      text-decoration: underline;
     }
 
     /* Progress Bar */
     .progress-container {
-      margin: 20px 0;
+      margin-top: 10px;
     }
-
-    .progress-bar {
-      height: 8px;
-      background: #e8e2d6;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: #254E58;
-      width: 50%; /* Default to 50% - booking confirmed */
-      transition: width 0.5s ease;
-    }
-
-    .progress-steps {
+    
+    .progress-header {
       display: flex;
       justify-content: space-between;
-      margin-top: 10px;
-      font-size: 12px;
-      color: #6E6658;
+      margin-bottom: 10px;
     }
-
-    .step {
-      text-align: center;
+    
+    .progress-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .progress-percent {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    
+    .progress {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(to right, var(--primary), var(--success));
+      width: 25%;
+      transition: width 0.5s;
+    }
+    
+    /* Driver Info Card */
+    .driver-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 15px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .driver-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .driver-info {
       flex: 1;
     }
-
-    .step.active {
-      color: #254E58;
+    
+    .driver-name {
       font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 5px;
     }
-
-    /* Animation */
-    @keyframes fadeIn {
-      0% { opacity:0; transform:translateY(10px); }
-      100% { opacity:1; transform:translateY(0); }
+    
+    .driver-contact {
+      color: var(--gray);
+      font-size: 14px;
+    }
+    
+    /* Review Stars */
+    .stars {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      font-size: 24px;
+      gap: 5px;
+    }
+    
+    .star {
+      cursor: pointer;
+      color: #ddd;
+      transition: color 0.2s;
+    }
+    
+    .star:hover, .star.active {
+      color: #ffc107;
     }
 
     /* Responsive adjustments */
-    @media (max-width: 768px) {
+    @media (max-width: 1200px) {
       .main-container {
         flex-direction: column;
       }
-      
-      .sidebar {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 12px 20px;
+        flex-direction: column;
+        gap: 15px;
       }
       
-      .confirmation-card {
-        max-width: 90%;
+      .navbar ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
       }
       
-      .confirmation-content {
-        padding: 20px;
-      }
-      
-      .content {
+      .main-container {
         padding: 15px;
+        gap: 20px;
+      }
+      
+      .card {
+        padding: 20px;
       }
       
       .actions {
         flex-direction: column;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .confirmation-container {
-        padding: 10px;
+        align-items: center;
       }
       
-      .confirmation-card {
-        max-width: 95%;
-      }
-      
-      .confirmation-content {
-        padding: 15px;
-      }
-      
-      .driver-section {
-        flex-direction: column;
-        text-align: center;
+      button {
+        width: 100%;
+        justify-content: center;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header - Matching Color Scheme -->
-  <header class="header">
-    <div class="logo">ShiftXpress</div>
-    <div class="header-actions">
-      <img src="https://ui-avatars.com/api/?name=ShiftXpress+User&background=random" alt="User Avatar" class="user-avatar">
-    </div>
-  </header>
+  <div class="navbar">
+      <h1><i class="fas fa-truck-loading"></i> ShiftXpress</h1>
+    <ul>
+      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="#"><i class="fas fa-concierge-bell"></i> Services</a></li>
+      <li><a href="#"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+      <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+    </ul>
+  </div>
 
-  <!-- Layout -->
+  <!-- Main content with horizontal layout -->
   <div class="main-container">
-    <!-- Sidebar - Matching Color Scheme -->  
-    <nav class="sidebar">
-      <a href="/HTML/home.html"><button class="nav-item"><i class="fas fa-home"></i> <span>Home</span></button></a>
-      <a href="/HTML/aboutus.html"><button class="nav-item"><i class="fas fa-info-circle"></i> <span>About Us</span></button></a>
-      <a href="/HTML/servicepage.html"><button class="nav-item"><i class="fas fa-concierge-bell"></i> <span>Services</span></button></a>
-      <a href="/HTML/bookpickup.html"><button class="nav-item"><i class="fas fa-calendar-check"></i> <span>Book Now</span></button></a>
-      <a href="/HTML/contactus.html"><button class="nav-item"><i class="fas fa-headset"></i> <span>Contact Us</span></button></a>
-    </nav>
+    <!-- Left panel -->
+    <div class="details-panel">
+      <!-- Booking Details Card -->
+      <div class="card">
+        <h1><i class="fas fa-clipboard-list"></i> Booking Details</h1>
+        <p>Booking ID: <span class="highlight">#SX4521</span></p>
+        <p>Status: <span class="highlight" id="statusText">Pending</span> <span class="status-badge status-pending" id="statusBadge">Pending</span></p>
 
-    <!-- Main Content -->
-    <main class="content">
-      <!-- Professional Background Pattern -->
-      <div class="background-pattern"></div>
+        <!-- Customer -->
+        <div class="section">
+          <h3><i class="fas fa-user"></i> Customer Details</h3>
+          <p><strong>Name:</strong> Ramesh Patel</p>
+          <p><strong>Contact:</strong> +91 91234 56789</p>
+          <p><strong>Email:</strong> ramesh.patel@example.com</p>
+          <p><strong>Pickup Address:</strong> 123, SG Highway, Ahmedabad, Gujarat - 380054</p>
+          <p><strong>Delivery Address:</strong> 456, Satellite Road, Ahmedabad, Gujarat - 380058</p>
+        </div>
 
-      <div class="confirmation-container">
-        <!-- Confirmation Card -->
-        <div class="confirmation-card">
-          <!-- Confirmation Header -->
-          <div class="confirmation-header">
-            <div class="confirmation-icon">
-              <i class="fas fa-check-circle"></i>
+        <!-- Driver -->
+        <div class="section">
+          <h3><i class="fas fa-truck"></i> Driver & Vehicle Details</h3>
+          <div class="driver-card">
+            <div class="driver-avatar">RS</div>
+            <div class="driver-info">
+              <div class="driver-name">Rajesh Sharma</div>
+              <div class="driver-contact">+91 99887 66554</div>
+              <div class="driver-contact">Tata Ace (Mini Truck) • GJ-01-AB-1234</div>
             </div>
-            <h1 class="confirmation-title">Booking Confirmed!</h1>
-            <p class="confirmation-subtitle">Your shifting service has been successfully booked</p>
           </div>
-          
-          <!-- Confirmation Content -->
-          <div class="confirmation-content">
-            <!-- Progress Bar -->
-            <div class="progress-container">
-              <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-              </div>
-              <div class="progress-steps">
-                <div class="step active">Booking Confirmed</div>
-                <div class="step">Driver Assigned</div>
-                <div class="step">Pickup Completed</div>
-                <div class="step">Delivery Completed</div>
-              </div>
+          <p style="margin-top: 15px;"><strong>Estimated Arrival:</strong> 15-20 minutes</p>
+          <p><strong>Current Location:</strong> 3.2 km from pickup point</p>
+        </div>
+        
+        <!-- Items -->
+        <div class="section">
+          <h3><i class="fas fa-box-open"></i> Items to be Shipped</h3>
+          <div class="items-list">
+            <div>
+              <span>Furniture (Sofa, Chairs)</span>
+              <span>4 pieces</span>
             </div>
-            
-            <!-- Trip Details Section -->
-            <div class="section">
-              <h2 class="section-title"><i class="fas fa-route"></i> Trip Details</h2>
-              <div class="detail-grid">
-                <div class="detail-item">
-                  <div class="detail-label">Pickup Location</div>
-                  <div class="detail-value" id="pickupLocation">Loading...</div>
-                </div>
-                <div class="detail-item">
-                  <div class="detail-label">Destination</div>
-                  <div class="detail-value" id="destination">Loading...</div>
-                </div>
-                <div class="detail-item">
-                  <div class="detail-label">Date & Time</div>
-                  <div class="detail-value" id="dateTime">Loading...</div>
-                </div>
-                <div class="detail-item">
-                  <div class="detail-label">Distance</div>
-                  <div class="detail-value" id="distance">Loading...</div>
-                </div>
-              </div>
+            <div>
+              <span>Electronic Items</span>
+              <span>2 boxes</span>
             </div>
-            
-            <!-- Driver Details Section -->
-            <div class="section">
-              <h2 class="section-title"><i class="fas fa-user-tie"></i> Driver Details</h2>
-              <div class="driver-section">
-                <div class="driver-info">
-                  <div class="driver-name" id="driverName">Driver to be assigned by admin</div>
-                  <div class="driver-rating" id="driverRating"></div>
-                  <div class="vehicle-info" id="vehicleInfo">Vehicle to be assigned by admin</div>
-                  <div class="detail-label" style="margin-top: 10px;">Contact: <span id="driverContact">Will be provided after assignment</span></div>
-                </div>
-              </div>
+            <div>
+              <span>Kitchenware</span>
+              <span>3 boxes</span>
             </div>
-            
-            <!-- Customer Details Section -->
-            <div class="section">
-              <h2 class="section-title"><i class="fas fa-user"></i> Customer Details</h2>
-              <div class="detail-grid">
-                <div class="detail-item">
-                  <div class="detail-label">Name</div>
-                  <div class="detail-value" id="customerName">Loading...</div>
-                </div>
-                <div class="detail-item">
-                  <div class="detail-label">Phone</div>
-                  <div class="detail-value" id="customerPhone">Loading...</div>
-                </div>
-                <div class="detail-item">
-                  <div class="detail-label">Email</div>
-                  <div class="detail-value" id="customerEmail">Loading...</div>
-                </div>
-                <div class="detail-item">
-                  <div class="detail-label">Payment Method</div>
-                  <div class="detail-value">Cash on Delivery (Pay to driver)</div>
-                </div>
-              </div>
+            <div>
+              <span>Personal Belongings</span>
+              <span>5 boxes</span>
             </div>
-            
-            <!-- Price Details Section -->
-            <div class="section">
-              <h2 class="section-title"><i class="fas fa-receipt"></i> Price Details</h2>
-              <div class="price-section">
-                <div class="price-breakdown">
-                  <div class="price-row">
-                    <span>Distance Charge</span>
-                    <span id="distanceCharge">Loading...</span>
-                  </div>
-                  <div class="price-row">
-                    <span>Service Fee</span>
-                    <span>₹50.00</span>
-                  </div>
-                  <div class="price-row total">
-                    <span>Total Amount</span>
-                    <span id="totalAmount">Loading...</span>
-                  </div>
-                </div>
-                <div class="detail-label">* Payment will be collected by the driver upon delivery</div>
-              </div>
+            <div>
+              <span>Books</span>
+              <span>2 boxes</span>
             </div>
-            
-            <!-- Action Buttons -->
-            <div class="actions">
-              <a href="/HTML/userdash.html" class="btn btn-secondary">
-                <i class="fas fa-tachometer-alt"></i> Go to Dashboard
-              </a>
-              <a href="/HTML/servicepage.html" class="btn btn-primary">
-                <i class="fas fa-concierge-bell"></i> View Services
-              </a>
-            </div>
-            
-            <!-- Footer -->
-            <div class="footer">
-              <p>Need help? Contact our support team at support@shiftxpress.com or call +1 (800) 123-4567</p>
-              <p>© 2023 ShiftXpress. All rights reserved.</p>
+            <div>
+              <span>Clothing</span>
+              <span>3 bags</span>
             </div>
           </div>
         </div>
+        
+        <!-- Additional Information -->
+        <div class="section">
+          <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
+          <p><strong>Booking Date:</strong> October 15, 2023</p>
+          <p><strong>Preferred Time:</strong> 2:00 PM - 4:00 PM</p>
+          <p><strong>Special Instructions:</strong> Fragile items marked with red stickers. Please handle with care.</p>
+          <p><strong>Helper Required:</strong> Yes (2 helpers requested)</p>
+        </div>
       </div>
-    </main>
+    </div>
+    
+    <!-- Right panel -->
+    <div class="timeline-panel">
+      <!-- Payment Section -->
+      <div class="card">
+        <div class="section payment-section">
+          <h3><i class="fas fa-credit-card"></i> Payment Details</h3>
+          <div class="items-list">
+            <div>
+              <span>Base Fare</span>
+              <span>₹1,500</span>
+            </div>
+            <div>
+              <span>Distance Charge (12 km)</span>
+              <span>₹600</span>
+            </div>
+            <div>
+              <span>Loading Charges</span>
+              <span>₹400</span>
+            </div>
+            <div>
+              <span>Helper Charges (2 helpers)</span>
+              <span>₹300</span>
+            </div>
+            <div>
+              <span>Taxes</span>
+              <span>₹100</span>
+            </div>
+            <div style="border-top: 2px solid #aaa; margin-top: 5px; padding-top: 10px; font-weight: bold;">
+              <span>Total Amount</span>
+              <span>₹2,900</span>
+            </div>
+          </div>
+          <p class="payment-notice">Please make payment directly to the driver upon delivery</p>
+          <p style="text-align: center; margin-top: 10px;">Cash and UPI payments accepted</p>
+        </div>
+      </div>
+      
+      <!-- Timeline Section -->
+      <div class="card">
+        <!-- Timeline -->
+        <div class="section">
+          <h3><i class="fas fa-road"></i> Booking Timeline</h3>
+          
+          <div class="progress-container">
+            <div class="progress-header">
+              <div class="progress-title">Delivery Progress</div>
+              <div class="progress-percent" id="progressPercent">25% Complete</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" id="progressBar"></div>
+            </div>
+          </div>
+          
+          <div class="timeline">
+            <div>
+              <div class="step completed" id="step1"><i class="fas fa-check"></i></div>
+              <div class="step-label">Order Confirmed</div>
+            </div>
+            <div>
+              <div class="step active" id="step2">2</div>
+              <div class="step-label">Driver Assigned</div>
+            </div>
+            <div>
+              <div class="step" id="step3">3</div>
+              <div class="step-label">In Transit</div>
+            </div>
+            <div>
+              <div class="step" id="step4">4</div>
+              <div class="step-label">Delivered</div>
+            </div>
+          </div>
+          <div class="actions">
+            <button onclick="startTracking()"><i class="fas fa-play-circle"></i> Start Tracking</button>
+            <button class="cancel-btn"><i class="fas fa-times-circle"></i> Cancel Booking</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Support Section -->
+      <div class="card">
+        <div class="section">
+          <h3><i class="fas fa-headset"></i> Support</h3>
+          <p><strong>Need help with your booking?</strong></p>
+          <p>Our customer support team is available 24/7</p>
+          <p><strong>Phone:</strong> +91 80000 12345</p>
+          <p><strong>Email:</strong> support@shiftxpress.com</p>
+          <p><strong>Office Hours:</strong> Monday-Saturday: 8:00 AM - 8:00 PM</p>
+          <div class="actions">
+            <button><i class="fas fa-phone-alt"></i> Call Support</button>
+            <button><i class="fas fa-envelope"></i> Email Support</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Reviews Section -->
+      <div class="card">
+        <div class="section">
+          <h3><i class="fas fa-star"></i> Rate Your Experience</h3>
+          <p>We would love to hear your feedback about our service</p>
+          <div class="stars">
+            <span class="star" data-rating="1">☆</span>
+            <span class="star" data-rating="2">☆</span>
+            <span class="star" data-rating="3">☆</span>
+            <span class="star" data-rating="4">☆</span>
+            <span class="star" data-rating="5">☆</span>
+          </div>
+          <div class="actions">
+            <button class="success-btn"><i class="fas fa-paper-plane"></i> Submit Review</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2023 ShiftXpress. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
   </div>
 
   <script>
-    // Function to fetch data from localStorage
-    function getBookingData() {
-      // Get customer data from signup (simulated)
-      const customerData = {
-        name: localStorage.getItem('customerName') || 'John Doe',
-        phone: localStorage.getItem('customerPhone') || '+1 (555) 123-4567',
-        email: localStorage.getItem('customerEmail') || 'john.doe@example.com'
-      };
+    let currentStep = 2;
+    let interval;
+    let rating = 0;
+
+    function startTracking() {
+      document.getElementById("statusText").innerText = "In Progress";
+      document.getElementById("statusBadge").className = "status-badge status-progress";
+      document.getElementById("statusBadge").textContent = "In Progress";
       
-      // Get booking data (simulated)
-      const bookingData = {
-        pickupLocation: localStorage.getItem('pickupLocation') || '123 Main Street, Downtown, Ahmedabad - 380001',
-        destination: localStorage.getItem('destination') || '456 Central Avenue, Uptown, Ahmedabad - 380051',
-        dateTime: localStorage.getItem('bookingDateTime') || 'May 17, 2023 at 2:30 PM (Morning Shift)',
-        distance: localStorage.getItem('bookingDistance') || '8.5 km',
-        distanceCharge: localStorage.getItem('distanceCharge') || '₹127.50',
-        totalAmount: localStorage.getItem('totalAmount') || '₹177.50'
-      };
+      // Update progress bar to 50%
+      document.getElementById("progressBar").style.width = "50%";
+      document.getElementById("progressPercent").textContent = "50% Complete";
       
-      // Get driver data (simulated - would normally come from admin assignment)
-      const driverData = {
-        name: localStorage.getItem('assignedDriver') || 'Driver to be assigned by admin',
-        rating: localStorage.getItem('driverRating') || '',
-        vehicle: localStorage.getItem('assignedVehicle') || 'Vehicle to be assigned by admin',
-        contact: localStorage.getItem('driverContact') || 'Will be provided after assignment'
-      };
-      
-      return { customerData, bookingData, driverData };
+      interval = setInterval(updateStep, 3000);
     }
-    
-    // Function to update the page with fetched data
-    function updatePageWithData() {
-      const { customerData, bookingData, driverData } = getBookingData();
-      
-      // Update customer details
-      document.getElementById('customerName').textContent = customerData.name;
-      document.getElementById('customerPhone').textContent = customerData.phone;
-      document.getElementById('customerEmail').textContent = customerData.email;
-      
-      // Update trip details
-      document.getElementById('pickupLocation').textContent = bookingData.pickupLocation;
-      document.getElementById('destination').textContent = bookingData.destination;
-      document.getElementById('dateTime').textContent = bookingData.dateTime;
-      document.getElementById('distance').textContent = bookingData.distance;
-      
-      // Update price details
-      document.getElementById('distanceCharge').textContent = bookingData.distanceCharge;
-      document.getElementById('totalAmount').textContent = bookingData.totalAmount;
-      
-      // Update driver details
-      document.getElementById('driverName').textContent = driverData.name;
-      document.getElementById('driverRating').textContent = driverData.rating;
-      document.getElementById('vehicleInfo').textContent = driverData.vehicle;
-      document.getElementById('driverContact').textContent = driverData.contact;
-      
-      // Update progress bar based on driver assignment
-      const progressFill = document.getElementById('progressFill');
-      if (driverData.name !== 'Driver to be assigned by admin') {
-        progressFill.style.width = '75%';
-        document.querySelectorAll('.step')[1].classList.add('active');
-      }
-    }
-    
-    // Function to simulate admin assigning a driver (for demonstration)
-    function simulateDriverAssignment() {
-      // In a real application, this would be done by the admin
-      const assignedDriver = {
-        name: 'Michael Johnson',
-        rating: '★ 4.9 (128 ratings)',
-        vehicle: 'Mini Truck • White • GJ-01-AB-1234',
-        contact: '+1 (555) 987-6543'
-      };
-      
-      // Save to localStorage (simulating database update)
-      localStorage.setItem('assignedDriver', assignedDriver.name);
-      localStorage.setItem('driverRating', assignedDriver.rating);
-      localStorage.setItem('assignedVehicle', assignedDriver.vehicle);
-      localStorage.setItem('driverContact', assignedDriver.contact);
-      
-      // Update the page
-      updatePageWithData();
-    }
-    
-    // Initialize the page when it loads
-    document.addEventListener('DOMContentLoaded', function() {
-      // Set up sample data if not already set (for demonstration)
-      if (!localStorage.getItem('customerName')) {
-        localStorage.setItem('customerName', 'Sarah Williams');
-        localStorage.setItem('customerPhone', '+1 (555) 123-4567');
-        localStorage.setItem('customerEmail', 'sarah.williams@example.com');
-        localStorage.setItem('pickupLocation', '123 Main Street, Downtown, Ahmedabad - 380001');
-        localStorage.setItem('destination', '456 Central Avenue, Uptown, Ahmedabad - 380051');
-        localStorage.setItem('bookingDateTime', 'May 17, 2023 at 2:30 PM (Morning Shift)');
-        localStorage.setItem('bookingDistance', '8.5 km');
-        localStorage.setItem('distanceCharge', '₹127.50');
-        localStorage.setItem('totalAmount', '₹177.50');
+
+    function updateStep() {
+      if (currentStep > 4) {
+        clearInterval(interval);
+        document.getElementById("statusText").innerText = "Completed";
+        document.getElementById("statusBadge").className = "status-badge status-completed";
+        document.getElementById("statusBadge").textContent = "Completed";
+        
+        // Update progress bar to 100%
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("progressPercent").textContent = "100% Complete";
+        
+        // Show completion message
+        setTimeout(() => {
+          alert("Your shipment has been successfully delivered! Thank you for using ShiftXpress.");
+        }, 500);
+        return;
       }
       
-      // Update the page with the data
-      updatePageWithData();
+      // Update current step
+      document.getElementById("step" + currentStep).classList.add("active");
       
-      // Simulate admin assigning a driver after 3 seconds (for demonstration)
-      setTimeout(simulateDriverAssignment, 3000);
+      // Update progress bar
+      const progressPercent = 25 + (currentStep - 1) * 25;
+      document.getElementById("progressBar").style.width = progressPercent + "%";
+      document.getElementById("progressPercent").textContent = progressPercent + "% Complete";
+      
+      currentStep++;
+    }
+    
+    // Add interactivity to stars in the review section
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(star => {
+      star.addEventListener('click', function() {
+        rating = parseInt(this.getAttribute('data-rating'));
+        
+        // Reset all stars
+        stars.forEach(s => {
+          s.textContent = '☆';
+          s.classList.remove('active');
+        });
+        
+        // Fill stars up to the clicked one
+        for (let i = 0; i < rating; i++) {
+          stars[i].textContent = '★';
+          stars[i].classList.add('active');
+        }
+      });
+      
+      // Add hover effect
+      star.addEventListener('mouseover', function() {
+        const hoverRating = parseInt(this.getAttribute('data-rating'));
+        
+        stars.forEach((s, index) => {
+          if (index < hoverRating) {
+            s.textContent = '★';
+          } else {
+            s.textContent = '☆';
+          }
+        });
+      });
+      
+      star.addEventListener('mouseout', function() {
+        stars.forEach((s, index) => {
+          if (index < rating) {
+            s.textContent = '★';
+            s.classList.add('active');
+          } else {
+            s.textContent = '☆';
+            s.classList.remove('active');
+          }
+        });
+      });
+    });
+    
+    // Add confirmation for cancel button
+    document.querySelector('.cancel-btn').addEventListener('click', function() {
+      if (confirm("Are you sure you want to cancel this booking?")) {
+        alert("Your booking has been cancelled. A refund will be processed within 3-5 business days.");
+      }
     });
   </script>
 </body>
