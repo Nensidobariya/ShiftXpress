@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up</title>
-  <link href="/Signup/signup.css" rel="stylesheet" />
+  <link href="signup.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- 🔹 Video Background -->
   <video autoplay muted loop id="bg-video">
-    <source src="/Photos/v1.mp4" type="video/mp4">
+    <source src="../Photos/v1.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
@@ -20,46 +19,52 @@
       <input type="text" id="name" placeholder="Name" required>
       <input type="email" id="email" placeholder="Email Address" required>
       <input type="tel" id="phone" placeholder="Phone Number" required>
-      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="password" placeholder="Password (min. 6 characters)" required minlength="6">
       <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
       <button type="submit">Sign Up</button>
     </form>
     <div class="login-link">
-      Already have an account? <a href="/Loginpage/loginpage.html">Sign in</a>
+      Already have an account? <a href="../Loginpage/loginpage.html">Sign in</a>
     </div>
   </div>
 
   <script>
-    document.getElementById('signupForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent page reload
+    document.getElementById('signupForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
       
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const phone = document.getElementById('phone').value;
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
-      
-      // Validate passwords match
-      if (password !== confirmPassword) {
-        alert('Passwords do not match!');
-        return;
+
+      try {
+        const response = await fetch('http://localhost:5000/api/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            password,
+            confirmPassword
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Signup successful! Redirecting to login...');
+          window.location.href = '../Loginpage/loginpage.html';
+        } else {
+          alert('Error: ' + result.message);
+        }
+      } catch (error) {
+        alert('Network error. Please check if backend server is running.');
+        console.error('Error:', error);
       }
-      
-      // Check if email already exists
-      const existingEmail = localStorage.getItem('customerEmail');
-      if (existingEmail === email) {
-        alert('This email is already registered. Please use a different email or login.');
-        return;
-      }
-      
-      // Store user data in localStorage
-      localStorage.setItem('customerName', name);
-      localStorage.setItem('customerEmail', email);
-      localStorage.setItem('customerPhone', phone);
-      localStorage.setItem('customerPassword', password); // Note: In real app, hash this
-      
-      alert('Signup successful! Redirecting to login...');
-      window.location.href = '/Loginpage/loginpage.html';
     });
   </script>
 </body>

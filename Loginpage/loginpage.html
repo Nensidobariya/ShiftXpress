@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-  <link href="/Loginpage/loginpage.css" rel="stylesheet">
+  <link href="loginpage.css" rel="stylesheet">
 </head>
 <body>
-  <!-- 🔹 Video Background -->
   <video autoplay muted loop id="bg-video">
-    <source src="/Photos/v1.mp4" type="video/mp4">
+    <source src="../Photos/v1.mp4" type="video/mp4">
   </video>
 
   <div class="login-container">
@@ -25,31 +24,46 @@
         <input type="password" id="password" placeholder="Enter your password" required>
       </div>
       <button class="btn" type="submit">Sign in</button>
-      <a href="/Forget password/forgetpassword.html" class="forgot">Forgot your password?</a>
+      <a href="../Forget password/forgetpassword.html" class="forgot">Forgot your password?</a>
       <div class="or-divider">OR</div>
       <div class="signup-link">
-        Don't have an account? <a href="/Signup/signup.html">Sign up here</a>
+        Don't have an account? <a href="../Signup/signup.html">Sign up here</a>
       </div>
     </form>
   </div>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent page reload
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
       
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      
-      // Get stored user data from localStorage
-      const storedEmail = localStorage.getItem('customerEmail');
-      const storedPassword = localStorage.getItem('customerPassword');
-      
-      // Check if user exists and credentials match
-      if (storedEmail && storedPassword && email === storedEmail && password === storedPassword) {
-        alert('Login Successful');
-        window.location.href = '/Home/home.html'; // Redirect to dashboard
-      } else {
-        alert('Invalid Email or Password!');
+
+      try {
+        const response = await fetch('http://localhost:5000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Login Successful!');
+          // Store user data in localStorage
+          localStorage.setItem('currentUser', JSON.stringify(result.user));
+          window.location.href = '../Home/home.html';
+        } else {
+          alert('Error: ' + result.message);
+        }
+      } catch (error) {
+        alert('Network error. Please check if backend server is running.');
+        console.error('Error:', error);
       }
     });
   </script>
