@@ -15,13 +15,17 @@
   <div class="signup-container">
     <h2>Create Account</h2>
     <p>Sign up to get started</p>
+    
+    <div id="errorMsg" style="color: red; margin-bottom: 15px; display: none;"></div>
+    <div id="successMsg" style="color: green; margin-bottom: 15px; display: none;"></div>
+    
     <form id="signupForm">
       <input type="text" id="name" placeholder="Name" required>
       <input type="email" id="email" placeholder="Email Address" required>
       <input type="tel" id="phone" placeholder="Phone Number" required>
       <input type="password" id="password" placeholder="Password (min. 6 characters)" required minlength="6">
       <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-      <button type="submit">Sign Up</button>
+      <button type="submit" id="submitBtn">Sign Up</button>
     </form>
     <div class="login-link">
       Already have an account? <a href="../Loginpage/loginpage.html">Sign in</a>
@@ -29,14 +33,84 @@
   </div>
 
   <script>
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMsg');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+      document.getElementById('successMsg').style.display = 'none';
+    }
+
+    function showSuccess(message) {
+      const successDiv = document.getElementById('successMsg');
+      successDiv.textContent = message;
+      successDiv.style.display = 'block';
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    function hideMessages() {
+      document.getElementById('errorMsg').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'none';
+    }
+
+    async function testBackendConnection() {
+      try {
+        const response = await fetch('http://localhost:5000/api/health', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        return response.ok;
+      } catch (error) {
+        return false;
+      }
+    }
+
     document.getElementById('signupForm').addEventListener('submit', async function(event) {
       event.preventDefault();
       
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
+      hideMessages();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing Up...';
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Client-side validation
+      if (!name || !email || !phone || !password || !confirmPassword) {
+        showError('All fields are required!');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign Up';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showError('Passwords do not match!');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign Up';
+        return;
+      }
+
+      if (password.length < 6) {
+        showError('Password must be at least 6 characters!');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign Up';
+        return;
+      }
+
+      // Test backend connection first
+      const isBackendRunning = await testBackendConnection();
+      if (!isBackendRunning) {
+        showError('Backend server is not running. Please start the server first.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign Up';
+        return;
+      }
 
       try {
         const response = await fetch('http://localhost:5000/api/signup', {
@@ -56,14 +130,30 @@
         const result = await response.json();
 
         if (result.success) {
-          alert('Signup successful! Redirecting to login...');
-          window.location.href = '../Loginpage/loginpage.html';
+          showSuccess('Signup successful! Redirecting to login...');
+          setTimeout(() => {
+            window.location.href = '../Loginpage/loginpage.html';
+          }, 2000);
         } else {
-          alert('Error: ' + result.message);
+          showError('Error: ' + result.message);
         }
       } catch (error) {
-        alert('Network error. Please check if backend server is running.');
+        showError('Network error. Please check if backend server is running.');
         console.error('Error:', error);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign Up';
+      }
+    });
+
+    // Test backend connection when page loads
+    window.addEventListener('load', async () => {
+      const isBackendRunning = await testBackendConnection();
+      if (!isBackendRunning) {
+        showError('⚠️ Backend server is not running. Please start the server on port 5000.');
+      } else {
+        showSuccess('✅ Backend server is connected!');
+        setTimeout(hideMessages, 3000);
       }
     });
   </script>

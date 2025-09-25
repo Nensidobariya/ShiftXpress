@@ -7,7 +7,7 @@ class Database:
         self.config = {
             'host': 'localhost',
             'user': 'root',
-            'password': '',
+            'password': '',  # Change this if you have MySQL password
             'database': 'user_management'
         }
         self.connection = None
@@ -15,10 +15,12 @@ class Database:
     def connect(self):
         """Create database connection"""
         try:
-            self.connection = mysql.connector.connect(**self.config)
+            if not self.connection or not self.connection.is_connected():
+                self.connection = mysql.connector.connect(**self.config)
+                print("✅ Database connected successfully")
             return True
         except Error as e:
-            print(f"Database connection error: {e}")
+            print(f"❌ Database connection error: {e}")
             return False
     
     def disconnect(self):
@@ -33,14 +35,15 @@ class Database:
     def register_user(self, name, email, phone, password):
         """Register new user"""
         try:
-            if not self.connection:
-                self.connect()
+            if not self.connect():
+                return False, "Database connection failed"
             
             cursor = self.connection.cursor()
             
             # Check if email exists
             cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
             if cursor.fetchone():
+                cursor.close()
                 return False, "Email already registered"
             
             # Insert new user
@@ -62,8 +65,8 @@ class Database:
     def login_user(self, email, password):
         """Authenticate user login"""
         try:
-            if not self.connection:
-                self.connect()
+            if not self.connect():
+                return False, "Database connection failed", None
             
             cursor = self.connection.cursor(dictionary=True)
             hashed_password = self.hash_password(password)
@@ -88,8 +91,8 @@ class Database:
     def check_email_exists(self, email):
         """Check if email exists in database"""
         try:
-            if not self.connection:
-                self.connect()
+            if not self.connect():
+                return False
             
             cursor = self.connection.cursor()
             cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
