@@ -246,12 +246,12 @@
     
     /* Footer */
     footer {
-      background: #f9f6f1;
+      background:#112D32;
       padding: 24px;
       text-align: center;
       border-top: 1px solid #e5e7eb;
       margin-top: auto;
-      color: #4F4A41;
+      color:white;
     }
     
     /* Responsive Design */
