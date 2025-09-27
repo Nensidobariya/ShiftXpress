@@ -232,6 +232,10 @@
     .card-body {
       padding: 24px;
     }
+
+    .card-body:hover {
+      cursor: default;
+    }
     
     .card h3 {
       font-size: 20px;

@@ -293,6 +293,10 @@
       max-width: 600px;
     }
 
+    .hero-content:hover{
+      cursor: default;
+    }
+
     .hero h2 {
       font-size: 42px;
       margin-bottom: 15px;
@@ -358,6 +362,7 @@
 
     .why-item:hover {
       transform: translateY(-5px);
+      cursor: default;
     }
 
     .why-item h3 {
@@ -468,6 +473,7 @@
 
     .service:hover {
       transform: translateY(-8px);
+      cursor: default;
     }
 
     .service h3 {
@@ -517,6 +523,7 @@
     
     .process .step:hover {
       transform: translateY(-5px);
+      cursor: default;
     }
 
     .admin ul {
@@ -565,6 +572,11 @@
       text-align: left;
       box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
       border-left: 4px solid;
+    }
+
+    .faq .faq-item:hover {
+      background: #e8e2d6;
+      cursor: default;
     }
 
     .faq h3 {
