@@ -33,6 +33,8 @@
   </div>
 
   <script>
+    const SIGNUP_SERVER_PORT = 5002;
+
     function showError(message) {
       const errorDiv = document.getElementById('errorMsg');
       errorDiv.textContent = message;
@@ -54,7 +56,7 @@
 
     async function testBackendConnection() {
       try {
-        const response = await fetch('http://localhost:5000/api/health', {
+        const response = await fetch(`http://localhost:${SIGNUP_SERVER_PORT}/api/health`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -106,14 +108,14 @@
       // Test backend connection first
       const isBackendRunning = await testBackendConnection();
       if (!isBackendRunning) {
-        showError('Backend server is not running. Please start the server first.');
+        showError(`Signup server is not running. Please start the signup server on port ${SIGNUP_SERVER_PORT}.`);
         submitBtn.disabled = false;
         submitBtn.textContent = 'Sign Up';
         return;
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/signup', {
+        const response = await fetch(`http://localhost:${SIGNUP_SERVER_PORT}/api/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -138,7 +140,7 @@
           showError('Error: ' + result.message);
         }
       } catch (error) {
-        showError('Network error. Please check if backend server is running.');
+        showError('Network error. Please check if signup server is running.');
         console.error('Error:', error);
       } finally {
         submitBtn.disabled = false;
@@ -150,9 +152,9 @@
     window.addEventListener('load', async () => {
       const isBackendRunning = await testBackendConnection();
       if (!isBackendRunning) {
-        showError('⚠️ Backend server is not running. Please start the server on port 5000.');
+        showError(`⚠️ Signup server is not running. Please start the signup server on port ${SIGNUP_SERVER_PORT}.`);
       } else {
-        showSuccess('✅ Backend server is connected!');
+        showSuccess('✅ Signup server is connected!');
         setTimeout(hideMessages, 3000);
       }
     });

@@ -27,8 +27,12 @@
         <label>Password</label>
         <input type="password" id="password" placeholder="Enter your password" required>
       </div>
+      <!-- Add this inside the form or near the login button -->
+<div class="forgot-password">
+    <a href="../Forgetpassword/forgetpassword.html">Forgot Password?</a>
+</div>
       <button class="btn" type="submit" id="submitBtn">Sign in</button>
-      <a href="../Forget password/forgetpassword.html" class="forgot">Forgot your password?</a>
+      <a href="../Forgetpassword/forgetpassword.html" class="forgot">Forgot your password?</a>
       <div class="or-divider">OR</div>
       <div class="signup-link">
         Don't have an account? <a href="../Signuppage/signup.html">Sign up here</a>
@@ -37,6 +41,8 @@
   </div>
 
   <script>
+    const LOGIN_SERVER_PORT = 5001;
+
     function showError(message) {
       const errorDiv = document.getElementById('errorMsg');
       errorDiv.textContent = message;
@@ -53,7 +59,7 @@
 
     async function testBackendConnection() {
       try {
-        const response = await fetch('http://localhost:5000/api/health', {
+        const response = await fetch(`http://localhost:${LOGIN_SERVER_PORT}/api/health`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -78,14 +84,14 @@
       // Test backend connection first
       const isBackendRunning = await testBackendConnection();
       if (!isBackendRunning) {
-        showError('Backend server is not running. Please start the server first.');
+        showError(`Login server is not running. Please start the login server on port ${LOGIN_SERVER_PORT}.`);
         submitBtn.disabled = false;
         submitBtn.textContent = 'Sign in';
         return;
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/login', {
+        const response = await fetch(`http://localhost:${LOGIN_SERVER_PORT}/api/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -109,7 +115,7 @@
           showError('Error: ' + result.message);
         }
       } catch (error) {
-        showError('Network error. Please check if backend server is running.');
+        showError('Network error. Please check if login server is running.');
         console.error('Error:', error);
       } finally {
         submitBtn.disabled = false;
@@ -121,9 +127,9 @@
     window.addEventListener('load', async () => {
       const isBackendRunning = await testBackendConnection();
       if (!isBackendRunning) {
-        showError('⚠️ Backend server is not running. Please start the server on port 5000.');
+        showError(`⚠️ Login server is not running. Please start the login server on port ${LOGIN_SERVER_PORT}.`);
       } else {
-        showSuccess('✅ Backend server is connected!');
+        showSuccess('✅ Login server is connected!');
         setTimeout(() => {
           document.getElementById('errorMsg').style.display = 'none';
           document.getElementById('successMsg').style.display = 'none';

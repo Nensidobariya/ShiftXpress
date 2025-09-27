@@ -1,13 +1,12 @@
 import json
-from database import Database
+from signup_database import SignupDatabase
 
-class RequestHandler:
+class SignupRequestHandler:
     def __init__(self):
-        self.db = Database()
+        self.db = SignupDatabase()
         self.routes = {
             'POST': {
                 '/api/signup': self.handle_signup,
-                '/api/login': self.handle_login,
                 '/api/check-email': self.handle_check_email
             },
             'GET': {
@@ -17,7 +16,7 @@ class RequestHandler:
         }
     
     def parse_request(self, request_data):
-        """Parse HTTP request with better error handling"""
+        """Parse HTTP request"""
         try:
             if not request_data or not request_data.strip():
                 return None
@@ -26,7 +25,6 @@ class RequestHandler:
             if not lines:
                 return None
             
-            # Parse request line
             request_line = lines[0]
             parts = request_line.split(' ')
             if len(parts) < 3:
@@ -34,19 +32,16 @@ class RequestHandler:
                 
             method, path, _ = parts[0], parts[1], parts[2]
             
-            # Parse headers
             headers = {}
             body = None
             i = 1
             
-            # Parse headers until empty line
             while i < len(lines) and lines[i].strip():
                 if ':' in lines[i]:
                     key, value = lines[i].split(':', 1)
                     headers[key.strip()] = value.strip()
                 i += 1
             
-            # Parse body if present
             if i + 1 < len(lines):
                 body = '\r\n'.join(lines[i+1:])
             
@@ -64,32 +59,28 @@ class RequestHandler:
         """Handle incoming request and return response"""
         request = self.parse_request(request_data)
         if not request:
-            return self.error_response(400, "Bad Request - Unable to parse request")
+            return self.error_response(400, "Bad Request")
         
         method = request['method']
         path = request['path']
         
-        print(f"🔄 Handling {method} {path}")
+        print(f"🔄 Signup Server: Handling {method} {path}")
         
-        # Route handling
         if method in self.routes:
             if path in self.routes[method]:
                 return self.routes[method][path](request)
             else:
-                print(f"❌ Route not found: {method} {path}")
                 return self.error_response(404, f"Endpoint {path} not found")
         else:
-            print(f"❌ Method not allowed: {method}")
             return self.error_response(405, f"Method {method} not allowed")
     
     def handle_root(self, request):
         """Handle root path"""
         response_data = {
             "success": True,
-            "message": "Welcome to User Management API",
+            "message": "Welcome to Signup API",
             "endpoints": {
                 "POST /api/signup": "User registration",
-                "POST /api/login": "User login",
                 "POST /api/check-email": "Check email existence",
                 "GET /api/health": "Health check"
             }
@@ -147,44 +138,6 @@ class RequestHandler:
             print(f"❌ Server error in signup: {e}")
             return self.error_response(500, f"Server error: {str(e)}")
     
-    def handle_login(self, request):
-        """Handle user login"""
-        try:
-            if not request['body']:
-                return self.error_response(400, "No data provided")
-            
-            data = json.loads(request['body'])
-            email = data.get('email', '').strip().lower()
-            password = data.get('password', '')
-            
-            print(f"🔐 Login attempt for: {email}")
-            
-            if not email or not password:
-                return self.error_response(400, "Email and password are required")
-            
-            # Authenticate user
-            success, message, user = self.db.login_user(email, password)
-            
-            if success:
-                print(f"✅ Login successful for: {email}")
-                return self.json_response(200, {
-                    "success": True, 
-                    "message": message,
-                    "user": user
-                })
-            else:
-                print(f"❌ Login failed for: {email}")
-                return self.json_response(401, {
-                    "success": False, 
-                    "message": message
-                })
-                
-        except json.JSONDecodeError:
-            return self.error_response(400, "Invalid JSON data")
-        except Exception as e:
-            print(f"❌ Server error in login: {e}")
-            return self.error_response(500, f"Server error: {str(e)}")
-    
     def handle_check_email(self, request):
         """Check if email exists"""
         try:
@@ -208,7 +161,7 @@ class RequestHandler:
         response = f"HTTP/1.1 {status_code} {'OK' if status_code == 200 else 'Error'}\r\n"
         response += "Content-Type: application/json\r\n"
         response += "Access-Control-Allow-Origin: *\r\n"
-        response += "Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS\r\n"
+        response += "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
         response += "Access-Control-Allow-Headers: Content-Type, Authorization\r\n"
         response += f"Content-Length: {len(response_json)}\r\n"
         response += "Connection: close\r\n"
